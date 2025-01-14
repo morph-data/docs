@@ -36,8 +36,8 @@ body:
       description: |
         That is, did this use to work the way you expected in the past?
       options:
-      - Yes
-      - No
+      - 'Yes'
+      - 'No'
     validations:
       required: false
   - type: textarea
