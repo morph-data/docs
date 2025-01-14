@@ -61,3 +61,13 @@ The navigation array in mint.json is an item for declaring the page group, and b
 If you are interested in contributing to Morph Docs, please create a branch in the local environment and create a PR towards the main branch.
 
 The main branch is automatically deployed when a PR is merged.
+
+## Steps
+
+You can contribute code to the docs by following these steps:
+
+1. Fork the repository
+2. Create a branch
+3. Make changes
+4. Create a PR to main branch
+
