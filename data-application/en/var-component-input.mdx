@@ -1,0 +1,29 @@
+---
+title: '<VariableInput />'
+---
+
+<Frame>
+  <img src="/assets/images/pages/variable-input.jpg" />
+</Frame>
+
+`<VariableInput>` is a component for inputting variables declared with the `variable()` function.
+
+```tsx
+export const userName = variable('Keita');
+
+<VariableInput variable={userName} />
+```
+
+## Properties
+
+<ParamField path="variable" type="Variable" required>
+  Variable to bind the input value
+</ParamField>
+
+<ParamField path="type" type="string">
+  Type of input field. Default is 'text'.
+</ParamField>
+
+<ParamField path="size" type="'sm' | 'default' | 'lg'" defaultValue='default'>
+  Size of the input field
+</ParamField>

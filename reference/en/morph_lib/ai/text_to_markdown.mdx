@@ -1,0 +1,91 @@
+---
+title: 'text_to_markdown'
+---
+
+Generates a Markdown from a given prompt.
+
+<CodeGroup>
+```python OpenAI
+# 📦 Package: morph_lib.ai.openai.code_generation
+# 🛠️ Function: text_to_markdown
+
+def text_to_markdown(
+    prompt: str,
+    api_key: str,
+    model: Optional[str] = "gpt-4o",
+) -> TextConversionResponse:
+```
+
+```python Anthropic
+# 📦 Package: morph_lib.ai.anthropic.code_generation
+# 🛠️ Function: text_to_markdown
+
+def text_to_markdown(
+    prompt: str,
+    api_key: str,
+    model: Optional[str] = "claude-3-5-haiku-latest",
+    max_tokens: Optional[int] = 1024,
+) -> TextConversionResponse:
+```
+
+```python Azure
+# 📦 Package: morph_lib.ai.azure.code_generation
+# 🛠️ Function: text_to_markdown
+
+def text_to_markdown(
+    prompt: str,
+    api_key: str,
+    azure_endpoint: str,
+    deployment_name: Optional[str] = "gpt4",
+    api_version: Optional[str] = "2024-10-01-preview",
+) -> TextConversionResponse:
+```
+
+```python Groq
+# 📦 Package: morph_lib.ai.groq.code_generation
+# 🛠️ Function: text_to_markdown
+
+def text_to_markdown(
+    prompt: str,
+    api_key: str,
+    model: Optional[str] = "llama-3.1-70b-versatile",
+) -> TextConversionResponse:
+```
+
+</CodeGroup>
+
+### Parameters
+
+These are the parameters for OpenAI. Please set the authentication parameters for other models as appropriate from the function definitions above.
+
+<ParamField body="prompt" type="string" required>
+Prompt
+</ParamField>
+
+<ParamField body="api_key" type="string" required>
+API key to use the LLM model
+</ParamField>
+
+<ParamField body="model" type="string" optional>
+LLM model to use
+</ParamField>
+
+### Example
+
+```python
+from morph_lib.ai.openai.code_generation import text_to_markdown
+import os
+
+@morph.func
+def func_name(context):
+    prompt = context.vars["prompt"]
+    fig = text_to_markdown(
+		prompt,
+		os.environ["OPENAI_API_KEY"],
+		"gpt-4o",
+	)
+	code = fig.code
+	print(code)
+
+	return fig.content
+```

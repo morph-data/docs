@@ -1,0 +1,38 @@
+---
+title: 'execute_sql'
+---
+
+SQLを実行して結果のDataFrameを返却します。Built-in PostgreSQLとSQL Connectionで接続しているデータベースの全てにアクセスができます。
+
+```python morph_lib.database
+# 📦 Package: morph_lib.database
+# 🛠️ Function: execute_sql
+
+execute_sql(
+	sql: str,
+	connection: Optional[str]
+) -> pd.DataFrame
+```
+
+### Parameters
+
+<ParamField body="sql" type="string" required>
+実行するSQL
+</ParamField>
+
+<ParamField body="connection" type="string" optional>
+画面で登録したbuiltin以外のconnectionの向き先 (optional)
+
+※ 指定をしない場合はbuilt-in postgresqlに設定されます。
+</ParamField>
+
+### Example
+
+```python
+from morph_lib.database import execute_sql
+
+@morph.func
+def func_name(context):
+	data: pd.DataFrame = execute_sql("SELECT * FROM user;")
+	return data
+```

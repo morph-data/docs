@@ -1,0 +1,89 @@
+---
+title: '<Metrics />'
+icon: '00'
+---
+
+<Frame>
+  <img src="/assets/images/pages/metrics.jpg" />
+</Frame>
+
+# MetricsGrid
+
+MetricsGridコンポーネントは、Python関数やSQLファイルの実行結果の各行を、Metricsコンポーネントで表示します。
+
+表示はグリッド形式です。
+
+```tsx
+<MetricsGrid 
+  loadData="aggregate_py" 
+  vars={{
+    department
+  }}
+  cols="3"
+  valueKey="amount" 
+  labelKey="name" 
+/>
+```
+
+## プロパティ
+
+<ParamField path="loadData" type="string" required>
+  Python関数やSQLファイルの name
+</ParamField>
+
+<ParamField path="vars" type="{ [key: string]: Variable }">
+  Python関数やSQLファイルに渡す変数。 `variable()`関数 を使って宣言してください。
+</ParamField>
+
+<ParamField path="valueKey" type="string">
+  値を表示するカラム名
+</ParamField>
+
+<ParamField path="labelKey" type="string">
+  値の上部に表示される文字列をデータの中から取得したい場合、そのカラム名
+</ParamField>
+
+<ParamField path="label" type="string">
+  値の上部に表示される文字列
+</ParamField>
+
+<ParamField path="unit" type="string">
+  値の右部に表示される文字列
+</ParamField>
+
+# Metrics
+
+Metricsコンポーネントは、Python関数やSQLファイルの実行結果のうち、**1行目**の特定の列の値を表示します。
+
+```tsx
+<Metrics 
+  loadData="aggregate_py"
+  vars={{
+    department
+  }}
+  valueKey="amount" 
+  unit="USD"
+  label="Total Sales"
+/>
+```
+## プロパティ
+
+<ParamField path="loadData" type="string" required>
+  Python関数やSQLファイルの name
+</ParamField>
+
+<ParamField path="vars" type="{ [key: string]: Variable }">
+  Python関数やSQLファイルに渡す変数。 `variable()`関数 を使って宣言してください。
+</ParamField>
+
+<ParamField path="valueKey" type="string">
+  値を表示するカラム名
+</ParamField>
+
+<ParamField path="label" type="string">
+  値の上部に表示される文字列
+</ParamField>
+
+<ParamField path="unit" type="string">
+  値の右部に表示される文字列
+</ParamField>

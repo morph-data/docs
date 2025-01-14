@@ -1,0 +1,33 @@
+---
+title: 'pip Packages'
+icon: "gears"
+---
+
+Within the Morph framework, you can freely utilize Python packages published on pip.
+
+## Installation / Deployment
+
+Morph allows you to use data applications by automatically starting VMs in both the Editor and Viewer modes.
+This VM reads the `requirements.txt` file in the project root and automatically installs the packages.
+
+You must always provide a `requirements.txt` file when deploying.
+
+<Tabs>
+    <Tab title="Cloud">
+        Open the terminal from the "Code" tab in the Editor mode and run the pip command.
+
+        ```bash Shell
+        pip install {パッケージ名}
+        ```
+
+        If the installation is successful, a `requirements.txt` file will be automatically created in the project, and it will be installed automatically at startup.
+    </Tab>
+    <Tab title="Local">
+        You can use the pip packages installed in your Python environment.
+
+        When deploying, make sure to output the packages you are using in the `requirements.txt` file.
+        ```bash Shell
+        pip freeze > requirements.txt
+        ```
+    </Tab>
+</Tabs>

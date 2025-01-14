@@ -1,0 +1,26 @@
+---
+title: 'API Key'
+icon: "key"
+---
+
+クラウドにログインをして、ホーム画面からAPI Keyを作成することで以下のことができます。
+
+- ローカルで構築したデータアプリのデプロイ
+- ビルトインPostgreSQLへRestAPIでアクセスをする
+
+## CLIでAPI Keyを使用する
+
+CLIで以下のコマンドを実行することによって、`~/.morph/credentials`にAPI Keyが保存されます。
+`morph sync`などのCLIからクラウドにアクセスをする場合はこの設定を用いてアクセスをされます。
+
+```bash Shell
+morph config
+```
+
+<Tip>`~/.morph/credentials`の中身を直接編集をすることでも設定をすることができます。</Tip>
+
+## Source IPについて
+
+API Keyを作成する際に指定できるSource IPは、ビルトインPostgreSQLへRestAPIでアクセスする際のIPアドレスを制限します。
+
+<Warning>`morph sync`などのCLI操作で使用する場合のIP制限としては機能しません。</Warning>

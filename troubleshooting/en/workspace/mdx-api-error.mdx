@@ -1,0 +1,24 @@
+---
+title: 'MDX preview error - Unexpected end of JSON input'
+---
+
+# Problem
+
+This section explains the solution when all components, such as Embed and DataTable, display an `Unexpected end of JSON input` error, as shown in the image below.
+
+<img
+    src="/assets/images/troubleshooting/mdx-api-error.png"
+    alt="MDX API Error"
+/>
+
+# Solution
+
+In Morph, an API server is started within the workspace to execute SQL/Python from MDX. This error occurs if the API server has crashed or has not been started for some reason.
+
+Typically, the API server is set to automatically recover if it crashes, but this error may occur if the server fails to start.
+
+To resolve this, run the following command in the terminal to restart the API server and fix the error:
+
+```bash Shell
+morph serve --restart
+```

@@ -1,0 +1,221 @@
+---
+title: 'Basic Usage'
+---
+
+In this section, we will explain the MDX used to build data applications with Morph. MDX is a format for writing Markdown files using React components.
+
+## About Markdown Syntax
+
+Markdown is a language that allows you to style text with simple notation. It is often used in blog posts, documentation, and GitHub repository README files. Below are examples of typical syntax.
+
+### Headings
+
+Headings are written with lines starting with `#`. The more `#` there are, the lower the level of the heading.
+
+<Tabs>
+  <Tab title="Code Example">
+    ```markdown
+    # Heading 1
+    ## Heading 2
+    ### Heading 3
+    ```
+  </Tab>
+  <Tab title="Output">
+    # Heading 1
+    ## Heading 2
+    ### Heading 3
+  </Tab>
+</Tabs>
+
+### Emphasis
+
+Emphasis is written by enclosing text with `*` or `_`.
+
+<Tabs>
+  <Tab title="Code Example">
+    ```markdown
+    **Bold** and *Italic*
+    ```
+  </Tab>
+  <Tab title="Output">
+    **Bold** and *Italic*
+  </Tab>
+</Tabs>
+
+### Lists
+
+Lists are written with lines starting with `-` or `1.`. `-` represents unordered lists, and `1.` represents ordered lists.
+
+<Tabs>
+  <Tab title="Code Example">
+    ```markdown
+    - Item 1
+    - Item 2
+    - Item 3
+    ```
+  </Tab>
+  <Tab title="Output">
+    - Item 1
+    - Item 2
+    - Item 3
+  </Tab>
+</Tabs>
+
+### Links
+
+Links are written as `[link text](URL)`.
+
+<Tabs>
+  <Tab title="Code Example">
+    ```markdown
+    ![Morph](https://docs.morph-data.io/assets/images/pages/data-table.jpg)
+    ```
+  </Tab>
+  <Tab title="Output">
+    ![Morph](https://docs.morph-data.io/assets/images/pages/data-table.jpg)
+  </Tab>
+</Tabs>
+
+### Images
+
+Images are written as `![alt text](image URL)`.
+
+<Tabs>
+  <Tab title="Code Example">
+    ```markdown
+    ![Morph](https://morph.codes/assets/img/logo.png)
+    ```
+  </Tab>
+  <Tab title="Output">
+    ![Morph](https://morph.codes/assets/img/logo.png)
+  </Tab>
+</Tabs>
+
+### Code
+
+Code is written by enclosing it with \`\`\`.
+
+<Tabs>
+  <Tab title="Code Example">
+    ```markdown
+    \```
+    console.log('Hello, Morph!')
+    \```
+    ```
+  </Tab>
+  <Tab title="Output">
+    ```javascript
+    console.log('Hello, Morph!')
+    ```
+  </Tab>
+</Tabs>
+
+## Github Flavored Markdown
+
+Morph supports GitHub Flavored Markdown (GFM). GFM is an extended specification of Markdown provided by GitHub, adding features such as tables, task lists, and syntax highlighting for code blocks.
+
+### Tables
+
+Tables are written with lines separated by `|`.
+
+<Tabs>
+  <Tab title="Code Example">
+    ```markdown
+    | Header 1 | Header 2 | Header 3 |
+    | -------- | -------- | -------- |
+    | Content 1 | Content 2 | Content 3 |
+    ```
+  </Tab>
+  <Tab title="Output">
+    | Header 1 | Header 2 | Header 3 |
+    | -------- | -------- | -------- |
+    | Content 1 | Content 2 | Content 3 |
+  </Tab>
+</Tabs>
+
+### Task Lists
+
+Task lists are written with `- [ ]` or `- [x]`.
+
+<Tabs>
+  <Tab title="Code Example">
+    ```markdown
+    - [ ] Task 1
+    - [x] Task 2
+    ```
+  </Tab>
+  <Tab title="Output">
+    - [ ] Task 1
+    - [x] Task 2
+  </Tab>
+</Tabs>
+
+### Syntax Highlighting for Code Blocks
+
+Syntax highlighting for code blocks is written as \`\`\`language.
+
+<Tabs>
+  <Tab title="Code Example">
+    ```markdown
+    \```javascript
+    console.log('Hello, Morph!')
+    \```
+    ```
+  </Tab>
+  <Tab title="Output">
+    ```javascript
+    console.log('Hello, Morph!')
+    ```
+  </Tab>
+</Tabs>
+
+## HTML
+
+Markdown can also embed HTML. By embedding HTML, you can achieve more advanced layouts and functions that cannot be expressed with Markdown syntax.
+
+However, styles and class names must be written according to JSX notation.
+
+<Tabs>
+  <Tab title="Code Example">
+    ```markdown
+    <div className="rounded-lg" style={{backgroundColor: '#f0f0f0', padding: '16px'}}>
+      <p>You can also embed HTML.</p>
+    </div>
+    ```
+  </Tab>
+  <Tab title="Output">
+    <div className="rounded-lg" style={{backgroundColor: '#f0f0f0', padding: '16px'}}>
+      <p>You can also embed HTML.</p>
+    </div>
+  </Tab>
+</Tabs>
+
+You can also insert HTML tags within Markdown blocks.
+
+<Tabs>
+  <Tab title="Code Example">
+    ```markdown
+    ## Insert <span style={{ color: 'pink' }}>HTML</span>
+    ```
+  </Tab>
+  <Tab title="Output">
+    ## Insert <span style={{ color: 'pink' }}>HTML</span>
+  </Tab>
+</Tabs>
+
+Conversely, you can also insert Markdown within HTML blocks.
+
+<Tabs>
+  <Tab title="Code Example">
+    ```html
+    <div>
+      ## Heading 2
+    </div>
+    ```
+  </Tab>
+  <Tab title="Output">
+    <div style={{backgroundColor: '#f0f0f0', padding: '4px 8px'}}>
+      ## Heading 2
+    </div>
+  </Tab>
+</Tabs>

@@ -1,0 +1,83 @@
+---
+title: '変数を使う'
+icon: "code"
+---
+
+データアプリでUIからユーザーが入力した値をSQLとPythonの処理の中で活用することができます。
+
+- `load_data`関数を使用して処理を連続させた場合は、全ての変数が全ての処理に対して渡されます。
+- SQlやPythonには、MDXから以下のように`variables`という引数で変数を渡す事ができます。
+
+```tsx
+
+export const dateRangeStart = variable(undefined);
+export const dateRangeEnd = variable(undefined);
+
+{/* 変数に値を入れるためのUI Componentを置く */}
+
+<DataTable
+	alias="get_stock_data"
+	variables={{
+		start_date: dateRangeStart,
+		end_date: dateRangeEnd
+	}}
+/>
+
+```
+
+引数は実際にMorphのCLIでは以下のようなコマンドで実行されます。
+Codeのタブで実行された場合には、この引数は追加されないのでデフォルトの値を指定する必要があります。
+
+以下のように`-d`でvariablesを指定することができます。
+
+```bash Shell
+morph run get_users -d user_type=admin
+```
+
+## SQL/Pythonで変数を受け取る
+
+<Tabs>
+	<Tab title="SQL">
+		jinjaの形式で`{{ }}`で囲うと変数とみなされ渡された引数が入ります。
+
+		```sql
+		{{
+			config(
+				name="get_users",
+			)
+		}}
+
+		{% if user_type %}
+		select * from user where user_type = '{{ user_type }}'
+		{% else %}
+		select * from user
+		{% endif %}
+		```
+	</Tab>
+	<Tab title="Python">
+		`context.vars[key] = value`に変数が入ります。
+
+		```python
+		@morph.func
+		def get_data_from_database(context):
+			var1_data = context.vars["var1"]
+			# write your code here using var1_data
+			return pd.DataFrame({})
+		```
+
+		`@morph.variables`を使うことによって、変数に対してデフォルト値を設定したりバリデーションを追加する事ができます。
+
+		```python
+		@morph.func
+		@morph.variables("var1", default="value", required=True, type="str")
+		def get_data_from_database(context):
+			var1_data = context.vars["var1"]
+			# write your code here using var1_data
+			return pd.DataFrame({})
+		```
+
+		<Card title="@morph.variables" icon="link" href="/reference/ja/python/morph-variables">
+		<></>
+		</Card>
+	</Tab>
+</Tabs>

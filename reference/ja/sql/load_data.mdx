@@ -1,0 +1,27 @@
+---
+title: 'load_data'
+---
+
+load_data関数を使用することで他のcellの結果をテーブルのように扱うことができます。
+
+以下のように記述した場合`users` のcellを実行したあとの結果ファイルをテーブルとしてアクセスすることができます。
+
+<Warning>
+load_dataをfrom句で使用する場合は、SQLの文法はDuckDBの文法を使用する必要があります。
+</Warning>
+
+```sql
+{{
+	config(
+		name="user_data_with_age_over_20",
+		description="User data with age over 20",
+	)
+}}
+
+select
+	*
+from
+	{{ load_data("users") }}
+where
+	age > 20
+```

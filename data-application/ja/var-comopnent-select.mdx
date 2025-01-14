@@ -1,0 +1,108 @@
+---
+title: '<VariableSelect />'
+---
+
+<Frame>
+  <img src="/assets/images/pages/variable-select.jpg" />
+</Frame>
+
+`<VariableSelect>` は、`variable()` 関数で宣言した変数に値を入力するためのセレクトボックスを表示するコンポーネントです。
+
+```tsx
+export const selectValue = variable();
+
+<VariableSelect variable={selectValue} withClearButton>
+  <VariableSelectGroup>
+    <VariableSelectLabel>NA</VariableSelectLabel>
+    <VariableSelectItem value="ca">Canada</VariableSelectItem>
+    <VariableSelectItem value="us">United States</VariableSelectItem>
+  </VariableSelectGroup>
+  <VariableSelectGroup>
+    <VariableSelectLabel>APAC</VariableSelectLabel>
+    <VariableSelectItem value="cn">China</VariableSelectItem>
+    <VariableSelectItem value="kr">Korea</VariableSelectItem>
+    <VariableSelectItem value="jp">Japan</VariableSelectItem>
+  </VariableSelectGroup>
+</VariableSelect>
+```
+
+## プロパティ
+
+<ParamField path="variable" type="Variable" required>
+  コンポーネントの入力値をバインドする変数オブジェクト
+</ParamField>
+
+<ParamField path="placeholder" type="string">
+  セレクトボックスのプレースホルダー
+</ParamField>
+
+<ParamField path="withClearButton" type="boolean">
+  trueの場合、選択肢の下部にリセットボタンを表示します
+</ParamField>
+
+
+## VariableSelectItem
+
+`<VariableSelectItem>` は、`<VariableSelect>` の選択肢を表示するためのコンポーネントです。
+
+```tsx
+<VariableSelect variable={selectValue} withClearButton>
+  <VariableSelectItem value="ca">Canada</VariableSelectItem>
+</VariableSelect>
+```
+
+### プロパティ
+
+<ParamField path="value" type="string" required>
+  選択肢が選択された際に、`variable` に設定される値
+</ParamField>
+
+## VariableSelectItems
+
+`<VariableSelectItems>` は、`<VariableSelectItem>` を複数まとめて追加するためのコンポーネントです。
+
+オブジェクトの配列を渡すか、`getJson` の返り値を渡してください。
+
+```tsx
+// 1. Passing object array
+<VariableSelect variable={selectValue} withClearButton>
+  <VariableSelectItems 
+    items={[
+      { value: 'ca', label: 'Canada' },
+      { value: 'us', label: 'United States' },
+    ]}
+    valueKey="value"
+    labelKey="label"
+  />
+</VariableSelect>
+
+// 2. Passing return value from getJson
+export const countries = getJson({
+  alias: 'country_list_py',
+});
+
+<VariableSelect variable={selectValue} withClearButton>
+  <VariableSelectItems items={countries} valueKey="code" labelKey="name" />
+</VariableSelect>
+```
+
+### プロパティ
+
+<ParamField path="items" type="Array<{ [key: string]: string }> | ReturnType<getJson>" required>
+  選択肢のリスト。オブジェクトの配列を渡すか、`getJson` の返り値を渡してください。
+</ParamField>
+
+<ParamField path="valueKey" type="string">
+  `items` のオブジェクトの中から、`variable` に設定される値を取得するためのキー
+</ParamField>
+
+<ParamField path="labelKey" type="string">
+  `items` のオブジェクトの中から、選択肢のラベルを取得するためのキー
+</ParamField>
+
+## その他のコンポーネント
+
+- `<VariableSelectGroup>` ... VaraibleSelectItem のグループを作成するためのコンポーネント
+- `<VariableSelectLabel>` ... グループのラベル
+- `<VariableSelectSeparator>` ... セレクトボックスの選択肢の間に挿入される区切り線
+

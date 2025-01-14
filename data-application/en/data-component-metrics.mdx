@@ -1,0 +1,87 @@
+---
+title: '<Metrics />'
+icon: '00'
+---
+
+<Frame>
+  <img src="/assets/images/pages/metrics.jpg" />
+</Frame>
+
+# MetricsGrid
+
+The MetricsGrid component displays each row of a Python function or SQL file execution result in the Metrics component.
+
+```tsx
+<MetricsGrid 
+  alias="aggregate_py" 
+  variables={{
+    department
+  }}
+  cols="3"
+  valueKey="amount" 
+  labelKey="name" 
+/>
+```
+
+## Properties
+
+<ParamField path="alias" type="string" required>
+  Name of the Python function or SQL file.
+</ParamField>
+
+<ParamField path="varialbes" type="{ [key: string]: Variable }">
+  Variables to pass to the Python function or SQL file. Declare using the `variable()` function.
+</ParamField>
+
+<ParamField path="valueKey" type="string">
+  Column name of the value to display
+</ParamField>
+
+<ParamField path="labelKey" type="string">
+  Column name of label when you need to get label string from the data
+</ParamField>
+
+<ParamField path="label" type="string">
+  String displayed above the value
+</ParamField>
+
+<ParamField path="unit" type="string">
+  String displayed to the right of the value
+</ParamField>
+
+# Metrics
+
+The Metrics component displays the value of a specific column from the first row of the execution result of a Python function or SQL file.
+
+```tsx
+<Metrics 
+  alias="aggregate_py"
+  variables={{
+    department
+  }}
+  valueKey="amount" 
+  unit="USD"
+  label="Total Sales"
+/>
+```
+## Properties
+
+<ParamField path="alias" type="string" required>
+  Name of the Python function or SQL file.
+</ParamField>
+
+<ParamField path="varialbes" type="{ [key: string]: Variable }">
+  Variables to pass to the Python function or SQL file. Declare using the `variable()` function.
+</ParamField>
+
+<ParamField path="valueKey" type="string">
+  Column name of the value to display
+</ParamField>
+
+<ParamField path="label" type="string">
+  String displayed above the value
+</ParamField>
+
+<ParamField path="unit" type="string">
+  String displayed to the right of the value
+</ParamField>

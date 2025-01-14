@@ -1,0 +1,100 @@
+---
+title: 'AI Chat generates and executes code'
+icon: "code"
+---
+
+Morph makes it easy to create AI applications that use LLM to generate code and perform execution results.
+In this tutorial, you will create an application that automatically generates Python code in response to user input and displays the results of the visualisation in real-time.
+
+## Prerequisites
+
+Obtain the OpenAI API key in advance from the OpenAI dashboard and save it in an `.env` file.
+
+```shell .env
+OPENAI_API_KEY=your_api_key
+```
+
+<Warning>
+If you are using a cloud environment, set this as an environment variable in the "Data" tab.
+</Warning>
+
+## Output
+
+![chat_sidebyside](/assets/images/docs/tutorial/text_to_plotly.png)
+
+## Tutorial
+
+By specifying `layout="side-by-side"` in the `<LLM />` component, you can generate code based on user input and display the results in real-time.
+
+Furthermore, the code generation and execution are handled within a Python function using the `text_to_plotly` function, which covers everything from visualization to executing the code.
+
+<Tabs>
+    <Tab title="1. Python">
+The `text_to_plotly` function takes a user prompt and a DataFrame as arguments to generate and execute code that performs data analysis using Plotly, according to the user's request.
+Additionally, the `side-by-side` layout of the `<LLM />` component allows the HTML passed as the second argument to the `create_chunk` function to be displayed next to the chat UI, enabling real-time display.
+
+```python
+import pandas as pd
+import os
+import morph
+from morph import MorphGlobalContext
+from morph_lib.stream import create_chunk
+from morph_lib.ai.openai.code_generation import text_to_plotly
+
+@morph.func
+def text_to_plotly_app(context: MorphGlobalContext):
+    data = pd.DataFrame({
+        "city": [
+            "Los Angeles", "San Francisco", "San Diego", "Sacramento",
+            "Houston", "Dallas", "Austin", "San Antonio",
+            "Miami", "Orlando", "Tampa", "Jacksonville",
+            "New York", "Buffalo", "Rochester", "Syracuse",
+            "Chicago", "Springfield", "Peoria", "Naperville"
+        ],
+        "state": [
+            "California", "California", "California", "California",
+            "Texas", "Texas", "Texas", "Texas",
+            "Florida", "Florida", "Florida", "Florida",
+            "New York", "New York", "New York", "New York",
+            "Illinois", "Illinois", "Illinois", "Illinois"
+        ],
+        "population": [
+            3980400, 883305, 1423851, 508529,
+            2328000, 1343000, 964300, 1532200,
+            470914, 285713, 399700, 903889,
+            8399000, 256304, 206284, 142749,
+            2716000, 116250, 112936, 147122
+        ]
+    })
+    prompt = context.vars["prompt"]
+
+    result = text_to_plotly(
+        prompt=prompt,
+        api_key=os.getenv("OPENAI_API_KEY"),
+        df=data,
+        model="gpt-4o",
+    )
+    fig = result.content
+
+    yield create_chunk(f"Here is python code generated.\n")
+    yield create_chunk(f"```python\n{result.code}\n```\n", fig.to_html())
+    return result
+
+```
+    </Tab>
+    <Tab title="2. MDX(pages)">
+
+Specify the Python function in the `postData` attribute of the `<LLM />` component.
+
+By specifying `layout="side-by-side"`, the visualization results will be displayed in real-time.
+
+```tsx
+export const title = "Text to Plotly app"
+
+# Text to Plotly app
+
+<LLM postData="text_to_plotly_app" layout="side-by-side" />
+
+```
+    </Tab>
+</Tabs>

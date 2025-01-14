@@ -1,0 +1,65 @@
+---
+title: '<LLM />'
+icon: "message-dots"
+---
+
+<Frame caption="layout='chat'">
+  <img src="/assets/images/pages/llm-component.jpg" />
+</Frame>
+
+The `<LLLM />` component is a component for streaming processes using Open AI and Anthropic APIs.
+
+```tsx
+<LLM
+  postData="ai-chat"
+  layout="chat"
+  height={300}
+/>
+```
+
+ `<LLLM />` components can be used for the following functions.
+
+- AI chat ... Chat between user and AI can be realised. It can start and end threads, display AI replies, etc.
+
+- Content generation ... AI generates content in response to text entered by the user. For example, this can be used when the AI generates a document in response to text entered by the user.
+
+- Side-by-side ... Displays user and AI chat and content generation side by side.
+
+Translated with DeepL.com (free version)
+
+## Data specification for `<LLM />`.
+
+The `<LLM />` component sends the following data by default to the Python function specified in `postData`.
+
+- `prompt`: text entered by the user.
+
+- `thread_id`: thread ID of the conversation with the AI, updated to a new value, e.g. when the user presses the ‘Start new thread’ button.
+
+- `is_new_conversation`: whether a new conversation has started. Updated to `true`, e.g. when the user presses the ‘Start new thread’ button.
+
+Use the `vars` property if you want to send additional data to these or override the default data.
+
+Translated with DeepL.com (free version)
+
+## Props
+
+<ParamField path="postData" type="string" required>
+  Python function or SQL file name
+</ParamField>
+
+<ParamField path="vars" type="{ [key: string]: Variable }">
+  Variables to be passed to Python functions or SQL files. Declared using the `variable()` function.
+</ParamField>
+
+<ParamField path="height" type="number">
+  Height of the component. Unit is px.
+</ParamField>
+
+<ParamField path="layout" type="'chat' | 'single' | 'side-by-side'">
+  UI layout. ‘chat’ for the chat UI, ‘single’ for the content generation UI and ‘side-by-side’ for the side-by-side UI.
+</ParamField>
+
+<ParamField path="inputType" type="'default' | 'button'">
+  Input form type. 'default' for the default input form, 'button' for only the button.
+</ParamField>
+

@@ -1,0 +1,29 @@
+---
+title: '<VariableInput />'
+---
+
+<Frame>
+  <img src="/assets/images/pages/variable-input.jpg" />
+</Frame>
+
+`<VariableInput>` は、`variable()` 関数で宣言した変数を入力するためのコンポーネントです。
+
+```tsx
+export const userName = variable('Keita');
+
+<VariableInput variable={userName} />
+```
+
+## プロパティ
+
+<ParamField path="variable" type="Variable" required>
+  コンポーネントの入力値をバインドする変数オブジェクト
+</ParamField>
+
+<ParamField path="type" type="string">
+  HTMLの `<input>` タグの `type` プロパティ
+</ParamField>
+
+<ParamField path="size" type="'sm' | 'default' | 'lg'" defaultValue='default'>
+  コンポーネントの大きさ
+</ParamField>

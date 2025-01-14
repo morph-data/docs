@@ -1,0 +1,53 @@
+---
+title: 'Credit'
+icon: "credit-card"
+---
+
+Morph manages the execution of cloud machines for running workspaces and AI functions through credit consumption.
+
+Each plan includes a certain number of credits, which can be purchased additionally.
+
+<Warning>The validity period of credits purchased is 1 month.</Warning>
+
+## Credit consumption
+
+Each function consumes credits according to the following table.
+
+### VM execution
+
+Morph's workspaces run on Virtual Machines (VMs). When a VM is running, credits are consumed.
+
+| Instance type | CPU | Memory | Credit consumption / hour |
+| :--- | :--- | :--- | :--- |
+| Standard | 2vCPU | 4GB | 100 |
+| Large | 4vCPU | 8GB | 200 |
+| XLarge | 8vCPU | 16GB | 400 |
+
+### Storage
+
+Credit consumption is applied based on the size of the built-in PostgreSQL and the VM disk capacity at the end of the month.
+
+| Service | Credit consumption / GiB |
+| :--- | :--- |
+| Built-in PostgreSQL | 300 |
+| VM capacity | 300 |
+
+<Warning>
+The built-in PostgreSQL capacity is limited to 0.5GiB for the free plan.
+
+For the Pro plan, the credit consumption is not applied up to 5GiB.
+</Warning>
+
+### AI functions
+
+MorphAI functions consume credits according to the following table.
+
+| AI function | Credit consumption |
+| :--- | :--- |
+| [Code Generation](/docs/en/morph-ai/code-generation) | 6 |
+| [Code Assistant](/docs/en/morph-ai/code-assistant) | 6 |
+| [Data Pipeline Builder](/docs/en/morph-ai/data-pipeline-builder) | 18 |
+
+## Credit management
+
+You can check the usage of credits and purchase additional credits from the "Credit" tab on the home screen.

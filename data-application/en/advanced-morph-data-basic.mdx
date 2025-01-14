@@ -1,0 +1,29 @@
+---
+title: 'How data fetching works'
+---
+
+There are two ways to reference data in Morph's workspace from an MDX file: using a data component or a data retrieval function.
+
+<Note>
+We strongly recommend using data components. They cover the components required for data applications and are actively maintained.
+</Note>
+
+In both cases, the data retrieval request is handled by Morph's internal API. Upon receiving the request, it executes SQL or Python and returns the result.
+
+There are four types of response.
+
+1. **JSON** ... SQL query results or Python function return values in the form of DataFrames or dictionaries can be retrieved as JSON.
+
+2. **HTML** ... If the return value of a Python function is HTML, such as a Plotly graph, it can be retrieved as an HTML string.
+
+3. **Image** ... If the return value of a Python function is an image, such as a matbplotlib graph, you can retrieve the image as a string in Base64 format.
+
+4. **Streaming** ... If the return value of a Python function is streaming data, such as an Open AI API response, you can retrieve the streaming data.
+
+When you can use prepared components, such as table views or graphs drawn with Plotly, we recommend using them.
+
+If you want to do something more complicated, consider using the data acquisition functions.
+
+<Warning>
+Data acquisition functions can only be used when the return value is JSON.
+</Warning>

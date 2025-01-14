@@ -1,0 +1,77 @@
+---
+title: 'Create a chat app'
+icon: "message-dots"
+---
+
+Morph makes it easy to create chat apps that utilise the LLM API and share them with your team.
+
+In this tutorial, you will create a chat app using Morph's LLM components and OpenAI's API.
+
+## Prerequisites
+
+Obtain the OpenAI API key in advance from the OpenAI dashboard and save it in an `.env` file.
+
+```shell .env
+OPENAI_API_KEY=your_api_key
+```
+
+<Warning>
+If you are using a cloud environment, set this as an environment variable in the "Data" tab.
+</Warning>
+
+## Output
+
+![chatbot](/assets/images/docs/tutorial/llm_chat_app.png)
+
+## Tutorial
+
+Create a chat app using the `<LLM />` component and the LLM API.
+Implement the chat app logic in the Python function and use the `create_chunk` function to stream the chat logs, allowing the `<LLM />` component to automatically display the streaming results.
+
+<Tabs>
+    <Tab title="1. Python">
+Implement the logic to answer user questions using the OpenAI SDK.
+The function specified in the `postData` attribute of the `<LLM />` component takes `prompt` and `thread_id` as arguments.
+- prompt: The prompt entered by the user
+- thread_id: The ID of the chat thread. A new ID is issued when a new thread is opened.
+
+```python
+import os
+import morph
+from morph import MorphGlobalContext
+from morph_lib.stream import create_chunk
+from openai import OpenAI
+
+@morph.func
+def llm_chat_app(context: MorphGlobalContext):
+    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+    prompt = context.vars["prompt"]
+    # thread_id can be used to identify the chat thread
+    thread_id = context.vars["thread_id"]
+
+    # chat
+    messages = [{"role": "user", "content": prompt}]
+    response = client.chat.completions.create(
+        model="gpt-4o",
+        messages=messages,
+        stream=True,
+    )
+
+    for chunk in response:
+        yield create_chunk(chunk.choices[0].delta.content)
+
+```
+    </Tab>
+    <Tab title="2. MDX(pages)">
+Specify the Python function in the `postData` attribute of the `<LLM />` component.
+
+```typescript
+export const title = "LLM Chat App"
+
+# LLM Chat App
+
+<LLM postData="llm_chat_app" />
+
+```
+    </Tab>
+</Tabs>

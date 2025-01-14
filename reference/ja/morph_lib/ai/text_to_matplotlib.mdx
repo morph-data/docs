@@ -1,0 +1,100 @@
+---
+title: 'text_to_matplotlib'
+---
+
+プロンプトを受け取ってMatplotlibのグラフを生成します。
+
+<CodeGroup>
+```python OpenAI
+# 📦 Package: morph_lib.ai.openai.code_generation
+# 🛠️ Function: text_to_matplotlib
+
+def text_to_matplotlib(
+    prompt: str,
+    api_key: str,
+    table_names: List[str],
+    model: Optional[str] = "gpt-4o",
+) -> TextConversionResponse:
+```
+
+```python Anthropic
+# 📦 Package: morph_lib.ai.anthropic.code_generation
+# 🛠️ Function: text_to_matplotlib
+
+def text_to_matplotlib(
+    prompt: str,
+    api_key: str,
+    table_names: List[str],
+    model: Optional[str] = "claude-3-5-haiku-latest",
+    max_tokens: Optional[int] = 1024,
+) -> TextConversionResponse:
+```
+
+```python Azure
+# 📦 Package: morph_lib.ai.azure.code_generation
+# 🛠️ Function: text_to_matplotlib
+
+def text_to_matplotlib(
+    prompt: str,
+    api_key: str,
+    table_names: List[str],
+    azure_endpoint: str,
+    deployment_name: Optional[str] = "gpt4",
+    api_version: Optional[str] = "2024-10-01-preview",
+) -> TextConversionResponse:
+```
+
+```python Groq
+# 📦 Package: morph_lib.ai.groq.code_generation
+# 🛠️ Function: text_to_matplotlib
+
+def text_to_matplotlib(
+    prompt: str,
+    api_key: str,
+    table_names: List[str],
+    model: Optional[str] = "llama-3.1-70b-versatile",
+) -> TextConversionResponse:
+```
+
+</CodeGroup>
+
+### Parameters
+
+OpenAIの場合のパラメータです。上記の関数定義から適宜他のモデルの場合の認証パラメータを設定してください。
+
+<ParamField body="prompt" type="string" required>
+プロンプト
+</ParamField>
+
+<ParamField body="api_key" type="string" required>
+LLMのモデルを使用するためのAPIキー
+</ParamField>
+
+<ParamField body="table_names" type="list" required>
+生成するために使用するテーブル名のリスト
+</ParamField>
+
+<ParamField body="model" type="string" optional>
+使用するLLMのモデル
+</ParamField>
+
+### Example
+
+```python
+from morph_lib.ai.openai.code_generation import text_to_matplotlib
+import os
+
+@morph.func
+def func_name(context):
+    prompt = context.vars["prompt"]
+    fig = text_to_matplotlib(
+		prompt,
+		os.environ["OPENAI_API_KEY"],
+		["user"],
+		"gpt-4o",
+	)
+	code = fig.code
+	print(code)
+
+	return fig.content
+```

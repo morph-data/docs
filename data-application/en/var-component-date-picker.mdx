@@ -1,0 +1,34 @@
+---
+title: '<VariableDatePicker />'
+---
+
+<Frame>
+  <img src="/assets/images/pages/variable-date-picker.jpg" />
+</Frame>
+
+`<VariableDatePicker>` is a component for entering a date into a variable declared with the `variable()` function.
+
+```tsx
+export const dateStart = variable();
+export const dateEnd = variable();
+
+<VariableDatePicker type="range" variables={[dateStart, dateEnd]} />
+
+export const singleDate = variable();
+
+<VariableDatePicker type="single" variables={singleDate} />
+```
+
+## Properties
+
+<ParamField path="type" type="'single' | 'range'" required>
+  Specify the type of date input
+</ParamField>
+
+<ParamField path="variables" type="[Variable, Variable]">
+  Variables to bind the date input value. Use when type = 'range'.
+</ParamField>
+
+<ParamField path="variable" type="Variable">
+  Variable to bind the date input value. Use when type = 'single'.
+</ParamField>

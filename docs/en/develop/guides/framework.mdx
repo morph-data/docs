@@ -1,0 +1,93 @@
+---
+title: 'Framework'
+icon: "brackets-curly"
+---
+
+We provide a framework that allows you to build data applications using SQL, Python, and MDX.
+
+The architecture involves constructing data pipelines with SQL and Python, and visualizing the results as data applications using MDX.
+The directory structure of the framework is as follows.
+Various settings can be configured in `morph_project.yml`, and the framework recognizes the directory where `morph_project.yml` is located as the root directory of the framework.
+
+```bash workdir
+.
+├── morph_project.yml
+└── src
+    ├── pages/
+    ├── python/
+    ├── sql/
+    └── utils/
+```
+
+## Building Data Pipelines
+
+You can build data pipelines by implementing functions using SQL and Python. By using function names, you can combine functions within the framework to construct pipelines or use them when building data applications.
+
+Function names can be defined as follows:
+
+- SQL: Set it like `config(name="func_name")`. If not set, the file name without the extension is used as the function name. (e.g. `example_data.sql` -> `example_data`)
+- Python: Set it like `@morph.func(name="func_name")`. If not set, the function name itself is used.
+
+By specifying function names within `load_data`, you can build pipelines by using the execution results of other functions.
+
+<CodeGroup>
+
+```sql SQL
+{{
+    config(
+        name="example_data"
+    )
+}}
+
+select * from {{load_data("get_users")}};
+```
+
+```python Python
+import pandas as pd
+import morph
+from morph import MorphGlobalContext
+
+@morph.func(name="example_dataframe")
+@morph.load_data("example_data")
+def example_dataframe(context: MorphGlobalContext):
+    df = context.data["example_data"]
+    return df
+```
+
+</CodeGroup>
+
+### Executing SQL and Python
+
+You can execute data pipelines using the function names defined when constructing the pipeline.
+
+```bash Shell
+morph run example_sql_cell
+```
+
+<Tip>
+The execution results are saved in the `data_dir` set in `morph_project.yml`.
+The path to save can also be set individually for each function using `config` (SQL) or `morph.func` (Python).
+</Tip>
+
+## データアプリ構築
+Data applications can be built using MDX files placed in the `pages` directory.
+
+By specifying function names in the `loadData` property of components defined in the MDX file, you can use the execution results of the data pipeline.
+
+```tsx MDX (pages/index.mdx)
+# Starter App
+
+Morph is a full-stack framework for building data apps using Python, SQL and MDX.
+
+## Data
+
+<Grid cols="2">
+  <div>
+    <DataTable loadData="example_data" height={300} />
+  </div>
+  <div>
+    <Embed loadData="example_chart" height={300} />
+  </div>
+</Grid>
+
+```

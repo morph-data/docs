@@ -1,0 +1,101 @@
+---
+title: 'コード生成・実行を行うAIアプリを作成する'
+icon: "code"
+---
+
+Morphでは、LLMを使用してコードを生成、実行をした結果を行うAIアプリを簡単に作成することができます。
+このチュートリアルでは、ユーザーの入力に応じて自動でPythonコードを生成し可視化をした結果をリアルタイムで表示するアプリケーションを作成します。
+
+## 事前準備
+
+OpenAIのAPIキーを事前にOpenAIのダッシュボードから取得して、`.env`ファイルに保存してください。
+
+```shell .env
+OPENAI_API_KEY=your_api_key
+```
+
+<Warning>
+クラウド環境をお使いの場合は、"Data"タブから環境変数として設定してください。
+</Warning>
+
+
+## 最終的な成果物
+
+![chat_sidebyside](/assets/images/docs/tutorial/text_to_plotly.png)
+
+## チュートリアル
+
+`<LLM />`コンポーネントの`layout="side-by-side"`を指定することで、ユーザーの入力に応じてコードを生成し、その結果をリアルタイムで表示することができます。
+
+さらにコード生成・実行の部分はPython関数の中で`text_to_plotly`関数を使用することで可視化から、コードの実行結果までを実施しています。
+
+<Tabs>
+    <Tab title="1. Python">
+`text_to_plotly`関数はユーザーからのプロンプトとDataFrameを引数として受け取ることで、ユーザーの要望に応じてPlotlyを活用してデータ分析をするコードを生成、実行までしてくれます。
+また、`<LLM />`コンポーネントの`side-by-side`のレイアウトでは、`create_chunk`関数の第二引数に渡されたHTMLをチャットUIの横に表示する機能があるため、それを活用してリアルタイム表示を実現しています。
+
+```python
+import pandas as pd
+import os
+import morph
+from morph import MorphGlobalContext
+from morph_lib.stream import create_chunk
+from morph_lib.ai.openai.code_generation import text_to_plotly
+
+@morph.func
+def text_to_plotly_app(context: MorphGlobalContext):
+    data = pd.DataFrame({
+        "city": [
+            "Los Angeles", "San Francisco", "San Diego", "Sacramento",
+            "Houston", "Dallas", "Austin", "San Antonio",
+            "Miami", "Orlando", "Tampa", "Jacksonville",
+            "New York", "Buffalo", "Rochester", "Syracuse",
+            "Chicago", "Springfield", "Peoria", "Naperville"
+        ],
+        "state": [
+            "California", "California", "California", "California",
+            "Texas", "Texas", "Texas", "Texas",
+            "Florida", "Florida", "Florida", "Florida",
+            "New York", "New York", "New York", "New York",
+            "Illinois", "Illinois", "Illinois", "Illinois"
+        ],
+        "population": [
+            3980400, 883305, 1423851, 508529,
+            2328000, 1343000, 964300, 1532200,
+            470914, 285713, 399700, 903889,
+            8399000, 256304, 206284, 142749,
+            2716000, 116250, 112936, 147122
+        ]
+    })
+    prompt = context.vars["prompt"]
+
+    result = text_to_plotly(
+        prompt=prompt,
+        api_key=os.getenv("OPENAI_API_KEY"),
+        df=data,
+        model="gpt-4o",
+    )
+    fig = result.content
+
+    yield create_chunk(f"Here is python code generated.\n")
+    yield create_chunk(f"```python\n{result.code}\n```\n", fig.to_html())
+    return result
+
+```
+    </Tab>
+    <Tab title="2. MDX(pages)">
+
+`<LLM />`コンポーネントの`postData`属性にPython関数を指定します。
+
+`layout="side-by-side"`を指定することで、可視化した結果をリアルタイムで表示します。
+
+```tsx
+export const title = "Text to Plotly app"
+
+# Text to Plotly app
+
+<LLM postData="text_to_plotly_app" layout="side-by-side" />
+
+```
+    </Tab>
+</Tabs>

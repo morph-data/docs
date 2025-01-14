@@ -1,0 +1,25 @@
+---
+title: 'Connection'
+icon: "plug"
+---
+
+Morph has a built-in PostgreSQL database. This database can be used to temporarily store intermediate results of data pipelines and store final results for connecting to external services.
+
+Open the workspace and click on the "Data" tab. From this tab, you can use the built-in PostgreSQL.
+
+Basic table and record editing can be performed from Morph's workspace.
+
+<img
+  src="/assets/images/docs/builtin-postgres.png"
+  alt="Built-in PostgreSQL"
+/>
+
+## Connecting from External Sources
+
+The connection string listed under "Postgres Connection" on the screen is used to access the PostgreSQL hosted on the workspace. You can use this to connect from external database clients or applications.
+
+## IP Restrictions
+
+It is very important to set security when connecting to PostgreSQL from external sources. By listing the allowed IPs in the "IP Restrictions" of Morph's workspace, access from IP addresses not listed will be denied.
+
+<Warning>The initial setting is "0.0.0.0/0", which allows access from anywhere, so be sure to set IP restrictions before inserting important data.</Warning>

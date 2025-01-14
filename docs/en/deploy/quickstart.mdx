@@ -1,0 +1,42 @@
+---
+title: 'Deploy to the cloud'
+icon: "rocket"
+---
+
+Morph allows you to easily deploy data applications and share them with your team.
+
+<Tabs>
+  <Tab title="Cloud">
+    <Steps>
+      <Step title="Deploy from the dashboard">
+        Open the deployment screen from the "Code" tab in the Editor mode and deploy.
+        <img src="/assets/images/docs/deploy-dashboard.png" alt="Deploy" />
+      </Step>
+      <Step title="Access the Viewer">
+        Access the Viewer to use the deployed data application!
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="Local">
+    <Steps>
+      <Step title="Login to the cloud and create an API key">
+        Create an API key from the Morph home screen.
+      </Step>
+      <Step title="Set API with CLI">
+        Set the API key and workspace with the `morph config` command.
+        ```bash Shell
+        morph config
+        ```
+      </Step>
+      <Step title="Deploy to the cloud">
+        Deploy to the cloud with the `morph sync` command.
+        ```bash Shell
+        morph sync
+        ```
+      </Step>
+      <Step title="Access the Viewer">
+        Access the Viewer to use the deployed data application!
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>

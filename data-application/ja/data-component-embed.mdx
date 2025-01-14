@@ -1,0 +1,34 @@
+---
+title: '<Embed />'
+icon: "code"
+---
+
+<Frame>
+  <img src="/assets/images/pages/embed.jpg" />
+</Frame>
+
+Embedコンポーネントは、Python関数の実行結果がHTMLの場合に、そのHTMLを表示します。
+
+```tsx
+<Embed 
+  loadData="visualize_py" 
+  vars={{
+    department
+  }}
+  height={300}
+/>
+```
+
+## プロパティ
+
+<ParamField path="loadData" type="string" required>
+  Python関数やSQLファイルの name
+</ParamField>
+
+<ParamField path="vars" type="{ [key: string]: Variable }">
+  Python関数やSQLファイルに渡す変数。 `variable()`関数 を使って宣言してください。
+</ParamField>
+
+<ParamField path="height" type="number">
+  テーブルの高さ。単位はpxです。
+</ParamField>

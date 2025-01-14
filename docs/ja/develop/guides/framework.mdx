@@ -1,0 +1,95 @@
+---
+title: 'フレームワーク'
+icon: "brackets-curly"
+---
+
+SQL, PythonそしてMDXを使用してデータアプリを構築できるフレームワークを提供しています。
+
+アーキテクチャとしてはSQL, Pythonでデータパイプラインを構築し、その結果をMDXでデータアプリとして可視化するというものです。
+フレームワークのディレクトリ構成は以下のようになっています。
+各種設定は、`morph_project.yml`で行うことができ、フレームワークとしても`morph_project.yml`が配置されているディレクトリをフレームワークのルートディレクトリとして認識します。
+
+```bash workdir
+.
+├── morph_project.yml
+└── src
+    ├── pages/
+    ├── python/
+    ├── sql/
+    └── utils/
+```
+
+## データパイプライン構築
+
+SQLとPythonを使用して関数を実装することによりデータパイプラインを構築することができます。
+関数名を使用することでフレームワークの中で関数を組み合わせてパイプラインを構築したり、データアプリを構築する際に使用する事ができます。
+
+関数名は、以下のように命名をする事ができます。
+
+- SQL: `config(name="func_name")`のように設定をする。設定されていない場合は、ファイル名から拡張子を除いたものが関数名として使用されます。(e.g. `example_data.sql` -> `example_data`)
+- Python: `@morph.func(name="func_name")`のように設定をする。設定されていない場合は、関数名がそのまま使用されます。
+
+`load_data`の中で関数名を指定することで他の関数の実行結果を使用することでパイプラインが構築できます。
+
+<CodeGroup>
+
+```sql SQL
+{{
+    config(
+        name="example_data"
+    )
+}}
+
+select * from {{load_data("get_users")}};
+```
+
+```python Python
+import pandas as pd
+import morph
+from morph import MorphGlobalContext
+
+@morph.func(name="example_dataframe")
+@morph.load_data("example_data")
+def example_dataframe(context: MorphGlobalContext):
+    df = context.data["example_data"]
+    return df
+```
+
+</CodeGroup>
+
+### SQL,Pythonを実行する
+
+パイプラインを構築した際に命名をした関数名を使用してデータパイプラインの実行を行う事ができます。
+
+```bash Shell
+morph run example_sql_cell
+```
+
+<Tip>
+実行結果は、`morph_project.yml`で設定された`data_dir`に保存されます。
+`config`(SQL)や`morph.func`(Python)で保存するパスは関数個別にも設定する事ができます。
+</Tip>
+
+## データアプリ構築
+
+データアプリは、`pages`ディレクトリに配置されたMDXファイルで構築する事ができます。
+
+MDXファイルに定義されたコンポーネントの`loadData`プロパティに関数名を指定することで、データパイプラインの実行結果を使用する事ができます。
+
+```tsx MDX (pages/index.mdx)
+# Starter App
+
+Morph is a full-stack framework for building data apps using Python, SQL and MDX.
+
+## Data
+
+<Grid cols="2">
+  <div>
+    <DataTable loadData="example_data" height={300} />
+  </div>
+  <div>
+    <Embed loadData="example_chart" height={300} />
+  </div>
+</Grid>
+
+```

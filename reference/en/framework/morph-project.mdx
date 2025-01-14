@@ -1,0 +1,80 @@
+---
+title: 'morph_project.yml'
+---
+
+`morph_project.yml` is a configuration file used when running the Morph framework. When you start a Morph project, a file with default values is automatically created.
+
+```yaml
+# connection
+default_connection: MORPH_BUILTIN_DB
+
+# src directory
+source_paths:
+- src
+
+# output paths where the result of the execution is saved
+output_paths:
+- /tmp/morph/{name}/{run_id}{ext()}
+
+# result cache(seconds)
+result_cache_ttl: 0
+
+# Scheduled Jobs
+scheduled_jobs:
+    function_name_1:
+        schedules:
+        - cron: "cron(0 0 * * 1,3,5)"
+            is_enabled: true
+            timezone: "Asia/Tokyo"
+            variables:
+                priority: "high"
+                retry: 3
+        - cron: "cron(0 12 * * 2)"
+            is_enabled: false
+            timezone: "UTC"
+            variables:
+                notify: true
+                email: "alert@example.com"
+    function_name_2:
+        schedules:
+        - cron: "cron(0 18 * * 6)"
+            is_enabled: true
+            timezone: "Europe/London"
+            variables:
+                type: "maintenance"
+                duration: "2h"
+```
+
+## Parameters
+
+<ParamField body="default_connection" type="string" default="MORPH_BUILTIN_DB">
+Specify the default DB connection. If the connection is not specified within the config function in the SQL file, this connection will be used automatically.
+
+When setting, please set the connection name in the config's connection as well.
+
+**Reserved Values**
+
+The following reserved values can be used without creating a connection.
+
+- DUCKDB: DuckDB is used as the database engine.
+- MORPH_BUILTIN_DB: Morph's built-in PostgreSQL is used as the database engine. (Cloud version only)
+
+</ParamField>
+
+<ParamField body="source_paths" type="string" default="src">
+Specify the source path.
+
+Files located under the directory specified as the source path are treated as executable source code on Morph.
+</ParamField>
+
+<ParamField body="output_paths" type="string">
+Specify the path where the execution results of the data pipeline are saved.
+</ParamField>
+
+<ParamField body="result_cache_ttl" type="integer" default="60">
+Specify the cache expiration time of the data pipeline execution results in seconds.
+</ParamField>
+
+<ParamField body="scheduled_jobs" type="object">
+Specify the settings for scheduled execution.
+</ParamField>

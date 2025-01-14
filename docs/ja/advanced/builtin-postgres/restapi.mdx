@@ -1,0 +1,130 @@
+---
+title: 'REST API'
+icon: "globe"
+---
+
+Morphでは、作成されたデータベーススキーマに基づいて自動的にAPIを生成し、提供しています。これにより、追加のコードを実装することなく、APIを通じてMorphのデータベースを利用したデータ連携やアプリケーション構築が可能です。
+
+APIはRESTful形式で設計されており、Morphのダッシュボード上から作成したAPIキーを利用してセキュアにアクセスできます。
+
+### **特徴**
+
+MorphのデータベースAPIは、[PostgREST](https://postgrest.org/)によって提供され、以下のようなメリットを提供します：
+
+- **効率的な開発および連携**:
+    - データベーススキーマから直接APIが生成されるため、バックエンド開発の時間とコストを大幅に削減します。
+- **自動更新/即時性**:
+    - データベーススキーマの変更が即座にAPIに反映されるため、手動での同期やメンテナンスが不要です。
+- **パフォーマンス**:
+    - 軽量でステートレスな設計により、SQLクエリを直接実行して、非常に高速なデータアクセスを実現します。
+- **柔軟性**:
+    - シンプルなCRUD操作に加えて、クエリの組み合わせやフィルタリング、ソートなどの複雑な操作も簡単に行えます。
+- **セキュリティ**:
+    - 厳格な型チェックとクエリパラメータの自動エスケープ処理により、SQLインジェクションなどの攻撃から高いレベルの保護を提供します。
+
+## **RESTfulアーキテクチャ**
+
+このAPIは標準的なHTTPメソッドを採用しており、RESTfulアーキテクチャに基づいた直感的で使いやすいCRUD操作を提供します。この設計により、様々なプログラミング言語やアプリケーションとの幅広い連携が可能となり、開発者は容易にシステムを統合できます。
+
+さらに、以下の高度な機能も提供されます：
+
+- **フィルタリングと検索**:
+    - 複雑なクエリパラメータを使用して、特定の条件に一致するレコードだけを精密に抽出できます。
+- **ソートとページネーション**:
+    - 結果セットをソートし、ページネーションを利用してデータを小容量に分割して提供します。
+- **リレーショナルクエリ**:
+    - 複数の関連するテーブルからデータを単一のクエリで取得できます。これにより、リレーショナルデータベースの関連を活かしたデータ取得が複数のAPI呼び出しを必要とせずに可能となります。
+- **アグリゲーション**:
+    - グループ化、カウント、平均、最大値、最小値などの集計機能をクエリに含めることができます。
+- **バッチリクエスト**:
+    - 複数のAPI呼び出しを単一のHTTPリクエストで実行し、ネットワーク遅延を減らし、効率的なデータ処理を実現します。
+
+これら以外にも、[PostgREST](https://postgrest.org/)により様々な機能が提供されます。詳しくは下記の参考資料をご確認ください。
+
+## クイックスタート
+
+MorphのAPIを使用して基本的なCRUD操作（作成、読み取り、更新、削除）を実行する方法をステップバイステップで説明します。
+
+この例ではcURLコマンドを用いてAPIを呼び出しますので、お手元のターミナル環境や[Postman](https://www.postman.com/)などのAPIクライアントツールにコマンドをペーストしてお試しください。
+
+### API呼び出し
+
+*※**`[**Your_DatabaseID**]`,** `[Your_Table_Slug]`, **`[Your_API_Key]`** は置換してご利用ください。*
+
+**作成 (Create)**:
+
+データを新しく作成するには、POSTメソッドを使用します。
+
+```sh
+curl --location --request POST 'https://beta-api.morphdb.io/v0/rest/[Your_DatabaseID]/[Your_Table_Slug]' \
+--header 'x-api-key: [Your_API_Key]' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "column1": "value1",
+    "column2": "value2"
+}'
+```
+
+**読み取り (Read)**:
+
+テーブルからデータを読み取るには、GETメソッドを使用します。
+
+```sh
+curl --location 'https://beta-api.morphdb.io/v0/rest/[Your_DatabaseID]/[Your_Table_Slug]' \
+--header 'x-api-key: [Your_API_Key]'
+
+```
+**更新 (Update)**:
+
+既存のデータを更新するには、PUTメソッドを使用します。
+
+```sh
+curl --location --request PUT 'https://beta-api.morphdb.io/v0/rest/[Your_DatabaseID]/[Your_Table_Slug]' \
+--header 'x-api-key: [Your_API_Key]' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "column1": "new_value1"
+}'
+```
+
+**削除 (Delete)**:
+
+データを削除するには、DELETEメソッドを使用します。
+
+```sh
+curl --location --request DELETE 'https://beta-api.morphdb.io/v0/rest/[Your_DatabaseID]/[Your_Table_Slug]' \
+--header 'x-api-key: [Your_API_Key]' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "column1": "value_to_delete"
+}'
+
+```
+
+これら以外にも、[PostgREST](https://postgrest.org/)によりお客様の用途に応じて様々なクエリパターンを実現することができます。詳しくは下記の参考資料をご確認ください。
+
+### **参考資料**
+
+- [PostgREST 公式ドキュメント](https://postgrest.org/en/v12/)
+- [PostgREST ソースコード](https://github.com/PostgREST/postgrest)
+
+
+## API URL
+
+APIのURLは以下のような形式となります。
+
+BaseURL: `https://beta-api.morphdb.io/v0/rest/[Your_DatabaseID]/`
+
+**データベースID(`[Your_DatabaseID]`)の確認方法**
+
+Morphのワークスペース画面内で、 `/workspace` に続いて表示されているのがデータベースIDです。
+
+`https://beta-app.morphdb.io/workspace/[database_id]?selected...`
+
+**テーブル名(`[**Your_Table_Name**]`)の確認方法**
+
+データベーススキーマ内の特定のテーブルに対するクエリを行う場合は、APIのURLは以下のような形式となります。
+
+URL: `https://beta-api.morphdb.io/v0/rest/[Your_DatabaseID]/[Your_Table_Name]`
+
+サイドメニューの Built-in Tables の中に表示されているのがテーブル名です。テーブルを選択した際に、エディターのタブに表示されるのもテーブル名です。

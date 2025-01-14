@@ -1,0 +1,47 @@
+---
+title: 'config'
+---
+
+以下のようにSQLの中にjinjaで設定値を書くことができます。
+
+```sql
+{{
+	config(
+		name="test",
+		description="this is test sql statement",
+		output_paths=[
+			"/tmp/morph/{name}/{now()}{ext()}"
+		],
+		connection="your_connection_slug",
+		result_cache_ttl=0
+	)
+}}
+
+select 1 as test
+```
+
+## Parameters
+
+<ParamField body="name" type="string" default="SQLファイル名">
+処理名, 他のファイルから呼び出す時のエイリアスとしても使える。
+</ParamField>
+
+<ParamField body="description" type="string">
+処理の説明を記述できる
+</ParamField>
+
+<ParamField body="output_paths" type="array: string" default="['/tmp/morph/{name}/{now()}{ext()}']">
+結果ファイルの出力先。
+
+記述方法は[こちら](/reference/ja/framework/output-paths)を参照してください。
+</ParamField>
+
+<ParamField body="connection" type="string" default="morph_project.ymlで設定したdefault_connection">
+画面で登録したbuiltin以外のconnectionの向き先 (optional)
+
+※ 指定をしない場合はbuilt-in postgresqlに設定されます。
+</ParamField>
+
+<ParamField body="result_cache_ttl" type="integer" default="0">
+データパイプラインの実行結果のキャッシュの有効期限を秒単位で指定します。
+</ParamField>

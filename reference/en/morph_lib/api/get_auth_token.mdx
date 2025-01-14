@@ -1,0 +1,41 @@
+---
+title: 'get_auth_token'
+---
+
+Retrieve the access_token obtained from Integration.
+
+```python morph_lib.api
+# 📦 Package: morph_lib.api
+# 🛠️ Function: get_auth_token
+
+get_auth_token(
+	connection: str
+) -> str
+```
+
+### Parameters
+
+<ParamField body="connection" type="str" required>
+Specify the name of the Integration registered on the screen.
+</ParamField>
+
+### Example
+
+```python
+import pandas as pd
+
+import morph
+from morph import MorphGlobalContext
+from morph_lib.api import get_auth_token
+
+@morph.func(
+    name="freee_get_balance",
+    description="Freee Preprocess",
+    output_paths=["/tmp/morph/{name}/{now()}{ext()}"],
+    output_type="dataframe",
+)
+def freee_get_balance(context: MorphGlobalContext) -> pd.DataFrame:
+    access_token = get_auth_token("salesforce_integration_name")
+
+    # ↓↓↓ call API with access_token ↓↓↓
+```

@@ -1,0 +1,95 @@
+---
+title: 'Using Variables'
+---
+
+Morph allows variables to be defined in Python functions and SQL files, but variables can also be used when executing from MDX files.
+
+For more information on using variables in Python and SQL files, see [how to use variables](/data-application/en/variables).
+
+## `variable` function
+
+Use `varialbe` function to declare variables.
+
+The type of variable is `string | undefined`. You cannot override the type.
+
+```tsx
+const dateRangeStart = variable(undefined);
+const dateRangeEnd = variable(undefined);
+```
+
+## Passing to components
+
+When passing to a component, pass the name of the variable in the Python or SQL file as a key, in object form.
+
+In the example below, `start_date` and `end_date` are used as variables in the Python file, so they are passed as keys.
+
+<CodeGroup>
+
+```tsx index.mdx
+export const name = 'index';
+export const title = 'Top page';
+
+# Stock prices with dates
+
+export const dateRangeStart = variable(undefined);
+export const dateRangeEnd = variable(undefined);
+
+<Grid cols="1">
+  <VariableDatePicker
+    type="range"
+    variables={[
+      dateRangeStart,
+      dateRangeEnd
+    ]}
+  />
+  <div className="h-[600px] w-full">
+    <DataTable
+      alias="stocks"
+      variables={{
+        start_date: dateRangeStart,
+        end_date: dateRangeEnd
+      }}
+    />
+  </div>
+</Grid>
+```
+
+```python stocks.py
+import pandas as pd
+
+import morph
+from morph import MorphGlobalContext
+
+import pandas as pd
+
+@morph.func(
+    name="stocks",
+    description="stock prices with dates",
+    output_paths=["/tmp/morph/{name}/{now()}{ext()}"],
+    output_type="dataframe",
+)
+@morph.variables('start_date')
+@morph.variables('end_date')
+def main(context: MorphGlobalContext) -> pd.DataFrame:
+    df = pd.read_csv('./src/stocks.csv')
+
+    start_date = context.var.get('start_date', None)
+    end_date = context.var.get('end_date', None)
+
+    df['date'] = pd.to_datetime(df['date'], format='%b %d %Y')
+
+    if start_date is None:
+        start_date = df['date'].min()
+    else:
+        start_date = pd.to_datetime(start_date, format='%Y-%m-%d')
+
+    if end_date is None:
+        end_date = df['date'].max()
+    else:
+        end_date = pd.to_datetime(end_date, format='%Y-%m-%d')
+
+    filtered_df = df[(df['date'] >= start_date) & (df['date'] <= end_date)]
+    return filtered_df
+```
+
+</CodeGroup>

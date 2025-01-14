@@ -1,0 +1,36 @@
+---
+title: 'Scheduled Jobs'
+icon: "clock"
+---
+
+This section explains the mechanism for scheduling data pipelines created with SQL or Python.
+
+By using functions such as SQL's `load_data` or Python's `@morph.load_data()`, you can construct multiple processes as a pipeline.
+By scheduling the execution of this pipeline, you can automate regular tasks such as daily sales aggregation.
+
+You can schedule execution by configuring `morph_project.yml` as follows:
+
+```yml morph_project.yml
+# Scheduled Jobs
+scheduled_jobs:
+    function_name_1:
+        schedules:
+        - cron: "cron(0 12 * * 2)"
+            is_enabled: false
+            timezone: "UTC"
+            variables:
+                notify: true
+                email: "alert@example.com"
+```
+
+<Tip>
+Specify the SQL or Python function name for `function_name_1`.
+If the pipeline has continuous processes, specify the last function in the process to execute the pipeline in order from the first function.
+</Tip>
+
+After deployment, you can check the configured jobs and logs from the "Jobs" tab in the cloud.
+
+<img
+    src="/assets/images/docs/workspace-job-schedule.png"
+    alt="Job Schedule"
+/>

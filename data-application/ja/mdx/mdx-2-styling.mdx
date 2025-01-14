@@ -1,0 +1,26 @@
+---
+title: 'スタイリング'
+---
+
+Morphでは、MDXのスタイリングに[Tailwind CSS](https://tailwindcss.com/)を使用することができます。Tailwind CSSは、HTMLのクラス属性を使ってスタイルを適用するCSSフレームワークです。Tailwind CSSを使うことで、CSSを直接記述することなく、簡単にスタイリングを行うことができます。
+
+<Card icon='link' title="Tailwind CSS" href={'https://tailwindcss.com/docs/utility-first'}>
+  公式ドキュメント
+</Card>
+
+具体的な使用方法は、[サンプルアプリケーション](https://stackblitz.com/edit/vitejs-vite-7fyrdn?file=src%2Findex.mdx)を参照してください。
+
+<Card title="サンプルアプリ + コード" icon="link" href="https://stackblitz.com/edit/vitejs-vite-7fyrdn?file=src%2Findex.mdx">
+  <></>
+</Card>
+
+## 記述例
+
+MDXファイル内で、HTML要素にTailwind CSSのクラスを適用することができます。以下の例では、`<div>`要素に`bg-blue-500`と`text-white`のクラスを適用しています。
+
+```html
+<div className="bg-blue-500 text-white p-4">
+  <h1>スタイリング</h1>
+  <p>このページは、Tailwind CSSを使ったスタイリングの記述例です。</p>
+</div>
+```

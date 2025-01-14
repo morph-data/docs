@@ -1,0 +1,28 @@
+---
+title: 'Code Generation'
+icon: "wand-magic-sparkles"
+---
+
+Morph AI's code generation feature generates initial code from plain-text prompts when creating SQL and Python files. This feature is only available from the Canvas.
+
+The information that can be specified during generation for each language is as follows:
+
+## SQL
+
+- Table: Generates SQL tailored to the database of the specified table.
+- SQL or Python Result (only the result is a DataFrame): Generates SQL using DuckDB by specifying the aggregation results in the FROM clause or JOIN clause.
+
+<Warning>
+You can use multiple tables or multiple aggregation results, but you cannot specify both tables and aggregation results at the same time.
+</Warning>
+
+## Python
+
+- Integration: Generates Python code using the API or SDK of the SaaS associated with the specified Integration.
+- SQL or Python Result: Loads the aggregation results with @morph.load_data() to generate Python code.
+
+<iframe
+    src="https://www.loom.com/embed/ec7d839137f144469b547a56da18c3c5?sid=40a79974-1a9d-4c80-80d4-43c6abe3fdea"
+    controls
+    className="w-full aspect-video"
+></iframe>

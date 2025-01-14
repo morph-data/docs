@@ -1,0 +1,50 @@
+---
+title: 'MorphGlobalContext'
+---
+
+`MorphGlobalContext`は、Morphで実行できる関数の引数として与えることができるcontext変数の型です。
+
+contextは、Morphのアノテーションからデータを自動で受け取り他の関数での結果や外部からの引数を受け取ることができます。
+
+|property|説明|
+|---|---|
+|data|`@morph.load_data`のアノテーションをつけた関数の出力結果を格納します。|
+|vars|`@morph.variables`のアノテーションをつけた関数の引数を格納します。|
+|user_info|ログインしているユーザーの情報を格納します。(クラウドでのみ使用可能)|
+
+### ログインユーザーの情報
+
+`context.user_info`は、ログインしているユーザーの情報を格納します。
+これによりログインユーザーごとに異なるデータを表示するなど、フレキシブルなデータアプリを構築を行うことができます。
+
+```json context.user_info
+{
+	"email": "example@example.com",
+	"username": "shibata",
+	"first_name": "naoto",
+	"last_name": "shibata"
+}
+```
+
+### 使用例
+
+`load_data`, `variables`のアノテーションをつけることで、関数の引数としてcontextを受け取ることができます。
+これらの関数の使用の仕方はそれぞれの解説ページを参照してください。
+
+```python
+import pandas as pd
+
+import morph
+from morph import MorphGlobalContext
+
+@morph.func(
+    name="example_python_cell",
+    description="Example Python cell",
+)
+@morph.load_data("example_sql_cell")
+@morph.variables("var1")
+def get_data_from_database(context: MorphGlobalContext):
+	sql_result_df = context.data["example_sql_cell"]
+	var1_data = context.vars["var1"]
+	return pd.DataFrame({})
+```

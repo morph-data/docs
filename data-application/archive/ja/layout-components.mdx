@@ -1,0 +1,123 @@
+---
+title: 'レイアウトコンポーネント'
+---
+
+<Note>
+  サンプルアプリから、実際のコードとインタラクティブなプレビューを確認できます。
+</Note>
+
+<Card title="サンプルアプリ + コード" icon="link" href="https://stackblitz.com/edit/vitejs-vite-7fyrdn?file=src%2Findex.mdx">
+  <></>
+</Card>
+
+## Accordion
+
+開閉可能なコンテンツを作成できます。
+
+| プロパティ | 型 | 説明 |
+| --- | --- | --- |
+| `title` | string | タイトル |
+
+
+```tsx
+<Accordion title="Open me">
+  <div>
+    <DataTable alias="work_log" />
+  </div>
+</Accordion>
+```
+## Alert
+
+視覚的に目立たせたいコンテンツを作成できます。
+
+| プロパティ | 型 | 説明 |
+| --- | --- | --- |
+| `title` | string | タイトル |
+
+
+```tsx
+<Grid cols="1">
+  <Alert title="Default Alert"> Contents goes here </Alert>
+  <Alert title="Info Alert" variant="info">
+    Contents goes here
+  </Alert>
+  <Alert title="Destructive Alert" variant="destructive">
+    Contents goes here
+  </Alert>
+  <Alert title="Warning Alert" variant="warning">
+    Contents goes here
+  </Alert>
+</Grid>
+```
+
+## Grid
+
+レスポンシブなグリッドを簡単に作成できます。
+
+| プロパティ | 型 | 説明 |
+| --- | --- | --- |
+| `cols` | string | カラムの最大数 |
+
+```tsx
+<Grid cols="4">
+  <Panel>
+    <Metrics alias="sp500_average" column="average" label="S&P 500 Average" unit="USD" />
+  </Panel>
+  <Panel>
+    <div style={{ height: '100%', minHeight: '300px' }}>
+      <Embed alias="sales_vis" />
+    </div>
+  </Panel>
+</Grid>
+```
+
+## Panel
+
+拡大表示可能なパネルを作成できます。
+
+<div 
+  style={{
+    position: 'relative',
+    padding: '0 0 46.76753782668501%',
+    height: 0
+  }}
+>
+  <iframe 
+    src="https://www.loom.com/embed/6171b56a04e244aa83e1790992ed1d64?sid=79c9bc03-6e67-4fca-b869-98d65ad503ed" 
+    frameborder="0" 
+    webkitallowfullscreen 
+    mozallowfullscreen 
+    allowfullscreen 
+    style={{
+      position: 'absolute',
+      inset: 0,
+      width: '100%',
+      height: '100%'
+    }}
+  >
+  </iframe>
+</div>
+
+```tsx
+<Grid cols="4">
+  <Panel>
+    <Metrics alias="sp500_average" column="average" label="S&P 500 Average" unit="USD" />
+  </Panel>
+  <Panel>
+    <div style={{ height: '100%', minHeight: '300px' }}>
+      <Embed alias="sales_vis" />
+    </div>
+  </Panel>
+</Grid>
+```
+
+## Tabs
+
+タブによって切り替え可能なコンテンツを作成できます。
+
+```tsx
+<Tabs>
+  <Tab title="Tab 1">Content 1</Tab>
+  <Tab title="Tab 2">Content 2</Tab>
+</Tabs>
+```

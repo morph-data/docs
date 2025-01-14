@@ -1,0 +1,38 @@
+---
+title: '@morph.variables'
+---
+
+`@morph.variables`のアノテーションで外部から渡す変数を宣言することができます。
+
+```python
+@morph.variables(
+    var_name: str, default: Optional[Any] = None
+)
+def func_name(context):
+	# write your code here
+```
+
+## Parameters
+
+<ParamField body="var_name" type="string" required>
+関数の実行時の引数を追加できる。
+
+mdxファイルから引数を渡したり、コマンド実行時に引数を指定できます。
+</ParamField>
+
+<ParamField body="default" type="any">
+デフォルト値を設定できる。
+
+指定しない場合はデフォルト値がNoneになります。
+</ParamField>
+
+## 使用例
+
+```python
+@morph.func
+@morph.variables("var1")
+def get_data_from_database(context):
+	var1_data = context.vars["var1"]
+    # write your code here using var1_data
+	return pd.DataFrame({})
+```

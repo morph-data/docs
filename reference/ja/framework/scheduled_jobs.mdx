@@ -1,0 +1,45 @@
+---
+title: 'scheduled_jobs'
+---
+
+`scheduled_jobs`は、定期実行する関数の定義をします。データパイプラインの末端の関数を指定して、定期実行の設定を行います。
+
+
+```yml scheduled_jobs
+function_name_1:
+    schedules:
+    - cron: "cron(0 0 * * 1,3,5)"
+        is_enabled: true
+        timezone: "Asia/Tokyo"
+        variables:
+            priority: "high"
+            retry: 3
+    - cron: "cron(0 12 * * 2)"
+        is_enabled: false
+        timezone: "UTC"
+        variables:
+            notify: true
+            email: "alert@example.com"
+```
+
+## Parameters
+
+<ParamField body="cron" type="string">
+cronの形式でスケジュールを指定します。
+</ParamField>
+
+<ParamField body="is_enabled" type="boolean">
+スケジュール実行を有効にするかどうかを指定します。有効のものだけがクラウドにデプロイした際に実行されます。
+</ParamField>
+
+<ParamField body="timezone" type="string">
+スケジュール実行のタイムゾーンをTZ形式で指定します。
+
+TZ形式は[こちら](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)を参照してください。
+</ParamField>
+
+<ParamField body="variables" type="object">
+スケジュール実行の際に渡される変数を指定します。
+
+ここで渡した変数は、関数の中でSQLの場合はjinjaの変数、Pythonの場合は`context.vars["key"]`で取得できます。
+</ParamField>

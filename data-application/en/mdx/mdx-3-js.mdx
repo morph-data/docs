@@ -1,0 +1,74 @@
+---
+title: 'Using React and JavaScript'
+---
+
+You can use React components and JavaScript in MDX files.
+
+## Using React components
+
+You can import and use components from jsx and tsx files created in the project directory.
+
+```jsx
+
+## Using Custom Component
+
+import { Card } from '../components/Card';
+<Card 
+  title="Sample App + Code" 
+  icon="link" 
+  href="https://stackblitz.com/edit/vitejs-vite-7fyrdn?file=src%2Findex.mdx"
+/>
+  
+```
+
+You can also use React components declared within the MDX file. Use `export` in variable declarations within the MDX file, as described below.
+
+```jsx
+
+## Declaring and Using React Components
+
+export const Card = (props) => {
+  return (
+    <div className="bg-blue-500 text-white p-4">
+      <h1>{props.title}</h1>
+      <p>{props.children}</p>
+    </div>
+  );
+}
+
+<Card title="Card Title">
+  Card Content
+</Card>
+```
+
+
+## Using JavasSript variables
+
+JavaScript variables can be declared and used in MDX files.
+
+**Declare Variables**.
+
+Variables used throughout the page are declared in the MDX file using `export`.
+
+```jsx
+export const openTime = new Date();
+```
+
+**Referencing Variables**.
+
+Declared variables are referenced by enclosing them in `{}`.
+
+```jsx
+export const openTime = new Date();
+
+The time the page was opened is { openTime.toLocaleString() }
+```
+
+The result is as follows.
+
+export const openTime = new Date();
+
+The time the page was opened is { openTime.toLocaleString() }
+
+
+<Warning>The content enclosed in `{}` is evaluated as a JSX node and must be either a string, boolean, number, null, undefined, or React component.</Warning>

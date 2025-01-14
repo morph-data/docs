@@ -1,0 +1,51 @@
+---
+title: 'create_chunk'
+---
+This function creates a chat stream.
+By using the `MorphChatStreamChunk` returned by this function and passing it to `<LLM/>`, you can build a chat application utilizing LLM.
+
+```python morph_lib.stream
+# 📦 Package: morph_lib.stream
+# 🛠️ Function: create_chunk
+
+def create_chunk(
+    text: Optional[str] = None, content: Optional[str] = None
+) -> MorphChatStreamChunk:
+```
+
+### Parameters
+
+<ParamField body="text" type="str">
+Text to be displayed in the chat stream.
+</ParamField>
+
+<ParamField body="content" type="str">
+Content to be displayed in the side-by-side layout of `<LLM/>`.
+
+ex.) html, markdown, etc.
+</ParamField>
+
+### Example
+
+```python
+import os
+from morph_lib.stream import create_chunk
+from openai import OpenAI
+import morph
+from morph import MorphGlobalContext
+
+@morph.func(name="test")
+@morph.variables("prompt")
+def main(context: MorphGlobalContext):
+    client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
+    propmt = context.vars["prompt"]
+    response = client.chat.completions.create(
+        model="gpt-4o",
+        messages=[{"role": "user", "content": propmt}],
+        stream=True,
+    )
+
+    for c in response:
+        text = c.model_dump()["choices"][0]["delta"].get("content", "")
+        yield create_chunk(text=text)
+```

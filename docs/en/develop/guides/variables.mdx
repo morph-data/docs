@@ -1,0 +1,83 @@
+---
+title: 'Variables'
+icon: "code"
+---
+
+You can utilize values entered by users from the UI in SQL and Python processes in data applications.
+
+- When using the `load_data` function to chain processes, all variables are passed to all processes.
+- Variables can be passed to SQL and Python from MDX using the `variables` argument as shown below.
+
+```tsx
+
+export const dateRangeStart = variable(undefined);
+export const dateRangeEnd = variable(undefined);
+
+{/* UI Component to enter values into variables */}
+
+<DataTable
+	alias="get_stock_data"
+	variables={{
+		start_date: dateRangeStart,
+		end_date: dateRangeEnd
+	}}
+/>
+
+```
+
+The argument is actually executed with the following command in Morph's CLI.
+If executed in the Code tab, this argument is not added, so you need to specify the default value.
+
+You can specify variables with `-d` as follows.
+
+```bash Shell
+morph run get_users -d user_type=admin
+```
+
+## Use Variables in SQL/Python
+
+<Tabs>
+	<Tab title="SQL">
+		Variables are passed to SQL as arguments enclosed in `{{ }}` in Jinja format.
+
+		```sql
+		{{
+			config(
+				name="get_users",
+			)
+		}}
+
+		{% if user_type %}
+		select * from user where user_type = '{{ user_type }}'
+		{% else %}
+		select * from user
+		{% endif %}
+		```
+	</Tab>
+	<Tab title="Python">
+		Variables are passed to Python as `context.vars[key] = value`.
+
+		```python
+		@morph.func
+		def get_data_from_database(context):
+			var1_data = context.vars["var1"]
+			# write your code here using var1_data
+			return pd.DataFrame({})
+		```
+
+		You can set default values and add validation to variables using `@morph.variables`.
+
+		```python
+		@morph.func
+		@morph.variables("var1", default="value", required=True, type="str")
+		def get_data_from_database(context):
+			var1_data = context.vars["var1"]
+			# write your code here using var1_data
+			return pd.DataFrame({})
+		```
+
+		<Card title="@morph.variables" icon="link" href="/reference/ja/python/morph-variables">
+		<></>
+		</Card>
+	</Tab>
+</Tabs>

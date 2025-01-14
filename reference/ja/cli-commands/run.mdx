@@ -1,0 +1,26 @@
+---
+title: 'run'
+---
+
+`morph run`コマンドは、Morphのソースコードを実行するためのコマンドです。
+
+## Options
+
+### `-d [key]=[value]`
+
+`-d`オプションは、Morphのソースコードの実行時の引数の値を指定できるオプションです。
+
+[@morph.variables](/reference/ja/python/morph-variables)で指定した引数を与えると実行時の値を動的に変更することができます。
+
+```
+$ morph run example_sql_cell -d var1=value1
+```
+
+## Examples
+
+```bash Shell
+workdir $ morph run example_sql_cell
+2024-10-08 04:46:32,550 [INFO] Running sql file: /home/morph/workdir/src/example_sql_cell.sql
+2024-10-08 04:46:32,865 [INFO] Cell output saved to: /home/morph/workdir/_private/example_sql_cell/20241008_044632.parquet
+2024-10-08 04:46:33,009 [INFO] Successfully ran sql file: /home/morph/workdir/src/example_sql_cell.sql
+```

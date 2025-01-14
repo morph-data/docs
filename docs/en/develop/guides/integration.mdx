@@ -1,0 +1,80 @@
+---
+title: 'DB/SaaS Connection'
+icon: "database"
+---
+
+## Connect to DB
+
+By connecting to a database, you can directly retrieve data processed in Python from SQL.
+
+<Tabs>
+  <Tab title="Cloud">
+    <Steps>
+      <Step title="Create an SQL Connection">
+        Create an SQL Connection from the "Data" tab in the workspace.
+      </Step>
+      <Step title="Obtain the Connection Name of the SQL Connection">
+      Once created successfully, you can obtain the connection name from the list display.
+      <img src="/assets/images/docs/connection.png" alt="Connection" />
+      </Step>
+      <Step title="Create an SQL File and Retrieve Data">
+        Create an SQL file and retrieve data.
+        ```sql
+        {{
+          config(
+            connection="connection_name"
+          )
+        }}
+
+        select * from table_name;
+        ```
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="Local">
+    <Steps>
+      <Step title="Install Morph with pip Command">
+        Execute the `morph init` command to save the DB connection information in `~/.morph/connections.yml`.
+        Use the connection name set here in the SQL file.
+        ```bash Shell
+        morph init
+        ```
+      </Step>
+      <Step title="Create an SQL File and Retrieve Data">
+        Create an SQL file and retrieve data.
+        ```sql
+        {{
+          config(
+            connection="connection_name"
+          )
+        }}
+
+        select * from table_name;
+        ```
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>
+
+## Connecting to SaaS
+
+<Warning>SaaS connections are only available in the cloud version.</Warning>
+
+Morph provides integration with some SaaS services.
+By using these integrations, you can delegate all authentication implementations to Morph and focus on implementing business logic.
+
+Here is how to obtain an access_token from an Integration created in Python.
+
+```python
+import pandas as pd
+
+import morph
+from morph import MorphGlobalContext
+from morph_lib.api import get_auth_token
+
+@morph.func
+def get_salesforce_opportunities(context: MorphGlobalContext) -> pd.DataFrame:
+    access_token = get_auth_token("salesforce-connection-name")
+
+    # ↓↓↓ call API with access_token ↓↓↓
+```

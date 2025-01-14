@@ -1,0 +1,34 @@
+---
+title: '<VariableDatePicker />'
+---
+
+<Frame>
+  <img src="/assets/images/pages/variable-date-picker.jpg" />
+</Frame>
+
+`<VariableDatePicker>` は、`variable()` 関数で宣言した変数に、日付を入力するためのコンポーネントです。
+
+```tsx
+export const dateStart = variable();
+export const dateEnd = variable();
+
+<VariableDatePicker type="range" variables={[dateStart, dateEnd]} />
+
+export const singleDate = variable();
+
+<VariableDatePicker type="single" variables={singleDate} />
+```
+
+## プロパティ
+
+<ParamField path="type" type="'single' | 'range'" required>
+  日付の入力形式。単一の日付を入力する場合は `single`、範囲を指定する場合は `range`
+</ParamField>
+
+<ParamField path="variables" type="[Variable, Variable]">
+  日付の入力値をバインドする変数オブジェクトの配列。 type = 'range' の際に使用してください。
+</ParamField>
+
+<ParamField path="variable" type="Variable">
+  日付の入力値をバインドする変数オブジェクト。 type = 'single' の際に使用してください。
+</ParamField>

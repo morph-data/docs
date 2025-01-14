@@ -1,0 +1,129 @@
+---
+title: 'REST API'
+icon: "globe"
+---
+
+Morph automatically generates and provides APIs based on the created database schema. This allows for data integration and application development using Morph's database through the API without implementing additional code.
+
+The API is designed in a RESTful format and can be securely accessed using an API key created from Morph's dashboard.
+
+### **Features**
+
+Morph's database API is provided by [PostgREST](https://postgrest.org/) and offers the following benefits:
+
+- **Efficient Development and Integration**:
+    - APIs are generated directly from the database schema, significantly reducing backend development time and costs.
+- **Automatic Updates/Immediacy**:
+    - Changes to the database schema are immediately reflected in the API, eliminating the need for manual synchronization or maintenance.
+- **Performance**:
+    - With a lightweight and stateless design, it executes SQL queries directly, achieving very fast data access.
+- **Flexibility**:
+    - In addition to simple CRUD operations, complex operations such as query combinations, filtering, and sorting can be easily performed.
+- **Security**:
+    - Provides a high level of protection against attacks like SQL injection through strict type checking and automatic query parameter escaping.
+
+## **RESTful Architecture**
+
+This API adopts standard HTTP methods and offers intuitive and user-friendly CRUD operations based on RESTful architecture. This design allows for broad integration with various programming languages and applications, enabling developers to easily integrate systems.
+
+Additionally, the following advanced features are provided:
+
+- **Filtering and Searching**:
+    - Use complex query parameters to precisely extract only records that match specific conditions.
+- **Sorting and Pagination**:
+    - Sort result sets and use pagination to deliver data in small chunks.
+- **Relational Queries**:
+    - Retrieve data from multiple related tables with a single query, allowing for data retrieval that leverages relational database relationships without requiring multiple API calls.
+- **Aggregation**:
+    - Include aggregation functions such as grouping, counting, averaging, maximum, and minimum in queries.
+- **Batch Requests**:
+    - Execute multiple API calls with a single HTTP request, reducing network latency and achieving efficient data processing.
+
+In addition to these, various features are provided by [PostgREST](https://postgrest.org/). Please refer to the reference materials below for more details.
+
+## Quick Start
+
+This section explains step-by-step how to perform basic CRUD operations (Create, Read, Update, Delete) using Morph's API.
+
+In this example, we use cURL commands to call the API, so please paste the commands into your terminal environment or an API client tool like [Postman](https://www.postman.com/) to try them out.
+
+### API Call
+
+*Please replace **`[Your_DatabaseID]`, `[Your_Table_Slug]`, `[Your_API_Key]`** with your actual values.*
+
+**Create**:
+
+To create new data, use the POST method.
+```sh
+curl --location --request POST 'https://beta-api.morphdb.io/v0/rest/[Your_DatabaseID]/[Your_Table_Slug]' \
+--header 'x-api-key: [Your_API_Key]' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "column1": "value1",
+    "column2": "value2"
+}'
+```
+
+**Read**:
+
+To read data from a table, use the GET method.
+
+```sh
+curl --location 'https://beta-api.morphdb.io/v0/rest/[Your_DatabaseID]/[Your_Table_Slug]' \
+--header 'x-api-key: [Your_API_Key]'
+
+```
+**Update**:
+
+To update existing data, use the PUT method.
+
+```sh
+curl --location --request PUT 'https://beta-api.morphdb.io/v0/rest/[Your_DatabaseID]/[Your_Table_Slug]' \
+--header 'x-api-key: [Your_API_Key]' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "column1": "new_value1"
+}'
+```
+
+**Delete**:
+
+To delete data, use the DELETE method.
+
+```sh
+curl --location --request DELETE 'https://beta-api.morphdb.io/v0/rest/[Your_DatabaseID]/[Your_Table_Slug]' \
+--header 'x-api-key: [Your_API_Key]' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "column1": "value_to_delete"
+}'
+
+```
+
+In addition to these, you can achieve various query patterns according to your needs using [PostgREST](https://postgrest.org/). Please refer to the reference materials below for more details.
+
+### **Reference Materials**
+
+- [PostgREST Official Documentation](https://postgrest.org/en/v12/)
+- [PostgREST Source Code](https://github.com/PostgREST/postgrest)
+
+
+## API URL
+
+The API URL has the following format.
+
+BaseURL: `https://beta-api.morphdb.io/v0/rest/[Your_DatabaseID]/`
+
+**How to check the Database ID (`[Your_DatabaseID]`)**
+
+In the Morph workspace, the Database ID is displayed after `/workspace`.
+
+`https://beta-app.morphdb.io/workspace/[database_id]?selected...`
+
+**How to check the Table Name (`[Your_Table_Name]`)**
+
+When querying a specific table in the database schema, the API URL has the following format.
+
+URL: `https://beta-api.morphdb.io/v0/rest/[Your_DatabaseID]/[Your_Table_Name]`
+
+The table name is displayed in the Built-in Tables section of the sidebar. It is also displayed in the editor tab when selecting a table.

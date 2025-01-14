@@ -1,0 +1,68 @@
+---
+title: 'Quickstart'
+icon: "rocket"
+---
+
+<Tabs>
+  <Tab title="Cloud">
+    <Steps>
+      <Step title="Create a Workspace">
+        Create a workspace and open the Editor.
+      </Step>
+      <Step title="Implement Data Processing in Python">
+        Implement data formatting, data analysis execution, and chart creation in Python. You can also use SQL if necessary.
+
+        ```python src/python/data.py
+        import pandas as pd
+
+        @morph.func
+        def main():
+          df = pd.read_csv('data.csv')
+          return df
+
+        ```
+      </Step>
+      <Step title="Edit the MDX File">
+        Add descriptions and components to the MDX file to complete the app.
+      </Step>
+      <Step title="Use the App in the Page Tab or Viewer Mode">
+        You can use the app in the "Page" tab or Viewer mode in the Editor screen.
+
+        ※ To reflect in Viewer mode, you need to deploy from the following screen.
+        <Card title="Deploy" icon="link" href="/docs/en/deploy/quickstart">
+          <></>
+        </Card>
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="Local">
+    <Steps>
+      <Step title="Install Morph with pip Command">
+        ```bash Shell
+        pip install morph-data
+        ```
+      </Step>
+      <Step title="Create a Morph Project">
+        Use the `morph new` command to create a Morph project.
+        ```bash Shell
+        morph new morph-starter-app
+        ```
+      </Step>
+      <Step title="Implement Data Processing in Python">
+        Implement data formatting, data analysis execution, and chart creation in Python. You can also use SQL if necessary.
+      </Step>
+      <Step title="Edit the MDX File">
+        Add descriptions and components to the MDX file to complete the app.
+      </Step>
+      <Step title="Start the Morph Development Server">
+        Use the `morph serve` command to start the Morph development server.
+        ```bash Shell
+        morph serve
+        ```
+      </Step>
+      <Step title="Open the App in a Browser">
+        Access `localhost:9002` to open the app.
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>

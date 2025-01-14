@@ -1,0 +1,153 @@
+---
+title: 'Plotlyを用いた高度なダッシュボードアプリ構築'
+icon: "chart-bar"
+---
+
+Morphでは入力フォームなどを伴う動的なダッシュボードアプリをカスタマイズして作成することができます。
+このチュートリアルでは、入力フォームから受け取った値に応じてPlotlyのチャートをフィルタリングして表示するアプリケーションを作成します。
+
+## 最終的な成果物
+
+![plotly](/assets/images/docs/tutorial/filter_plotly.png)
+
+## チュートリアル
+
+ユーザーの入力によって表示内容を切り替える動的なアプリケーションを作成するためには、MDXファイルで入力フォームを作成して、その値をPython関数に渡す必要があります。
+Python関数では`context.vars`を使用して入力フォームに入力された値を受け取り、返却するチャートのデータをフィルタリングします。
+
+このチュートリアルでは、上記に加えて入力フォームの選択肢をSQLを使用して取得をする方法も紹介しています。
+
+<Tabs>
+    <Tab title="1. Python">
+ここでは、以下の2つの関数を作成しています。
+- `generate_population_data`: チュートリアルに使用するデータを生成しています。本番環境ではこの関数部分でデータを取得しすることができます。また、この関数はSQLファイルに代替することもできるため、SQLファイルでデータベースからデータを取得して使用することもできます。
+- `filter_plotly_chart`: `generate_population_data`で生成されたデータをフィルタリングして、Plotlyのチャートを返却する関数です。
+
+PlotlyとMatplotlibは、MorphのライブラリでFigureとして返却をすることで`<Embed />`で使用できるように自動的にHTMLに変換をします。
+
+```python
+import numpy as np
+import pandas as pd
+import plotly.express as px
+
+import morph
+from morph import MorphGlobalContext
+
+@morph.func
+def generate_population_data(context: MorphGlobalContext):
+    # Initialize
+    dates = pd.date_range(start="2022-01-01", end="2024-12-31", freq="M").strftime("%Y-%m-%d")
+    states = ["California", "Texas", "Florida", "New York", "Illinois"]  # List of states
+
+    # Generate dummy data
+    data = pd.DataFrame({
+        "date": np.tile(dates, len(states)),  # Repeat dates for all states
+        "state": np.repeat(states, len(dates)),  # Repeat each state for all dates
+        "population": np.random.randint(100000, 10000000, size=len(dates) * len(states))  # Generate random population data
+    })
+    return data
+
+
+@morph.func
+@morph.load_data("generate_population_data")
+def filter_plotly_chart(context: MorphGlobalContext):
+    data = context.data["generate_population_data"]
+    start_date = context.vars["start_date"]
+    end_date = context.vars["end_date"]
+    state = context.vars["state"]
+
+    # apply filter
+    df = data[data["date"].between(start_date, end_date)]
+    if state != "all":
+        df = df[df["state"] == state]
+    fig = px.bar(df, x="date", y="population", color="state", title="Population Over Time by State")
+    return fig
+
+```
+    </Tab>
+    <Tab title="2. SQL">
+このSQLでは、`generate_population_data`で生成されたデータを使用して、`filter_plotly_chart`で使用する選択肢を取得しています。
+他のSQL, Python, MDXの`load_data`では、nameで指定されている`get_state_list`を使用して結果にアクセスをすることができます。
+
+```sql
+{{
+    config(
+        name = "get_state_list"
+    )
+}}
+
+select
+    distinct state
+from
+    {{load_data("generate_population_data")}}
+
+```
+    </Tab>
+    <Tab title="3. MDX(pages)">
+Python, SQLで作成した関数を使用してダッシュボードを作成します。
+
+冒頭で定義している変数は、それぞれ以下のような役割を持っています。
+- `dateRangeStart`, `dateRangeEnd`: 日付の範囲を選択するための入力フォームです。
+- `stateList`: `get_state_list`で取得した選択肢です。
+- `stateSelected`: 選択肢の中で選択された値です。
+
+`<DataTable />`, `<Embed />`を使用して元データとチャートを表示しています。
+`variables`を使用することによって入力フォームで選択された値をPython関数に渡しています。
+
+```tsx
+export const title = "Filter plotly chart"
+export const dateRangeStart = variable("2024-01-01");
+export const dateRangeEnd = variable("2024-09-30");
+export const stateList = getJson({
+    alias: 'get_state_list',
+})
+export const stateSelected = variable("all");
+
+# Filter plotly chart
+
+This example shows how to filter a plotly chart.
+
+<div className="p-4 border border-gray-300 rounded-lg shadow-md">
+    <Grid cols="2">
+        <div>
+            <DataTable
+                loadData="generate_population_data"
+            />
+        </div>
+        <div>
+            <div className="flex items-center gap-3">
+                <p>Date Range:</p>
+                <div className="flex-1">
+                    <VariableDatePicker
+                        type="range"
+                        variables={[
+                            dateRangeStart,
+                            dateRangeEnd
+                        ]}
+                    />
+                </div>
+            </div>
+            <div className="flex items-center gap-3">
+                <p>State:</p>
+                <div className="flex-1">
+                    <VariableSelect variable={stateSelected}>
+                        <VariableSelectItem value="all">Not selected</VariableSelectItem>
+                        <VariableSelectItems items={stateList} labelKey="state" valueKey="state" />
+                    </VariableSelect>
+                </div>
+            </div>
+            <Embed
+                loadData="filter_plotly_chart"
+                variables={{
+                    start_date: dateRangeStart,
+                    end_date: dateRangeEnd,
+                    state: stateSelected
+                }}
+                height={400}
+            />
+        </div>
+    </Grid>
+</div>
+```
+    </Tab>
+</Tabs>

@@ -1,0 +1,30 @@
+---
+title: '@morph.load_data'
+---
+
+`@morph.load_data`のアノテーションをつけることで、関数の出力結果をcontext.dataに格納して使うことができます。
+
+```python
+@morph.load_data(
+    name: str,
+)
+def func_name(context):
+	# write your code here
+```
+
+## Parameters
+
+<ParamField body="name" type="string" required>
+nameで指定した関数の出力結果をcontext.dataに格納する
+</ParamField>
+
+## 使用例
+
+```python
+@morph.func
+@morph.load_data("example_sql_cell")
+def get_data_from_database(context):
+	sql_result_df = context.data["example_sql_cell"]
+    # write your code here using sql_result_df
+	return sql_result_df
+```

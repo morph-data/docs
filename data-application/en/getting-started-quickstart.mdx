@@ -1,0 +1,37 @@
+---
+title: 'Quick Start'
+icon: "rocket"
+---
+
+# Cloud
+
+<Steps>
+  <Step title="Create a workspace">
+    Create a workspace in Morph and open the editor.
+  </Step>
+  <Step title="Implement data processing in Python">
+    Implement data processing in Python using the `morph.func` decorator.
+
+    ```python src/python/data.py
+    import pandas as pd
+
+    @morph.func(name='data')
+    def main():
+      df = pd.read_csv('data.csv')
+      return df
+
+    ```
+  </Step>
+  <Step title="Edit MDX file">
+    Edit the MDX file to display the data.
+
+    ```md src/pages/index.mdx
+    # Data Application
+
+    <DataTable loadData='data' />
+    ```
+  </Step>
+  <Step title="See data app on 'Page' tab or viewer mode">
+    See the data app on the 'Page' tab or viewer mode.
+  </Step>
+</Steps>

@@ -1,0 +1,108 @@
+---
+title: '<VariableSelect />'
+---
+
+<Frame>
+  <img src="/assets/images/pages/variable-select.jpg" />
+</Frame>
+
+`<VariableSelect>` is a component that displays a select box for entering values into a variable declared with the `variable()` function.
+
+```tsx
+export const selectValue = variable();
+
+<VariableSelect variable={selectValue} withClearButton>
+  <VariableSelectGroup>
+    <VariableSelectLabel>NA</VariableSelectLabel>
+    <VariableSelectItem value="ca">Canada</VariableSelectItem>
+    <VariableSelectItem value="us">United States</VariableSelectItem>
+  </VariableSelectGroup>
+  <VariableSelectGroup>
+    <VariableSelectLabel>APAC</VariableSelectLabel>
+    <VariableSelectItem value="cn">China</VariableSelectItem>
+    <VariableSelectItem value="kr">Korea</VariableSelectItem>
+    <VariableSelectItem value="jp">Japan</VariableSelectItem>
+  </VariableSelectGroup>
+</VariableSelect>
+```
+
+## Properties
+
+<ParamField path="variable" type="Variable" required>
+  Variable to bind the select box value
+</ParamField>
+
+<ParamField path="placeholder" type="string">
+  Placeholder text
+</ParamField>
+
+<ParamField path="withClearButton" type="boolean">
+  Display a clear button
+</ParamField>
+
+
+## VariableSelectItem
+
+`<VariableSelectItem` is a component for adding `<VariableSelect>` option.
+
+```tsx
+<VariableSelect variable={selectValue} withClearButton>
+  <VariableSelectItem value="ca">Canada</VariableSelectItem>
+</VariableSelect>
+```
+
+### プロパティ
+
+<ParamField path="value" type="string" required>
+  The value to be set in the variable
+</ParamField>
+
+## VariableSelectItems
+
+`<VariableSelectItems>` is a component for adding several `<VariableSelectItem>` together.
+
+Pass an array of objects or the return value of `getJson`.
+
+```tsx
+// 1. Passing object array
+<VariableSelect variable={selectValue} withClearButton>
+  <VariableSelectItems 
+    items={[
+      { value: 'ca', label: 'Canada' },
+      { value: 'us', label: 'United States' },
+    ]}
+    valueKey="value"
+    labelKey="label"
+  />
+</VariableSelect>
+
+// 2. Passing return value from getJson
+export const countries = getJson({
+  alias: 'country_list_py',
+});
+
+<VariableSelect variable={selectValue} withClearButton>
+  <VariableSelectItems items={countries} valueKey="code" labelKey="name" />
+</VariableSelect>
+```
+
+### プロパティ
+
+<ParamField path="items" type="Array<{ [key: string]: string }> | ReturnType<getJson>" required>
+  Array of objects or the return value of `getJson`
+</ParamField>
+
+<ParamField path="valueKey" type="string">
+  Key to get the value of the option from the object in `items`
+</ParamField>
+
+<ParamField path="labelKey" type="string">
+  Key to get the label of the option from the object in `items`
+</ParamField>
+
+## その他のコンポーネント
+
+- `<VariableSelectGroup>` ... Grouped select box elements.
+- `<VariableSelectLabel>` ... he label of the group.
+- `<VariableSelectSeparator>` ... Separator line inserted between the choices in the select box.
+

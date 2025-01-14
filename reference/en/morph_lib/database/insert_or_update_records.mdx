@@ -1,0 +1,61 @@
+---
+title: 'insert_or_update_records'
+---
+
+Updates data in tables on databases connected with built-in PostgreSQL and SQL Connection. If the Primary Key does not exist, it will be registered as a new record.
+
+```python morph_lib.database
+# 📦 Package: morph_lib.database
+# 🛠️ Function: insert_or_update_records
+
+insert_or_update_records(
+	data: pd.DataFrame,
+	primary_keys: List[str]
+	table_name: str,
+	connection: Optional[str]
+) -> None
+```
+
+対応データベース
+
+- PostgreSQL
+- MySQL
+- Snowflake
+
+### Parameters
+<ParamField body="data" type="pd.DataFrame" required>
+
+The actual data to be passed to the function. The columns specified in primary_keys must always be present.
+</ParamField>
+
+<ParamField body="primary_keys" type="List[str]" required>
+
+Specify the column names that will be the Primary Key of the table.
+</ParamField>
+
+<ParamField body="table_name" type="str" required>
+
+Specify the table name.
+</ParamField>
+
+<ParamField body="connection" type="str">
+The destination of the connection other than the builtin registered on the screen (optional)
+
+* If not specified, it will be set to built-in postgresql.
+</ParamField>
+
+### Example
+
+```python
+from morph_lib.database import insert_or_update_records
+
+@morph.func
+@morph.load_data("user_data")
+def func_name(context):
+	user_data: pd.DataFrame = context.data["user_data"]
+	insert_or_update_records(
+		user_data,
+		["user_id"]
+		"user",
+	)
+```

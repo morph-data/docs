@@ -1,0 +1,35 @@
+---
+title: '<Embed />'
+icon: "code"
+---
+
+<Frame>
+  <img src="/assets/images/pages/embed.jpg" />
+</Frame>
+
+The Embed component displays HTML when the result of executing a Python function is HTML.
+
+```tsx
+<Embed 
+  alias="visualize_py" 
+  variable={{
+    department
+  }}
+  height="300px"
+  width="400px"
+/>
+```
+
+## Properties
+
+<ParamField path="loadData" type="string" required>
+  Name of the Python function or SQL file.
+</ParamField>
+
+<ParamField path="vars" type="{ [key: string]: Variable }">
+  Variables to pass to the Python function or SQL file. Declare using the `variable()` function.
+</ParamField>
+
+<ParamField path="height" type="number">
+  Height of the component. Unit is px.
+</ParamField>

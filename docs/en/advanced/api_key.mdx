@@ -1,0 +1,25 @@
+---
+title: 'API Key'
+icon: "key"
+---
+
+By logging into the cloud and creating an API Key from the home screen, you can do the following:
+
+- Deploy data applications built locally
+- Access the built-in PostgreSQL via RestAPI
+
+## Using API Key with CLI
+
+By executing the following command in the CLI, the API Key will be saved in `~/.morph/credentials`.
+When accessing the cloud from the CLI, such as with `morph sync`, this setting will be used for access.
+
+```bash Shell
+morph config
+```
+<Tip>You can also configure it by directly editing the contents of `~/.morph/credentials`.</Tip>
+
+## About Source IP
+
+The Source IP that can be specified when creating an API Key restricts the IP addresses that can access the built-in PostgreSQL via RestAPI.
+
+<Warning>It does not function as an IP restriction when using CLI operations such as `morph sync`.</Warning>

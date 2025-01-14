@@ -1,0 +1,59 @@
+---
+title: 'React, JavaScriptの使用'
+---
+
+MDXファイル内では、ReactコンポーネントやJavaScriptを使用することができます。
+
+## Reactコンポーネントの使用
+
+MDXファイル内で宣言したReactコンポーネントを使用することができます。後述のように、MDXファイル内での変数宣言では、`export` を使用してください。
+
+```jsx
+
+## Reactコンポーネントの宣言と使用
+
+export const Card = (props) => {
+  return (
+    <div className="bg-blue-500 text-white p-4">
+      <h1>{props.title}</h1>
+      <p>{props.children}</p>
+    </div>
+  );
+}
+
+<Card title="Card Title">
+  Card Content
+</Card>
+```
+
+
+## JavasSript変数の使用
+
+MDXファイル内で、JavaScript変数を宣言して使用することができます。
+
+**変数の宣言**
+
+ページ全体で使用する変数は、MDXファイル内で、 `export` を使用して宣言します。
+
+```jsx
+export const openTime = new Date();
+```
+
+**変数の参照**
+
+宣言した変数は、`{}`で囲んで参照します。
+
+```jsx
+export const openTime = new Date();
+
+The time the page was opened is { openTime.toLocaleString() }
+```
+
+この結果は、以下のようになります。
+
+export const openTime = new Date();
+
+The time the page was opened is { openTime.toLocaleString() }
+
+
+<Warning>`{}`で囲まれた内容は、JSXのノードとして評価されるため、string, boolean, number, null, undefined, またはReactコンポーネントのいずれかである必要があります。</Warning>

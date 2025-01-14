@@ -1,0 +1,72 @@
+---
+title: 'getJson()'
+---
+
+The `getJson()` function is one of Morph's data retrieval functions; if the process specified by alias is SQL or a Python function that returns a DataFrame, you can retrieve the result in JSON format.
+
+```tsx index.mdx
+# Employee Data
+
+export const employeeData = getJson({
+  alias: 'employee_data_py'
+});
+
+## We have {value(employeeData).length} employees.
+```
+
+## Return Value of getJson()
+
+The return value of `getJson()` has the following structure
+
+
+```typescript response
+
+{
+  "data": {
+    "type": "json",
+    "data": ...
+  },
+  "error": Error | undefined,
+  "loading": boolean
+}
+
+```
+
+`data.data` contains the results of executing Python functions and SQL files.
+
+## Displaying the return value of getJson()
+
+The return value of `getJson()` is not a simple object, so you need to use the `value()` function to extract the value.
+
+```tsx index.mdx
+export const employeeData = getJson({
+  alias: 'employee_data_py'
+});
+
+{ JSON.stringify(value(employeeData).data) }
+```
+
+<Note>The content enclosed in `{}` is evaluated as a JSX node and must be either a string, boolean, number, null, undefined, or React component. Here, we use `JSON.stringify()` to stringify</Note>
+
+
+## Using variables with getJson()
+
+You can use variables with `getJson()` to pass parameters to SQL queries and Python functions.
+
+```tsx index.mdx
+export const depertment = variable();
+
+<VariableInput variable={depertment} />
+
+export const employeeData = getJson({
+  alias: 'employee_data_py',
+  variables: {
+    department: depertment
+  }
+});
+
+## We have {value(employeeData).length} employees in { value(department) } department
+```
+
+
+

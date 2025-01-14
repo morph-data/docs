@@ -1,0 +1,56 @@
+---
+title: 'insert_records'
+---
+
+Built-in PostgreSQLおよびSQL Connectionで接続しているデータベース上のテーブルにデータを挿入します。
+
+```python morph_lib.database
+# 📦 Package: morph_lib.database
+# 🛠️ Function: insert_records
+
+insert_records(
+	data: pd.DataFrame,
+	table_name: str,
+	connection: Optional[str]
+) -> None
+```
+
+対応データベース
+
+- PostgreSQL
+- MySQL
+- Snowflake
+- BigQuery
+- Amazon Redshift
+
+### Parameters
+
+
+<ParamField body="data" type="pd.DataFrame" required>
+関数に渡す実データ。primary_keysで指定するカラムは必ず存在している必要があります。
+</ParamField>
+
+<ParamField body="table_name" type="str" required>
+テーブル名を指定する。
+</ParamField>
+
+<ParamField body="connection" type="str" optional>
+画面で登録したbuiltin以外のconnectionの向き先 (optional)
+
+※ 指定をしない場合はbuilt-in postgresqlに設定されます。
+</ParamField>
+
+### Example
+
+```python
+from morph_lib.database import insert_records
+
+@morph.func
+@morph.load_data("user_data")
+def func_name(context):
+	user_data: pd.DataFrame = context.data["user_data"]
+	insert_records(
+		insert_data,
+		"user",
+	)
+```

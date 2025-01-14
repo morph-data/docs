@@ -1,0 +1,221 @@
+---
+title: '基本的な書き方'
+---
+
+本セクションでは、Morph でデータアプリケーションを構築する際に使用する MDX について説明します。MDX は、React コンポーネントを使用して Markdown ファイルを記述するためのフォーマットです。
+
+## Markdown記法について
+
+マークダウン (Markdown) は、シンプルな記法でテキストを装飾できる言語です。ブログ記事、ドキュメント、GitHubリポジトリのREADMEファイルなどでよく使われます。以下に代表的な記法を例とともに説明します。
+
+### 見出し
+
+見出しは、`#` から始まる行で記述します。`#` の数が多いほど、見出しのレベルが低くなります。
+
+<Tabs>
+  <Tab title="コード例">
+    ```markdown
+    # 見出し1
+    ## 見出し2
+    ### 見出し3
+    ```
+  </Tab>
+  <Tab title="出力">
+    # 見出し1
+    ## 見出し2
+    ### 見出し3
+  </Tab>
+</Tabs>
+
+### 強調
+
+強調は、`*` または `_` で囲むことで記述します。
+
+<Tabs>
+  <Tab title="コード例">
+    ```markdown
+    **太字** や *斜体*
+    ```
+  </Tab>
+  <Tab title="出力">
+    **太字** や *斜体*
+  </Tab>
+</Tabs>
+
+### リスト
+
+リストは、`-` または `1.` から始まる行で記述します。`-` は順不同リスト、`1.` は順序付きリストを表します。
+
+<Tabs>
+  <Tab title="コード例">
+    ```markdown
+    - 項目1
+    - 項目2
+    - 項目3
+    ```
+  </Tab>
+  <Tab title="出力">
+    - 項目1
+    - 項目2
+    - 項目3
+  </Tab>
+</Tabs>
+
+### リンク
+
+リンクは、`[リンクテキスト](URL)` で記述します。
+
+<Tabs>
+  <Tab title="コード例">
+    ```markdown
+    [Morph](https://morph.codes/)
+    ```
+  </Tab>
+  <Tab title="出力">
+    [Morph](https://morph.codes/)
+  </Tab>
+</Tabs>
+
+### 画像
+
+画像は、`![代替テキスト](画像URL)` で記述します。
+
+<Tabs>
+  <Tab title="コード例">
+    ```markdown
+    ![Morph](https://docs.morph-data.io/assets/images/pages/data-table.jpg)
+    ```
+  </Tab>
+  <Tab title="出力">
+    ![Morph](https://docs.morph-data.io/assets/images/pages/data-table.jpg)
+  </Tab>
+</Tabs>
+
+### コード
+
+コードは、\`\`\` で囲むことで記述します。
+
+<Tabs>
+  <Tab title="コード例">
+    ```markdown
+    \```
+    console.log('Hello, Morph!')
+    \```
+    ```
+  </Tab>
+  <Tab title="出力">
+    ```javascript
+    console.log('Hello, Morph!')
+    ```
+  </Tab>
+</Tabs>
+
+## Github Flavored Markdown
+
+Morph では、GitHub Flavored Markdown (GFM) に対応しています。GFM は、GitHub が提供する Markdown の拡張仕様で、通常の Markdown に加えて、テーブル、タスクリスト、コードブロックのシンタックスハイライトなどの機能が追加されています。
+
+### テーブル
+
+テーブルは、`|` で区切られた行で記述します。
+
+<Tabs>
+  <Tab title="コード例">
+    ```markdown
+    | ヘッダ1 | ヘッダ2 | ヘッダ3 |
+    | ------- | ------- | ------- |
+    | 内容1  | 内容2  | 内容3  |
+    ```
+  </Tab>
+  <Tab title="出力">
+    | ヘッダ1 | ヘッダ2 | ヘッダ3 |
+    | ------- | ------- | ------- |
+    | 内容1  | 内容2  | 内容3  |
+  </Tab>
+</Tabs>
+
+### タスクリスト
+
+タスクリストは、`- [ ]` または `- [x]` で記述します。
+
+<Tabs>
+  <Tab title="コード例">
+    ```markdown
+    - [ ] タスク1
+    - [x] タスク2
+    ```
+  </Tab>
+  <Tab title="出力">
+    - [ ] タスク1
+    - [x] タスク2
+  </Tab>
+</Tabs>
+
+### コードブロックのシンタックスハイライト
+
+コードブロックのシンタックスハイライトは、\`\`\`言語名 で記述します。
+
+<Tabs>
+  <Tab title="コード例">
+    ```markdown
+    \```javascript
+    console.log('Hello, Morph!')
+    \```
+    ```
+  </Tab>
+  <Tab title="出力">
+    ```javascript
+    console.log('Hello, Morph!')
+    ```
+  </Tab>
+</Tabs>
+
+## HTML
+
+マークダウンには、HTML を埋め込むこともできます。HTML を埋め込むことで、マークダウンの記法では表現できないより高度なレイアウトや機能を実現できます。
+
+ただし、スタイルやクラス名の指定は、JSXの記法に従って記述する必要があります。
+
+<Tabs>
+  <Tab title="コード例">
+    ```markdown
+    <div className="rounded-lg" style={{backgroundColor: '#f0f0f0', padding: '16px'}}>
+      <p>HTMLを埋め込むこともできます。</p>
+    </div>
+    ```
+  </Tab>
+  <Tab title="出力">
+    <div className="rounded-lg" style={{backgroundColor: '#f0f0f0', padding: '16px'}}>
+      <p>HTMLを埋め込むこともできます。</p>
+    </div>
+  </Tab>
+</Tabs>
+
+また、Markdownのブロック中であっても、HTMLタグを挿入することができます。
+
+<Tabs>
+  <Tab title="コード例">
+    ```markdown
+    ## HTMLを<span style={{ color: 'pink' }}>挿入</span>
+    ```
+  </Tab>
+  <Tab title="出力">
+    ## HTMLを<span style={{ color: 'pink' }}>挿入</span>
+  </Tab>
+</Tabs>
+
+その逆で、HTMLのブロック中であっても、Markdownを挿入することができます。
+
+<Tabs>
+  <Tab title="コード例">
+    ```html
+    <div>
+      ## 見出し2
+    </div>
+    ```
+  </Tab>
+  <Tab title="出力">
+    <div style={{backgroundColor: '#f0f0f0', padding: '4px 8px'}}>
+      ## 見出し2
+    </div>
+  </Tab>
+</Tabs>

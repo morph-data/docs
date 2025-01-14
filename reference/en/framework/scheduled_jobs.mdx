@@ -1,0 +1,44 @@
+---
+title: 'scheduled_jobs'
+---
+
+`scheduled_jobs` defines functions that are executed on a regular schedule. It specifies the functions at the end of the data pipeline and sets up the schedule for regular execution.
+
+```yml scheduled_jobs
+function_name_1:
+    schedules:
+    - cron: "cron(0 0 * * 1,3,5)"
+        is_enabled: true
+        timezone: "Asia/Tokyo"
+        variables:
+            priority: "high"
+            retry: 3
+    - cron: "cron(0 12 * * 2)"
+        is_enabled: false
+        timezone: "UTC"
+        variables:
+            notify: true
+            email: "alert@example.com"
+```
+
+## Parameters
+
+<ParamField body="cron" type="string">
+Specify the schedule in cron format.
+</ParamField>
+
+<ParamField body="is_enabled" type="boolean">
+Specify whether to enable the scheduled execution. Only enabled schedules will be executed when deployed to the cloud.
+</ParamField>
+
+<ParamField body="timezone" type="string">
+Specify the timezone for the scheduled execution in TZ format.
+
+Refer to [this link](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) for TZ format.
+</ParamField>
+
+<ParamField body="variables" type="object">
+Specify the variables to be passed during scheduled execution.
+
+The variables passed here can be accessed within the function as Jinja variables in SQL or as `context.vars["key"]` in Python.
+</ParamField>

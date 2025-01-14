@@ -1,0 +1,68 @@
+---
+title: 'クイックスタート'
+icon: "rocket"
+---
+
+<Tabs>
+  <Tab title="クラウド版">
+    <Steps>
+      <Step title="ワークスペースを作成する">
+        ワークスペースを作成して、Editorを開きます。
+      </Step>
+      <Step title="データ処理をPythonで実装する">
+        データの整形・データ分析の実行・チャートの作成などをPythonで実装します。必要に応じてSQLを使うこともできます。
+
+        ```python src/python/data.py
+        import pandas as pd
+
+        @morph.func
+        def main():
+          df = pd.read_csv('data.csv')
+          return df
+
+        ```
+      </Step>
+      <Step title="MDXファイルを編集する">
+        MDXファイルに、説明文やコンポーネントを追加して、アプリを完成させます。
+      </Step>
+      <Step title="Pageタブ または Viewerモードでアプリを使う">
+        Editor画面の "Page" タブ または Viewerモードでアプリを使うことができます。
+
+        ※ Viewerモードに反映するには、以下の画面からデプロイをする必要があります。
+        <Card title="Deploy" icon="link" href="/docs/ja/deploy/quickstart">
+          <></>
+        </Card>
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="ローカル版">
+    <Steps>
+      <Step title="pipコマンドでmorphをインストールする">
+        ```bash Shell
+        pip install morph-data
+        ```
+      </Step>
+      <Step title="Morphプロジェクトを作成する">
+        `morph new` コマンドを使って、Morphプロジェクトを作成します。
+        ```bash Shell
+        morph new morph-starter-app
+        ```
+      </Step>
+      <Step title="データ処理をPythonで実装する">
+        データの整形・データ分析の実行・チャートの作成などをPythonで実装します。必要に応じてSQLを使うこともできます。
+      </Step>
+      <Step title="MDXファイルを編集する">
+        MDXファイルに、説明文やコンポーネントを追加して、アプリを完成させます。
+      </Step>
+      <Step title="Morphの開発サーバーを起動する">
+        `morph serve` コマンドを使って、Morphの開発サーバーを起動します。
+        ```bash Shell
+        morph serve
+        ```
+      </Step>
+      <Step title="ブラウザでアプリを開く">
+        `localhost:9002` にアクセスして、アプリを開きます。
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>

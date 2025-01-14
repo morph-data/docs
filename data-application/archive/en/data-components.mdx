@@ -1,0 +1,144 @@
+---
+title: 'Data Components'
+---
+
+To use Morph data, a dedicated component is used to pass the name of the Python function or SQL file as a property.
+
+Below is an example of a table display of a DataFrame from a Python run.
+
+```tsx index.mdx
+
+export const name = 'index';
+export const title = 'Top page';
+
+# Top page
+
+export const date = variable();
+
+<VariableDatePicker type='single' variable={date}>
+
+import { DataTable } from '@use-morph/page';
+
+<div className="h-[600px] w-full">
+  <DataTable 
+    alias="aggregate_py" 
+    variable={{ date: date }} 
+    headerKeys={['date', 'new_deal_count', 'diff']}
+  />
+</div>
+
+```
+
+The components for data display are presented below.
+
+## Common Properties
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `alias` | string | The name of the Python function or SQL file |
+| `variables` | `{ [key: string]: Variable }` | Variables to pass to the Python function or SQL file. Declare using the `variable()` function. |
+
+
+## DataTable
+
+The DataTable component displays the results of a Python function or SQL file execution in a table.
+
+ Property | Type | Description |
+| --- | --- | --- |
+| `headerKeys` | string[] | Name of the columns to show. You can specify the order too. |
+
+```tsx
+import { DataTable } from '@use-morph/page';
+
+<DataTable alias="aggregate_py" />
+```
+
+## Embed (HTML, Plotly, etc.)
+
+The Embed component displays HTML when the result of a Python function execution is HTML.
+
+```tsx
+
+import { Embed } from '@use-morph/page';
+
+<Embed alias="plotly_py" />
+```
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `width` | string (optional) | Width of the element |
+| `height` | string (optional) | Height of the element |
+
+
+## Metrics
+The Metrics component displays the value of a specific column from the first row of the execution result of a Python function or SQL file.
+
+```tsx
+<Metrics alias="aggregate_py" valueKey="amount" />
+```
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `valueKey` | string | Column name of the value to display |
+| `label` | string (optional) | String displayed above the value |
+| `unit` | string (optional) | String displayed to the right of the value |
+
+## MetricsGrid
+
+The MetricsGrid component displays each row of a Python function or SQL file execution result in the Metrics component.
+
+The display is in grid format.
+
+```tsx
+<MetricsGrid alias="aggregate_py" cols="3" valueKey="amount" labelKey="name" />
+```
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `cols` | number | Number of grids in a row |
+| `valueKey` | string | Column name of the value to display |
+| `label` | string (optional) | String displayed above the value |
+| `labelKey` | string (optional) | Column name of label when you need to get label string from the data |
+| `unit` | string (optional) | String displayed to the right of the value |
+
+
+## Displaying data without components
+
+To display the results of a Python function or SQL file execution without using components, use the `getJson` and `value` functions.
+
+```tsx
+
+# My Page
+
+export const employeeData = getJson('employee_data_py');
+
+## We have {value(employeeData).length} employees.
+
+```
+
+The `getJson` function is used to retrieve the result of executing a Python function or SQL file in an MDX file. The return value is not just an object, so use the `value` function to retrieve the value.
+
+### How do I use this?
+
+For example, you may want to return a list of employees from a Python file, display it in a select box, and pass the ID of the selected employee as a variable to the DataTable.
+
+In that case, you would write the following
+
+```tsx
+
+# Employee Detail
+
+export const employees = getJson({
+  alias: 'employee_list_py'
+});
+export const selectedEmployee = variable();
+
+<VariableSelect variable={selectedEmployee}>
+  <VariableSelectItems items={employee} />
+</VaraibleSelect>
+
+## Work log
+
+<DataTable alias="work_log_py" variables={{ employee_id: selectedEmployee }} />
+
+```

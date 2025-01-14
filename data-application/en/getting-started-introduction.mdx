@@ -1,0 +1,73 @@
+---
+title: 'Project Basics'
+icon: "lightbulb"
+---
+
+## Project structure
+
+The project structure of Morph is as follows.
+
+<Frame>
+![Project Structure](/assets/images/pages/project-structure.png)
+</Frame>
+
+You can add a new page by creating an `.mdx` file in the `pages` directory.
+
+---
+
+## Basic syntax of page files
+
+Page files are written in the following format.
+
+```md index.mdx
+export const title = 'Top page'; // Page title. Used for display on the menu.
+
+# Salesforce Analysis Dashboard + AI Chat
+This is a dashboard that connects to Salesforce data. It includes data visualization created using Python and a custom chat using the Open AI API.
+
+<Grid cols='2'>
+  <DataTable loadData='sales-analysis' />
+  <LLM postData='ai-chat' />
+</Grid>
+
+## Notes
+If you have any questions while using the dashboard, please feel free to contact the data team.
+```
+
+### Title
+```md {1}
+export const title = 'Top page'; // Page title. Used for display on the menu.
+...
+```
+
+A string declared in the form `export const title = 'title';` is used as the page title. It is used for display on the menu.
+
+### Markdown
+
+```md {3-4}
+export const title = 'Top page'; // Page title. Used for display on the menu.
+
+# Salesforce Analysis Dashboard + AI Chat
+This is a dashboard that connects to Salesforce data. It includes data visualization created using Python and a custom chat using the Open AI API.
+...
+```
+
+Page files can be written in Markdown format. You can describe the information necessary for operating the data application and convey it to users in an easy-to-understand manner.
+
+### Components
+```md {2-5}
+...
+<Grid cols='2'>
+  <DataTable loadData='sales-analysis' />
+  <LLM postData='ai-chat' />
+</Grid>
+...
+```
+
+`<Grid>` and `<DataTable>` are components provided by the Morph framework. Using these components, you can easily add the functionality you need to your data app.
+
+---
+
+## MDX
+
+Use [MDX (https://mdxjs.com/)](https://mdxjs.com/) when building data applications in Morph; for more information on how to use MDX, see [MDX detail](/data-application/en/mdx-1-basic).

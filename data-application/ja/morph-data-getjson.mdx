@@ -1,0 +1,71 @@
+---
+title: 'getJson()'
+---
+
+`getJson()` 関数は、Morphのデータ取得関数の1つです。aliasで指定された処理が、SQLや、DataFrameを返すPythonの関数の場合、その結果をJSON形式で取得することができます。
+
+```tsx index.mdx
+# Employee Data
+
+export const employeeData = getJson({
+  alias: 'employee_data_py'
+});
+
+## We have {value(employeeData).length} employees.
+```
+
+## getJsonの返り値
+
+getJsonの返り値は、次のような構造を持っています。
+
+```typescript response
+
+{
+  "data": {
+    "type": "json",
+    "data": ...
+  },
+  "error": Error | undefined,
+  "loading": boolean
+}
+
+```
+
+`data.data` の中には、Python関数やSQLファイルの実行結果が入っています。
+
+## getJsonの結果を表示する
+
+`getJson()` の返り値は、`value()` 関数を使って取り出すことができます。
+
+```tsx index.mdx
+export const employeeData = getJson({
+  alias: 'employee_data_py'
+});
+
+{ JSON.stringify(value(employeeData).data) }
+```
+
+<Note>`{}`で囲まれた内容は、JSXのノードとして評価されるため、string, boolean, number, null, undefined, またはReactコンポーネントのいずれかである必要があります。ここでは、 `JSON.stringify()` を用いて文字列化しています</Note>
+
+
+## variableを使う
+
+`getJson()` は、データコンポーネントと同様にvariableを使うことができます。
+
+```tsx index.mdx
+export const depertment = variable();
+
+<VariableInput variable={depertment} />
+
+export const employeeData = getJson({
+  alias: 'employee_data_py',
+  variables: {
+    department: depertment
+  }
+});
+
+## We have {value(employeeData).length} employees in { value(department) } department
+```
+
+
+

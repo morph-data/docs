@@ -1,0 +1,72 @@
+---
+title: 'output_paths'
+---
+
+SQL, Pythonのソースコードを実行した結果は、その後の処理のインプットとして使用できるように保存されます。
+
+保存される結果の形式はそれぞれの処理結果の形式によって異なります。また、SQLのconfig関数やPythonの`@morph.func`の引数のoutput_pathsを指定することで出力先や形式を変更することができます。
+
+## 出力される形式
+
+### SQL
+
+標準では`.parquet`ファイルとして保存されます。`output_paths`でcsvを指定することも可能です。
+
+### Python
+
+`@morph.func`の引数のoutput_typeで指定した形式、もしくは指定しなかった場合は返り値から自動で推測をします。
+以下のように関数で返却される値の型によって、保存されるファイルの形式が変わります。
+
+#### DataFrame
+
+標準では`.parquet`ファイルとして保存されます。`output_paths`でcsvを指定することも可能です。
+
+### PlotlyやMatplotlibのチャート
+
+デフォルトでは、`.html`, `.png`の両方のファイルが保存されます。`output_paths`で保存する拡張子を限定することもできます。
+
+<Tip>
+`output_paths=["_private/sample.png"]`のように出力する拡張子を指定することで、指定した拡張子のファイルだけを出力するように変更ができます。
+</Tip>
+
+### JSON
+
+返り値がdictもしくはlistの場合は`.json`ファイルとして保存されます。
+
+### markdown
+
+返り値がstrで`output_type`が`markdown`の場合は、`.md`ファイルとして保存されます。
+
+### Text
+
+返り値がstrの場合で特に`output_type`が指定されていない場合は`.txt`ファイルとして保存されます。
+
+## `output_paths`の指定の仕方
+
+以下のように`output_paths`には、パスを指定して出力先のパスを指定することができます。
+
+```sql
+{{
+    config(
+        name="sample_sql",
+        description="Sameple SQL for output_paths",
+        output_paths=[
+            "/tmp/morph/{name}/{now()}{ext()}",
+            "_private/{name}/{now()}.csv"
+        ]
+    )
+}}
+
+select * from sample;
+```
+
+### Placeholders
+
+output_pathsでは、動的な出力先の指定を可能にするために、以下のplaceholderを使用することができます。
+
+|placeholder|説明|
+|---|---|
+|`name`|`config`, `@morph.func`で指定した`name`の値|
+|`now()`|日付を（%Y%m%d_%H%M%S）の形式で出力|
+|`unix()`|タイムスタンプ（ミリ秒単位）|
+|`ext()`|自動推定した拡張子|

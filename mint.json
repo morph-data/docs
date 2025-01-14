@@ -1,0 +1,505 @@
+{
+  "$schema": "https://mintlify.com/schema.json",
+  "name": "Docs",
+  "logo": {
+    "dark": "/assets/images/morph_logo_svg_w.svg",
+    "light": "/assets/images/morph_logo_svg.svg"
+  },
+  "codeBlock": {
+    "mode": "dark"
+  },
+  "favicon": "/favicon.svg",
+  "colors": {
+    "primary": "#111827",
+    "light": "#d1d5db",
+    "dark": "#111827",
+    "anchors": {
+      "from": "#0D9373",
+      "to": "#07C983"
+    }
+  },
+  "topbarLinks": [
+  ],
+  "versions": ["English", "日本語"],
+  "topbarCtaButton": {
+    "name": "Website",
+    "url": "https://www.morphdb.io"
+  },
+  "tabs": [
+    {
+      "name": "Guides",
+      "url": "docs"
+    },
+    {
+      "name": "Reference",
+      "url": "reference"
+    },
+    {
+      "name": "Data App (MDX)",
+      "url": "data-application"
+    },
+    {
+      "name": "Integrations",
+      "url": "integrations"
+    },
+    {
+      "name": "Sample Data Apps",
+      "url": "sample-data-app"
+    },
+    {
+      "name": "Troubleshooting",
+      "url": "troubleshooting"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "Blog",
+      "icon": "newspaper",
+      "url": "https://www.morphdb.io/blogs"
+    }
+  ],
+  "navigation": [
+    {
+      "group": "Getting Started",
+      "version": "English",
+      "pages": [
+        "docs/en/getting-started/why-morph",
+        "docs/en/getting-started/quickstart"
+      ]
+    },
+    {
+      "group": "Develop",
+      "version": "English",
+      "pages": [
+        {
+          "group": "Guides",
+          "icon": "book",
+          "pages": [
+            "docs/en/develop/guides/framework",
+            "docs/en/develop/guides/integration",
+            "docs/en/develop/guides/variables",
+            "docs/en/develop/guides/job-schedule"
+          ]
+        },
+        {
+          "group": "Tutorials",
+          "icon": "graduation-cap",
+          "pages": [
+            {
+              "group": "Data Analysis",
+              "pages": [
+                "docs/en/develop/tutorials/pygwalker",
+                "docs/en/develop/tutorials/plotly"
+              ]
+            },
+            {
+              "group": "Work with LLM",
+              "pages": [
+                "docs/en/develop/tutorials/chatbot",
+                "docs/en/develop/tutorials/chat_sidebyside"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Deploy",
+      "version": "English",
+      "pages": [
+        "docs/en/deploy/quickstart",
+        "docs/en/deploy/environment",
+        "docs/en/deploy/how-to-install-pip"
+      ]
+    },
+    {
+      "group": "Advanced",
+      "version": "English",
+      "pages": [
+        {
+          "group": "Morph AI",
+          "icon": "brain",
+          "pages": [
+            "docs/en/advanced/morph-ai/overview",
+            "docs/en/advanced/morph-ai/data-pipeline-builder",
+            "docs/en/advanced/morph-ai/code-generation",
+            "docs/en/advanced/morph-ai/code-assistant"
+          ]
+        },
+        "docs/en/advanced/api_key",
+        "docs/en/advanced/canvas",
+        {
+          "group": "Built-in PostgreSQL",
+          "icon": "database",
+          "pages": [
+            "docs/en/advanced/builtin-postgres/builtin-postgres",
+            "docs/en/advanced/builtin-postgres/restapi"
+          ]
+        },
+        "docs/en/advanced/credit"
+      ]
+    },
+    {
+      "group": "Framework",
+      "version": "English",
+      "pages": [
+        "reference/en/framework/morph-project",
+        "reference/en/framework/output-paths",
+        "reference/en/framework/scheduled_jobs"
+      ]
+    },
+    {
+      "group": "SQL",
+      "version": "English",
+      "pages": [
+        "reference/en/sql/config",
+        "reference/en/sql/load_data"
+      ]
+    },
+    {
+      "group": "Python",
+      "version": "English",
+      "pages": [
+        "reference/en/python/morph-global-context",
+        "reference/en/python/morph-func",
+        "reference/en/python/morph-load_data",
+        "reference/en/python/morph-variables"
+      ]
+    },
+    {
+      "group": "morph_lib",
+      "version": "English",
+      "pages": [
+        {
+          "group": "AI",
+          "pages": [
+            "reference/en/morph_lib/ai/text_to_sql",
+            "reference/en/morph_lib/ai/text_to_plotly",
+            "reference/en/morph_lib/ai/text_to_matplotlib",
+            "reference/en/morph_lib/ai/text_to_markdown",
+            "reference/en/morph_lib/ai/text_to_html"
+          ]
+        },
+        {
+          "group": "Database",
+          "pages": [
+            "reference/en/morph_lib/database/execute_sql",
+            "reference/en/morph_lib/database/insert_records",
+            "reference/en/morph_lib/database/update_records",
+            "reference/en/morph_lib/database/insert_or_update_records",
+            "reference/en/morph_lib/database/delete_records"
+          ]
+        },
+        {
+          "group": "API",
+          "pages": [
+            "reference/en/morph_lib/api/get_auth_token"
+          ]
+        },
+        {
+          "group": "Stream",
+          "pages": [
+            "reference/en/morph_lib/stream/create_chunk"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "CLI",
+      "version": "English",
+      "pages": [
+        "reference/en/cli-commands/version",
+        "reference/en/cli-commands/run",
+        "reference/en/cli-commands/create",
+        "reference/en/cli-commands/compile",
+        "reference/en/cli-commands/clean",
+        "reference/en/cli-commands/init",
+        "reference/en/cli-commands/new",
+        "reference/en/cli-commands/config",
+        "reference/en/cli-commands/sync",
+        "reference/en/cli-commands/serve",
+        "reference/en/cli-commands/print"
+      ]
+    },
+    {
+      "group": "Getting Started",
+      "version": "English",
+      "pages": [
+        "data-application/en/getting-started-introduction",
+        "data-application/en/getting-started-quickstart"
+      ]
+    },
+    {
+      "group": "Data Components",
+      "version": "English",
+      "pages": [
+        "data-application/en/data-component-table",
+        "data-application/en/data-component-embed",
+        "data-application/en/data-component-metrics"
+      ]
+    },
+    {
+      "group": "AI Components",
+      "version": "English",
+      "pages": [
+        "data-application/en/ai-component-llm"
+      ]
+    },
+    {
+      "group": "Advanced",
+      "version": "English",
+      "pages": [
+        "data-application/en/advanced-morph-data-basic",
+        "data-application/en/morph-data-getjson",
+        "data-application/en/morph-data-variables"
+      ]
+    },
+    {
+      "group": "MDX Deep Dive",
+      "version": "English",
+      "pages": [
+        "data-application/en/mdx/mdx-1-basic",
+        "data-application/en/mdx/mdx-2-styling",
+        "data-application/en/mdx/mdx-3-js"
+      ]
+    },
+    {
+      "group": "Support",
+      "version": "English",
+      "pages": [
+        "troubleshooting/en/support/contact-support"
+      ]
+    },
+    {
+      "group": "Workspace",
+
+      "version": "English",
+      "pages": [
+        "troubleshooting/en/workspace/mdx-api-error"
+      ]
+    },
+    {
+      "group": "Getting Started",
+      "version": "日本語",
+      "pages": [
+        "docs/ja/getting-started/why-morph",
+        "docs/ja/getting-started/quickstart"
+      ]
+    },
+    {
+      "group": "Develop",
+      "version": "日本語",
+      "pages": [
+        {
+          "group": "ガイド",
+          "icon": "book",
+          "pages": [
+            "docs/ja/develop/guides/framework",
+            "docs/ja/develop/guides/integration",
+            "docs/ja/develop/guides/variables",
+            "docs/ja/develop/guides/job-schedule"
+          ]
+        },
+        {
+          "group": "チュートリアル",
+          "icon": "graduation-cap",
+          "pages": [
+            {
+              "group": "データ分析",
+              "pages": [
+                "docs/ja/develop/tutorials/pygwalker",
+                "docs/ja/develop/tutorials/plotly"
+              ]
+            },
+            {
+              "group": "LLM連携",
+              "pages": [
+                "docs/ja/develop/tutorials/chatbot",
+                "docs/ja/develop/tutorials/chat_sidebyside"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Deploy",
+      "version": "日本語",
+      "pages": [
+        "docs/ja/deploy/quickstart",
+        "docs/ja/deploy/environment",
+        "docs/ja/deploy/how-to-install-pip"
+      ]
+    },
+    {
+      "group": "Advanced",
+      "version": "日本語",
+      "pages": [
+        {
+          "group": "Morph AI",
+          "icon": "brain",
+          "pages": [
+            "docs/ja/advanced/morph-ai/overview",
+            "docs/ja/advanced/morph-ai/data-pipeline-builder",
+            "docs/ja/advanced/morph-ai/code-generation",
+            "docs/ja/advanced/morph-ai/code-assistant"
+          ]
+        },
+        "docs/ja/advanced/api_key",
+        "docs/ja/advanced/canvas",
+        {
+          "group": "ビルトインPostgreSQL",
+          "icon": "database",
+          "pages": [
+            "docs/ja/advanced/builtin-postgres/builtin-postgres",
+            "docs/ja/advanced/builtin-postgres/restapi"
+          ]
+        },
+        "docs/ja/advanced/credit"
+      ]
+    },
+    {
+      "group": "フレームワーク",
+      "version": "日本語",
+      "pages": [
+        "reference/ja/framework/morph-project",
+        "reference/ja/framework/output-paths",
+        "reference/ja/framework/scheduled_jobs"
+      ]
+    },
+    {
+      "group": "SQL",
+      "version": "日本語",
+      "pages": [
+        "reference/ja/sql/config",
+        "reference/ja/sql/load_data"
+      ]
+    },
+    {
+      "group": "Python",
+      "version": "日本語",
+      "pages": [
+        "reference/ja/python/morph-global-context",
+        "reference/ja/python/morph-func",
+        "reference/ja/python/morph-load_data",
+        "reference/ja/python/morph-variables"
+      ]
+    },
+    {
+      "group": "morph_lib",
+      "version": "日本語",
+      "pages": [
+        {
+          "group": "AI",
+          "pages": [
+            "reference/ja/morph_lib/ai/text_to_sql",
+            "reference/ja/morph_lib/ai/text_to_plotly",
+            "reference/ja/morph_lib/ai/text_to_matplotlib",
+            "reference/ja/morph_lib/ai/text_to_markdown",
+            "reference/ja/morph_lib/ai/text_to_html"
+          ]
+        },
+        {
+          "group": "Database",
+          "pages": [
+            "reference/ja/morph_lib/database/execute_sql",
+            "reference/ja/morph_lib/database/insert_records",
+            "reference/ja/morph_lib/database/update_records",
+            "reference/ja/morph_lib/database/insert_or_update_records",
+            "reference/ja/morph_lib/database/delete_records"
+          ]
+        },
+        {
+          "group": "API",
+          "pages": [
+            "reference/ja/morph_lib/api/get_auth_token"
+          ]
+        },
+        {
+          "group": "Stream",
+          "pages": [
+            "reference/ja/morph_lib/stream/create_chunk"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "CLI",
+      "version": "日本語",
+      "pages": [
+        "reference/ja/cli-commands/version",
+        "reference/ja/cli-commands/run",
+        "reference/ja/cli-commands/create",
+        "reference/ja/cli-commands/compile",
+        "reference/ja/cli-commands/clean",
+        "reference/ja/cli-commands/init",
+        "reference/ja/cli-commands/new",
+        "reference/ja/cli-commands/config",
+        "reference/ja/cli-commands/sync",
+        "reference/ja/cli-commands/serve",
+        "reference/ja/cli-commands/print"
+      ]
+    },
+    {
+      "group": "Getting Started",
+      "version": "日本語",
+      "pages": [
+        "data-application/ja/getting-started-introduction",
+        "data-application/ja/getting-started-quickstart"
+      ]
+    },
+    {
+      "group": "データコンポーネント",
+      "version": "日本語",
+      "pages": [
+        "data-application/ja/data-component-table",
+        "data-application/ja/data-component-embed",
+        "data-application/ja/data-component-metrics"
+      ]
+    },
+    {
+      "group": "AIコンポーネント",
+      "version": "日本語",
+      "pages": [
+        "data-application/ja/ai-component-llm"
+      ]
+    },
+    {
+      "group": "応用",
+      "version": "日本語",
+      "pages": [
+        "data-application/ja/advanced-morph-data-basic",
+        "data-application/ja/morph-data-getjson",
+        "data-application/ja/morph-data-variables"
+      ]
+    },
+    {
+      "group": "MDX 詳解",
+      "version": "日本語",
+      "pages": [
+        "data-application/ja/mdx/mdx-1-basic",
+        "data-application/ja/mdx/mdx-2-styling",
+        "data-application/ja/mdx/mdx-3-js"
+      ]
+    },
+    {
+      "group": "サポート",
+      "version": "日本語",
+      "pages": [
+        "troubleshooting/ja/support/contact-support"
+      ]
+    },
+    {
+      "group": "ワークスペース",
+      "version": "日本語",
+      "pages": [
+        "troubleshooting/ja/workspace/mdx-api-error"
+      ]
+    }
+  ],
+  "footerSocials": {
+    "x": "https://x.com/morphdbHQ",
+    "github": "https://github.com/useMorph",
+    "linkedin": "https://www.linkedin.com/company/morphdbhq"
+  }
+}

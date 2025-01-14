@@ -1,0 +1,33 @@
+---
+title: 'pipパッケージ'
+icon: "gears"
+---
+
+Morphのフレームワークではpipに公開されているPythonパッケージを自由に活用することができます。
+
+## インストール方法 / デプロイ方法
+
+Morphでは、Editorモード/ViewerモードどちらもVMが自動で起動されることによってデータアプリを使用することができます。
+このVMは起動時にプロジェクト直下にある `requirements.txt` を読み込み、パッケージを自動的にインストールします。
+
+デプロイ時には、`requirements.txt`を必ず用意する必要があります。
+
+<Tabs>
+    <Tab title="クラウド版">
+        Editorモードの"Code"タブからターミナルを開き、pipコマンドを実行します。
+
+        ```bash Shell
+        pip install {パッケージ名}
+        ```
+
+        インストールが成功すると自動的にプロジェクト内にrequirements.txtが作成されるので、次回以降は起動時に自動的にインストールされます。
+    </Tab>
+    <Tab title="ローカル版">
+        使用しているPython環境にインストールされているpipパッケージをそのまま使用することができます。
+
+        デプロイする際には必ず `requirements.txt`に使用しているパッケージを出力することを忘れないようにしてください。
+        ```bash Shell
+        pip freeze > requirements.txt
+        ```
+    </Tab>
+</Tabs>
