@@ -119,28 +119,27 @@
       "pages": [
         "docs/en/advanced/api_key",
         "docs/en/advanced/builtin-postgres",
-        "docs/en/advanced/canvas",
         {
           "group": "Connectors",
-          "icon": "database",
+          "icon": "plug",
           "pages": [
-            "docs/en/advanced/connectors/athena",
-            "docs/en/advanced/connectors/bigquery",
-            "docs/en/advanced/connectors/mssql",
             "docs/en/advanced/connectors/mysql",
             "docs/en/advanced/connectors/postgresql",
-            "docs/en/advanced/connectors/redshift",
+            "docs/en/advanced/connectors/bigquery",
             "docs/en/advanced/connectors/snowflake",
+            "docs/en/advanced/connectors/redshift",
+            "docs/en/advanced/connectors/mssql",
+            "docs/en/advanced/connectors/athena",
+            "docs/en/advanced/connectors/salesforce",
+            "docs/en/advanced/connectors/hubspot",
+            "docs/en/advanced/connectors/stripe",
+            "docs/en/advanced/connectors/linear",
             "docs/en/advanced/connectors/airtable",
             "docs/en/advanced/connectors/attio",
-            "docs/en/advanced/connectors/freee",
-            "docs/en/advanced/connectors/hubspot",
             "docs/en/advanced/connectors/intercom",
-            "docs/en/advanced/connectors/linear",
             "docs/en/advanced/connectors/notion",
             "docs/en/advanced/connectors/mailchimp",
-            "docs/en/advanced/connectors/salesforce",
-            "docs/en/advanced/connectors/stripe"
+            "docs/en/advanced/connectors/freee"
           ]
         }
       ]
@@ -340,28 +339,27 @@
       "pages": [
         "docs/ja/advanced/api_key",
         "docs/ja/advanced/builtin-postgres",
-        "docs/ja/advanced/canvas",
         {
           "group": "Connectors",
-          "icon": "database",
+          "icon": "plug",
           "pages": [
-            "docs/ja/advanced/connectors/athena",
-            "docs/ja/advanced/connectors/bigquery",
-            "docs/ja/advanced/connectors/mssql",
             "docs/ja/advanced/connectors/mysql",
             "docs/ja/advanced/connectors/postgresql",
-            "docs/ja/advanced/connectors/redshift",
+            "docs/ja/advanced/connectors/bigquery",
             "docs/ja/advanced/connectors/snowflake",
+            "docs/ja/advanced/connectors/redshift",
+            "docs/ja/advanced/connectors/mssql",
+            "docs/ja/advanced/connectors/athena",
+            "docs/ja/advanced/connectors/salesforce",
+            "docs/ja/advanced/connectors/hubspot",
+            "docs/ja/advanced/connectors/stripe",
+            "docs/ja/advanced/connectors/linear",
             "docs/ja/advanced/connectors/airtable",
             "docs/ja/advanced/connectors/attio",
-            "docs/ja/advanced/connectors/freee",
-            "docs/ja/advanced/connectors/hubspot",
             "docs/ja/advanced/connectors/intercom",
-            "docs/ja/advanced/connectors/linear",
             "docs/ja/advanced/connectors/notion",
             "docs/ja/advanced/connectors/mailchimp",
-            "docs/ja/advanced/connectors/salesforce",
-            "docs/ja/advanced/connectors/stripe"
+            "docs/ja/advanced/connectors/freee"
           ]
         }
       ]
