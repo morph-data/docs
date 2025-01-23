@@ -116,27 +116,9 @@
       "group": "Advanced",
       "version": "English",
       "pages": [
-        {
-          "group": "Morph AI",
-          "icon": "brain",
-          "pages": [
-            "docs/en/advanced/morph-ai/overview",
-            "docs/en/advanced/morph-ai/data-pipeline-builder",
-            "docs/en/advanced/morph-ai/code-generation",
-            "docs/en/advanced/morph-ai/code-assistant"
-          ]
-        },
         "docs/en/advanced/api_key",
         "docs/en/advanced/canvas",
-        {
-          "group": "Built-in PostgreSQL",
-          "icon": "database",
-          "pages": [
-            "docs/en/advanced/builtin-postgres/builtin-postgres",
-            "docs/en/advanced/builtin-postgres/restapi"
-          ]
-        },
-        "docs/en/advanced/credit"
+        "docs/en/advanced/builtin-postgres"
       ]
     },
     {
@@ -335,27 +317,9 @@
       "group": "Advanced",
       "version": "日本語",
       "pages": [
-        {
-          "group": "Morph AI",
-          "icon": "brain",
-          "pages": [
-            "docs/ja/advanced/morph-ai/overview",
-            "docs/ja/advanced/morph-ai/data-pipeline-builder",
-            "docs/ja/advanced/morph-ai/code-generation",
-            "docs/ja/advanced/morph-ai/code-assistant"
-          ]
-        },
         "docs/ja/advanced/api_key",
         "docs/ja/advanced/canvas",
-        {
-          "group": "ビルトインPostgreSQL",
-          "icon": "database",
-          "pages": [
-            "docs/ja/advanced/builtin-postgres/builtin-postgres",
-            "docs/ja/advanced/builtin-postgres/restapi"
-          ]
-        },
-        "docs/ja/advanced/credit"
+        "docs/ja/advanced/builtin-postgres"
       ]
     },
     {
