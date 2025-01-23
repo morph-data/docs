@@ -5,38 +5,23 @@ icon: "rocket"
 
 Morphでは、構築したデータアプリを簡単にデプロイして、チームメンバーに共有することができます。
 
-<Tabs>
-  <Tab title="クラウド版">
-    <Steps>
-      <Step title="デプロイダッシュボードから実行する">
-        Editorモードの「Code」タブからデプロイ用の画面を開きデプロイします。
-        <img src="/assets/images/docs/deploy-dashboard.png" alt="Deploy" />
-      </Step>
-      <Step title="クラウド版のViewerにアクセスする">
-        Viewerにアクセスをすると、デプロイしたデータアプリを使う事ができます!
-      </Step>
-    </Steps>
-  </Tab>
-  <Tab title="ローカル版">
-    <Steps>
-      <Step title="クラウド版にログインしAPIキーを作成する">
-        Morphのホーム画面からAPIキーを作成します。
-      </Step>
-      <Step title="CLIでAPIを設定する">
-        `morph config` コマンドでAPIキーとワークスペースを設定します。
-        ```bash Shell
-        morph config
-        ```
-      </Step>
-      <Step title="クラウドにデプロイする">
-        `morph sync` コマンドでクラウドにデプロイします。
-        ```bash Shell
-        morph sync
-        ```
-      </Step>
-      <Step title="クラウド版のViewerにアクセスする">
-        クラウド版のViewerにアクセスをすると、デプロイしたデータアプリを使う事ができます!
-      </Step>
-    </Steps>
-  </Tab>
-</Tabs>
+<Steps>
+  <Step title="クラウド版にログインしAPIキーを作成する">
+    Morphのホーム画面からAPIキーを作成します。
+  </Step>
+  <Step title="CLIでAPIを設定する">
+    `morph config` コマンドでAPIキーとワークスペースを設定します。
+    ```bash Shell
+    morph config
+    ```
+  </Step>
+  <Step title="クラウドにデプロイする">
+    `morph sync` コマンドでクラウドにデプロイします。
+    ```bash Shell
+    morph sync
+    ```
+  </Step>
+  <Step title="クラウド版のViewerにアクセスする">
+    クラウド版のViewerにアクセスをすると、デプロイしたデータアプリを使う事ができます!
+  </Step>
+</Steps>

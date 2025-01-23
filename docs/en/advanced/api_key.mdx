@@ -3,23 +3,35 @@ title: 'API Key'
 icon: "key"
 ---
 
-By logging into the cloud and creating an API Key from the home screen, you can do the following:
+You can create an API Key from the dashboard by navigating to Settings > Personal Settings > API Key.
 
-- Deploy data applications built locally
-- Access the built-in PostgreSQL via RestAPI
+<CardGroup cols={2}>
+    <Card title="Use Connectors" icon="square-1" href="/docs/en/develop/guides/integration">
+        Use DB/SaaS connection using the connectors created in the dashboard
+    </Card>
+    <Card title="Deploy" icon="square-2" href="/docs/en/deploy/quickstart">
+        Deploy the app built using the Morph framework
+    </Card>
+</CardGroup>
 
-## Using API Key with CLI
+
+## Setting / Using the API Key
 
 By executing the following command in the CLI, the API Key will be saved in `~/.morph/credentials`.
-When accessing the cloud from the CLI, such as with `morph sync`, this setting will be used for access.
 
 ```bash Shell
 morph config
 ```
-<Tip>You can also configure it by directly editing the contents of `~/.morph/credentials`.</Tip>
 
-## About Source IP
+`~/.morph/credentials` will be registered with the authentication information for each profile.
+You can also change the settings by directly editing the contents of `~/.morph/credentials`.
 
-The Source IP that can be specified when creating an API Key restricts the IP addresses that can access the built-in PostgreSQL via RestAPI.
+```
+[default]
+api_key = [API_KEY]
 
-<Warning>It does not function as an IP restriction when using CLI operations such as `morph sync`.</Warning>
+[profile_name]
+api_key = [API_KEY]
+```
+
+<Tip>If you do not specify a profile, `default` will be used. You can switch the profile specified in the project by specifying the profile in `morph_project.yml`.</Tip>
