@@ -1,0 +1,216 @@
+---
+title: "BigQuery"
+icon: "database"
+---
+
+## Connecting to BigQuery
+
+For an overview of the connector, please refer to the following link.
+
+- [Connecting to DB/SaaS](/docs/en/develop/guides/integration)
+
+<Tabs>
+  <Tab title="Cloud Version">
+    <Steps>
+      <Step title="Create a Connector">
+        Select the "Connectors" tab on the top page and press the "Create" button.
+        <img src="/assets/images/docs/advanced/connectors/connect-data-platform-connection.png" alt="Connection" />
+      </Step>
+
+      <Step title="Enter BigQuery Credentials">
+        BigQuery offers two authentication methods.
+
+        ### Connecting with Service Account
+
+        Select BigQuery (Service Account) and enter the credentials in the displayed form.
+
+        <img src="/assets/images/docs/advanced/connectors/connect-data-platform-bigquery-sa-create.png" alt="BigQuery Service Account Connection Create" />
+
+        | Field Name        | Description                              | Required | Example                        |
+        |-------------------|------------------------------------------|----------|--------------------------------|
+        | `Credential`      | Service Account JSON                     | ✅        | `{"project_id": "", ...}`      |
+
+        For creating a service account, please refer to the official page.
+
+        - [Create a Service Account](https://cloud.google.com/iam/docs/service-accounts-create?hl=en)
+
+
+        ### Connecting with OAuth
+
+        Select BigQuery (OAuth) and press the displayed sign-in button to authenticate with Google.
+
+        <img src="/assets/images/docs/advanced/connectors/connect-data-platform-bigquery-oauth-create.png" alt="BigQuery OAuth Connection Create" />
+
+        The following fields are also required.
+
+        | Field Name        | Description                              | Required | Example                        |
+        |-------------------|------------------------------------------|----------|--------------------------------|
+        | `Project ID`      | Project ID                               | ✅        | `demo-project`                 |
+        | `Dataset`         | Dataset Name                             |          | `demo_dataset`                 |
+        | `Location`        | Location                                 |          | `asia-northeast1`              |
+
+        After entering the information, press the Create button to complete the creation. If there are any errors, please check the connection details again.
+
+      </Step>
+      <Step title="Connect to the Created Database">
+        Once created successfully, you can retrieve the connector name from the list. The string next to the icon is `connection_name`. You can use this to connect to the database in your code.
+
+        <img src="/assets/images/docs/advanced/connectors/connect-data-platform-bigquery-complete.png" alt="Snowflake Connection Create Complete" />
+
+        Enter the created connector name in SQL or Python code to retrieve data.
+        <CodeGroup>
+        ```sql SQL
+        {{
+            config(
+                connection="connection_name"
+            )
+        }}
+
+        select * from table_name
+        ```
+
+        ```python Python
+        import morph
+        from morph import MorphGlobalContext
+        from morph_lib.database import execute_sql
+
+
+        @morph.func
+        def main(context: MorphGlobalContext):
+            df = execute_sql(
+                sql="SELECT * from table_name"
+                connection="connection_name"
+            )
+            return df
+        ```
+        </CodeGroup>
+      </Step>
+    </Steps>
+
+  </Tab>
+  <Tab title="Local Version">
+    <Info>Currently, only the Service Account method can be created via command in the local version. For other methods, please use the cloud version or directly write to `~/.morph/connections.yml`.</Info>
+
+    <Steps>
+      <Step title="Run the morph init Command">
+        Run the `morph init` command to save the DB connection information to `~/.morph/connections.yml`.
+        ```bash Shell
+        morph init
+        ```
+
+        <Warning>
+        If you have not installed the morph package, please install it with the following command before proceeding.
+        ```bash shell
+        pip install morph-data
+        ```
+        </Warning>
+
+        A list of database types will be displayed in the interactive interface, select Snowflake (User/Password).
+        ```bash Shell
+        Select your database type:
+        1. PostgreSQL
+        2. MySQL
+        3. Redshift
+        4. SQLServer
+        5. Snowflake (User/Password)
+        6. BigQuery (Service Account)
+        Enter the number corresponding to your database type: 6
+
+        BigQuery (Service Account) selected.
+        ```
+
+        Next, enter the credentials. `slug` is treated as the connector name, which you specify in SQL or Python.
+
+        Replace the following input examples with actual values that can connect.
+        ```bash shell
+        Create a slug for your connection: bigquery-connection
+        Enter your BigQuery project ID: demo-project
+        Enter your BigQuery keyfile path: ~/path_to_pem_file  
+        Enter your BigQuery dataset name (Optional): demo_dataset
+        Enter your BigQuery location (Optional): asia-northeast1
+        ```
+
+        Once the credentials are saved, the following message will be displayed.
+        ```bash shell
+        Successfully initialized! 🎉
+        You can edit your connection details in `path_to_connections.yml`
+        ```
+
+        `connections.yml` is saved as follows. If other connectors are created, they will be added under `connections`.
+        ```bash shell
+        cat ~/.morph/connections.yml
+        ```
+
+        ```yaml
+        connections:
+          bigquery-connection:
+            dataset: demo_dataset
+            keyfile: ~/path_to_pem_file
+            location: asia-northeast1
+            method: bigquery_service_account
+            project: demo-project
+            type: bigquery
+        ```
+      </Step>
+      <Step title="Retrieve Data Using the Connector in Code">
+        Enter the created connector name in SQL or Python code to retrieve data.
+        <CodeGroup>
+        ```sql SQL
+        {{
+            config(
+                connection="connection_name"
+            )
+        }}
+
+        select * from table_name
+        ```
+
+        ```python Python
+        import morph
+        from morph import MorphGlobalContext
+        from morph_lib.database import execute_sql
+
+
+        @morph.func
+        def main(context: MorphGlobalContext):
+            df = execute_sql(
+                sql="SELECT * from table_name"
+                connection="connection_name"
+            )
+            return df
+        ```
+        </CodeGroup>
+      </Step>
+    </Steps>
+
+    <Warning>
+        When actually specifying the connector and executing the file, the priority is as follows.
+        Also, please note that only connectors created in the cloud version can be used in the environment where `morph deploy` is performed.
+        1. Connectors listed in `~/.morph/connections.yml` on the local machine
+        2. Connectors registered in the cloud
+    </Warning>
+
+    ### How to Write for OAuth
+
+    When using OAuth, directly edit `~/.morph/connections.yml`.
+
+    Refreshing the access token is a cloud version feature, so the one described will always be used in the local environment.
+
+    **OAuth Method**
+    ```yml
+    connections:
+      bigquery-oauth-connection
+        type: bigquery # Fixed
+        method: bigquery_oauth # Fixed
+        project: str
+        refresh_token: str
+        client_id: str
+        client_secret: str
+        redirect_uri: str
+        dataset: str # Optional
+        location: str # Optional
+        access_token: str # Optional
+    ```    
+
+  </Tab>  
+</Tabs>

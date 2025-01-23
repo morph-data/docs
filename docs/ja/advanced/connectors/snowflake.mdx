@@ -1,0 +1,266 @@
+---
+title: "Snowflake"
+icon: "database"
+---
+
+## Snowflake に接続する
+
+コネクターについての概要は以下のリンクを参照してください。
+
+- [DB/SaaSと接続する](/docs/ja/develop/guides/integration)
+
+<Tabs>
+  <Tab title="クラウド版">
+    <Steps>
+      <Step title="Connectorを作成する">
+        トップページの「Connectors」タブを選択し「Create」ボタンを押下します。
+        <img src="/assets/images/docs/advanced/connectors/connect-data-platform-connection.png" alt="Connection" />
+      </Step>
+
+      <Step title="Snowflakeの認証情報を入力する">
+        Snowflakeでは３つの認証方式が提供されています。
+
+        SnowflakeのServer URLについては公式ページを参照してください。
+
+        - [アカウントへの接続](https://docs.snowflake.com/ja/user-guide/organizations-connect)        
+
+        ### 秘密鍵方式で接続する
+
+        Snowflake (Key Pair)を選択し表示されたフォームに接続する認証情報を入力します。
+
+        <img src="/assets/images/docs/advanced/connectors/connect-data-platform-snowflake-kp-create.png" alt="Snowflake Key Pair Connection Create" />
+
+        | 項目名            | 説明                                      | 必須  | 例                            |
+        |-------------------|-------------------------------------------|-------|-------------------------------|
+        | `Server`           | Snowflake標準アカウントURL      | ✅    | `https://<アカウントロケーター>.<リージョン>.<クラウド>.snowflakecomputing.com`                |
+        | `Username`           | ユーザー名    | ✅    | `DEMO_USER`                       |
+        | `Private Key`       | 秘密鍵              | ✅    | `-----BEGIN PRIVATE KEY-----`                |
+        | `Passphrase`       | 秘密鍵のパスフレーズ    |    | `passphrase`                    |        
+
+        秘密鍵の作成については公式ページを参照してください。
+
+        - [キーペア認証とキーペアローテーション](https://docs.snowflake.com/ja/user-guide/key-pair-auth)
+
+
+        ### User/Passwordで接続する
+
+        Snowflake (user / password)を選択し表示されたフォームに接続する認証情報を入力します。
+
+        <Warning>２段階認証を有効にしている場合は都度承認が必要なためご注意ください。</Warning>
+
+        <img src="/assets/images/docs/advanced/connectors/connect-data-platform-snowflake-ip-create.png" alt="Snowflake ID Password Connection Create" />
+
+        | 項目名            | 説明                                      | 必須  | 例                            |
+        |-------------------|-------------------------------------------|-------|-------------------------------|
+        | `Server`           | Snowflake標準アカウントURL      | ✅    | `https://<アカウントロケーター>.<リージョン>.<クラウド>.snowflakecomputing.com`                |
+        | `Username`           | ユーザー名    | ✅    | `DEMO_USER`                       |
+        | `Password`       | パスワード              | ✅    | `password`                |
+
+        ### OAuthで接続する
+
+        Snowflake (OAuth)を選択し表示されたフォームに接続する認証情報を入力します。
+        
+        <img src="/assets/images/docs/advanced/connectors/connect-data-platform-snowflake-oauth-create.png" alt="Snowflake OAuth Connection Create" />
+
+        | 項目名            | 説明                                      | 必須  | 例                            |
+        |-------------------|-------------------------------------------|-------|-------------------------------|
+        | `Server`           | Snowflake標準アカウントURL      | ✅    | `https://<アカウントロケーター>.<リージョン>.<クラウド>.snowflakecomputing.com`                |
+        | `Client Id`           | クライアントID    | ✅    | `CLIENT_ID`                       |
+        | `Client Secret`       | クライアントシークレット              | ✅    | `CLIENT_SECRET`                |        
+
+        クライアントID、クライアントシークレットの作成については公式ページを参照してください。
+
+        - [カスタムクライアント用のSnowflake OAuth の構成](https://docs.snowflake.com/ja/user-guide/oauth-custom)
+
+
+        入力後Createボタンを押下すると作成が完了します。パラメータに不備がある場合はエラーが表示されるため接続内容が正しいか再度ご確認ください。
+
+      </Step>
+      <Step title="作成したデータベースに接続する">
+        作成が成功すると一覧表示からコネクター名を取得することができます。アイコン横の文字列が`connection_name`です。これを使用することでコード上でデータベースに接続可能です。
+
+        <img src="/assets/images/docs/advanced/connectors/connect-data-platform-snowflake-complete.png" alt="Snowflake Connection Create Complete" />
+
+        SQLまたはPythonのコードに作成したコネクター名を入力しデータを取得します。
+        <CodeGroup>
+        ```sql SQL
+        {{
+            config(
+                connection="connection_name"
+            )
+        }}
+
+        select * from table_name
+        ```
+
+        ```python Python
+        import morph
+        from morph import MorphGlobalContext
+        from morph_lib.database import execute_sql
+
+
+        @morph.func
+        def main(context: MorphGlobalContext):
+            df = execute_sql(
+                sql="SELECT * from table_name"
+                connection="connection_name"
+            )
+            return df
+        ```
+        </CodeGroup>
+      </Step>
+    </Steps>
+
+  </Tab>
+  <Tab title="ローカル版">
+    <Info>ローカル版では現在User/Password方式のみがコマンドで作成可能です。それ以外の方式はクラウド版をご利用いただくか、直接~/.morph/connections.ymlに記述する必要があります。</Info>
+
+    <Steps>
+      <Step title="morph initコマンドを実行する">
+        `morph init`コマンドを実行してDBの接続情報を`~/.morph/connections.yml`に保存します。
+        ```bash Shell
+        morph init
+        ```
+
+        <Warning>
+        morphパッケージのインストールを行なっていない場合は事前に下記のコマンドでインストールしてからお進みください。
+        ```bash shell
+        pip install morph-data
+        ```
+        </Warning>
+
+        対話式のインターフェースでデータベースの種類一覧が表示されるのでSnowflake (User/Password)を選択します。
+        ```bash Shell
+        Select your database type:
+        1. PostgreSQL
+        2. MySQL
+        3. Redshift
+        4. SQLServer
+        5. Snowflake (User/Password)
+        6. BigQuery (Service Account)
+        Enter the number corresponding to your database type: 5
+
+        Snowflake (User/Password) selected.
+        ```
+
+        続いて認証情報を入力します。`slug`はコネクター名として扱うもので、この名前をSQLもしくはPythonで指定します。
+
+        以下の入力例は実際に接続できる値に置き換えてください。
+        ```bash shell
+        Create a slug for your connection: snowflake-connection
+        Enter your Snowflake account: https://~
+        Enter your Snowflake database name: DEMO
+        Enter your Snowflake username: DEMO_USER
+        Enter your Snowflake password: password
+        Enter your Snowflake role name: DEMO_ROLE
+        Enter your Snowflake warehouse: DEMO_WAREHOUSE
+        Enter your Snowflake schema name (optional):
+        ```
+
+        認証情報の保存が完了すると以下のメッセージが表示されます。
+        ```bash shell
+        Successfully initialized! 🎉
+        You can edit your connection details in `path_to_connections.yml`
+        ```
+
+        `connections.yml`は以下のように保存されています。他のコネクターを作成した場合は`connections`以下に追加されます。
+        ```bash shell
+        cat ~/.morph/connections.yml
+        ```
+
+        ```yaml
+        connections:
+          snowflake-connection:
+            account: https://~
+            database: DEMO
+            method: snowflake_user_password
+            password: password
+            role: DEMO_ROLE
+            schema_: ''
+            type: snowflake
+            user: DEMO_USER
+            warehouse: DEMO_WAREHOUSE
+        ```
+      </Step>
+      <Step title="コード上でコネクターを使いデータを取得する">
+        SQLまたはPythonのコードに作成したコネクター名を入力しデータを取得します。
+        <CodeGroup>
+        ```sql SQL
+        {{
+            config(
+                connection="connection_name"
+            )
+        }}
+
+        select * from table_name
+        ```
+
+        ```python Python
+        import morph
+        from morph import MorphGlobalContext
+        from morph_lib.database import execute_sql
+
+
+        @morph.func
+        def main(context: MorphGlobalContext):
+            df = execute_sql(
+                sql="SELECT * from table_name"
+                connection="connection_name"
+            )
+            return df
+        ```
+        </CodeGroup>
+      </Step>
+    </Steps>
+
+    <Warning>
+        実際にコネクターを指定してファイルを実行した場合の優先順位は以下の通りです。
+        また`morph deploy`を行なった環境ではクラウド版で作成したコネクターのみが使用可能なため注意してください。
+        1. ローカルマシンの`~/.morph/connections.yml`に記載されたコネクター
+        2. クラウドで登録されたコネクター
+    </Warning>
+
+    ### 秘密鍵・OAuthの場合の記述方法
+
+    秘密鍵、もしくはOAuthを使用する際は`~/.morph/connections.yml`を直接編集します。
+
+    access_tokenのリフレッシュはクラウド版の機能のためローカル環境では記載したものが常時使用されます。
+
+    **秘密鍵方式**
+    ```yml
+    connections:
+      snowflake-key-pair-connection
+        type: snowflake # 固定
+        method: snowflake_key_pair # 固定
+        account: str
+        username: str
+        database: str
+        key_pair: str
+        role: str
+        warehouse: str
+        schema_: str # 任意
+        passphrase: str # 任意
+        access_token: str # 任意
+    ```
+
+    **OAuth方式**
+    ```yml
+    connections:
+      snowflake-oauth-connection
+        type: snowflake # 固定
+        method: snowflake_oauth # 固定
+        account: str
+        database: str
+        refresh_token: str
+        client_id: str
+        client_secret: str
+        redirect_uri: str
+        role: str
+        warehouse: str
+        code_verifier: str
+        schema_: str # 任意
+        access_token: str # 任意
+    ```    
+
+  </Tab>  
+</Tabs>
