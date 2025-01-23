@@ -77,8 +77,7 @@
           "pages": [
             "docs/en/develop/guides/framework",
             "docs/en/develop/guides/integration",
-            "docs/en/develop/guides/variables",
-            "docs/en/develop/guides/job-schedule"
+            "docs/en/develop/guides/variables"
           ]
         },
         {
@@ -117,8 +116,8 @@
       "version": "English",
       "pages": [
         "docs/en/advanced/api_key",
-        "docs/en/advanced/canvas",
-        "docs/en/advanced/builtin-postgres"
+        "docs/en/advanced/builtin-postgres",
+        "docs/en/advanced/canvas"
       ]
     },
     {
@@ -126,8 +125,7 @@
       "version": "English",
       "pages": [
         "reference/en/framework/morph-project",
-        "reference/en/framework/output-paths",
-        "reference/en/framework/scheduled_jobs"
+        "reference/en/framework/output-paths"
       ]
     },
     {
@@ -278,8 +276,7 @@
           "pages": [
             "docs/ja/develop/guides/framework",
             "docs/ja/develop/guides/integration",
-            "docs/ja/develop/guides/variables",
-            "docs/ja/develop/guides/job-schedule"
+            "docs/ja/develop/guides/variables"
           ]
         },
         {
@@ -318,8 +315,8 @@
       "version": "日本語",
       "pages": [
         "docs/ja/advanced/api_key",
-        "docs/ja/advanced/canvas",
-        "docs/ja/advanced/builtin-postgres"
+        "docs/ja/advanced/builtin-postgres",
+        "docs/ja/advanced/canvas"
       ]
     },
     {
@@ -327,8 +324,7 @@
       "version": "日本語",
       "pages": [
         "reference/ja/framework/morph-project",
-        "reference/ja/framework/output-paths",
-        "reference/ja/framework/scheduled_jobs"
+        "reference/ja/framework/output-paths"
       ]
     },
     {

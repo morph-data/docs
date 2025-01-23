@@ -11,12 +11,16 @@ Various settings can be configured in `morph_project.yml`, and the framework rec
 
 ```bash workdir
 .
-├── morph_project.yml
-└── src
-    ├── pages/
-    ├── python/
-    ├── sql/
-    └── utils/
+├── src
+│   ├── pages/
+│   ├── python/
+│   └── sql/
+├── .env
+├── package.json (manages npm packages used in mdx)
+├── requirements.txt (in case of using pip)
+├── poetry.toml (in case of using poetry)
+├── Dockerfile (for deployment)
+└── morph_project.yml
 ```
 
 ## Building Data Pipelines
