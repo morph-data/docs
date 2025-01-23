@@ -18,9 +18,11 @@
       "to": "#07C983"
     }
   },
-  "topbarLinks": [
+  "topbarLinks": [],
+  "versions": [
+    "English",
+    "日本語"
   ],
-  "versions": ["English", "日本語"],
   "topbarCtaButton": {
     "name": "Website",
     "url": "https://www.morphdb.io"
@@ -78,7 +80,14 @@
             "docs/en/develop/guides/framework",
             "docs/en/develop/guides/integration",
             "docs/en/develop/guides/variables",
-            "docs/en/develop/guides/job-schedule"
+            "docs/en/develop/guides/job-schedule",
+            {
+              "group": "Connect data platform",
+              "icon": "database",
+              "pages": [
+                "docs/en/develop/guides/connect-data-platform/postgresql"
+              ]
+            }
           ]
         },
         {
@@ -272,7 +281,6 @@
     },
     {
       "group": "Workspace",
-
       "version": "English",
       "pages": [
         "troubleshooting/en/workspace/mdx-api-error"
@@ -295,7 +303,30 @@
           "icon": "book",
           "pages": [
             "docs/ja/develop/guides/framework",
-            "docs/ja/develop/guides/integration",
+            {
+              "group": "DB/SaaSと接続する",
+              "icon": "database",
+              "pages": [
+                "docs/ja/develop/guides/connect-data-platform/about-connect-data-platform",
+                "docs/ja/develop/guides/connect-data-platform/athena",
+                "docs/ja/develop/guides/connect-data-platform/bigquery",
+                "docs/ja/develop/guides/connect-data-platform/mssql",
+                "docs/ja/develop/guides/connect-data-platform/mysql",
+                "docs/ja/develop/guides/connect-data-platform/postgresql",
+                "docs/ja/develop/guides/connect-data-platform/redshift",
+                "docs/ja/develop/guides/connect-data-platform/snowflake",
+                "docs/ja/develop/guides/connect-data-platform/airtable",
+                "docs/ja/develop/guides/connect-data-platform/attio",
+                "docs/ja/develop/guides/connect-data-platform/freee",
+                "docs/ja/develop/guides/connect-data-platform/hubspot",
+                "docs/ja/develop/guides/connect-data-platform/intercom",
+                "docs/ja/develop/guides/connect-data-platform/linear",
+                "docs/ja/develop/guides/connect-data-platform/notion",
+                "docs/ja/develop/guides/connect-data-platform/mailchimp",
+                "docs/ja/develop/guides/connect-data-platform/salesforce",
+                "docs/ja/develop/guides/connect-data-platform/stripe"
+              ]
+            },
             "docs/ja/develop/guides/variables",
             "docs/ja/develop/guides/job-schedule"
           ]

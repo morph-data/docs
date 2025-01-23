@@ -1,0 +1,134 @@
+---
+title: "コネクター概要"
+icon: "database"
+---
+
+## コネクターとは
+
+MorphではPython、SQLファイル上で任意のデータソースを使用してデータを取得する機能を提供しています。
+この任意のデータソースの接続情報をまとめたものをコネクターと呼びます。
+コネクターを使用することで一度の認証情報の登録後は任意につけた名前でその接続情報を呼び出しデータにアクセスすることができます。
+
+### コネクターの制限
+
+コネクターはクラウドのMorphアプリ上、ローカル開発環境の２つで登録することができますが登録方法と実行環境によって挙動が異なります。
+
+**ローカル環境**
+
+以下の優先順位に基づいて接続先が決定されます。
+
+1. ローカルマシンのCLIで`morph init`を実行して`~/.morph/connections.yml`に作成されたコネクター
+2. クラウドで登録されたコネクター
+
+**デプロイ環境**
+
+デプロイ環境ではローカルで登録したコネクターは使用することができないためクラウドでコネクターを登録してください。
+
+コネクター種類別の登録、接続方法については以下を参考にしてください。
+
+- [PostgreSQL](/docs/ja/develop/guides/connect-data-platform/postgresql)
+
+また作成したコネクターをプロジェクトごとに使用可能、不可能を切り替えることができます。使用する場合はプロジェクト画面からオンにする必要があります。
+
+<img src="/assets/images/docs/develop/guides/connect-data-platform/connect-data-platform-connection-enable.png" alt="Connection Toggle" />
+
+## コネクターの種類
+
+コネクターではDBとSaaSの２種類の接続を提供しています。
+
+* DB: 接続情報を登録することでCLIで作成したアプリからコネクションを確立しデータを取得できます。
+* SaaS: SaaSの種類に合わせて認証方式(ID+Password, OAuth, 秘密鍵)が異なり登録後はMorphの関数を使用してaccess_tokenを取得することができます。
+
+<Warning>
+SaaS接続でのrefresh_tokenなどを用いて常に最新のaccess_tokenを取得する機能はローカル環境では提供していません。
+ローカル環境ではユーザー自身が入力したaccess_tokenが常時使用される点に注意してください。
+</Warning>
+
+### DBと接続する
+
+接続情報を登録することでPython、SQLファイルからデータベースのデータにアクセスできます。
+
+<Tabs>
+  <Tab title="クラウド版">
+    <Steps>
+      <Step title="コネクターを作成する">
+        トップページの「Connectors」タブから任意のデータベースを選びコネクターを作成します。
+      </Step>
+      <Step title="コネクター名を取得する">
+      作成が成功すると一覧表示からコネクター名を取得することができます。アイコン右横の文字列がコネクター名です。
+      <img src="/assets/images/docs/develop/guides/connect-data-platform/connect-data-platform-postgresql-complete.png" alt="PostgreSQL Connection Create Complete" />
+      </Step>
+      <Step title="ファイルを作成してデータを取得する">
+        <CodeGroup>
+        ```sql SQL
+        {{
+            config(
+                connection="connection_name"
+            )
+        }}
+
+        select * from table_name
+        ```
+
+        ```python Python
+        import morph
+        from morph import MorphGlobalContext
+        from morph_lib.database import execute_sql
+
+
+        @morph.func
+        def main(context: MorphGlobalContext):
+            df = execute_sql(
+                sql="SELECT * from table_name"
+                connection="connection_name"
+            )
+            return df
+        ```
+        </CodeGroup>
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="ローカル版">
+    <Steps>
+      <Step title="pipコマンドでmorphをインストールする">
+        `morph init`コマンドを実行してDBの接続情報を`~/.morph/connections.yml`に保存します。
+        ここで設定したコネクター名をSQLファイルで使用します。
+        ```bash Shell
+        morph init
+        ```
+      </Step>
+      <Step title="SQLファイルを作成してデータを取得する">
+        SQLファイルを作成して、データを取得します。
+        ```sql
+        {{
+          config(
+            connection="connection_name"
+          )
+        }}
+
+        select * from table_name;
+        ```
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>
+
+### SaaSと接続する
+
+Morphでは、一部のSaaSとの連携を用意しています。 連携を使うことにより、認証周りの実装を全てMorphに任せてビジネスロジックの実装に集中をすることができます。
+
+以下のようにして、Pythonファイルで関数を使用して作成したコネクターからaccess_tokenを取得します。
+
+```python
+import pandas as pd
+
+import morph
+from morph import MorphGlobalContext
+from morph_lib.api import get_auth_token
+
+@morph.func
+def main(context: MorphGlobalContext) -> pd.DataFrame:
+    access_token = get_auth_token("connection_name")
+
+    # ↓↓↓ call API with access_token ↓↓↓
+```
