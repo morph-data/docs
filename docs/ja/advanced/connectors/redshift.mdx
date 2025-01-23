@@ -1,0 +1,192 @@
+---
+title: "Redshift"
+icon: "database"
+---
+
+## Redshift に接続する
+
+コネクターについての概要は以下のリンクを参照してください。
+
+- [DB/SaaSと接続する](/docs/ja/develop/guides/integration)
+
+<Tabs>
+  <Tab title="クラウド版">
+    <Steps>
+      <Step title="Connectorを作成する">
+        トップページの「Connectors」タブを選択し「Create」ボタンを押下します。
+        <img src="/assets/images/docs/advanced/connectors/connect-data-platform-connection.png" alt="Connection" />
+      </Step>
+
+      <Step title="Redshiftの認証情報を入力する">
+        表示されたフォームに接続するデータベースの認証情報を入力します。
+        リモートサーバー経由で接続する場合は「SSH」の欄にチェックを入れ任意の項目も入力します。
+
+        入力後Createボタンを押下すると作成が完了します。パラメータに不備がある場合はエラーが表示されるため接続内容が正しいか再度ご確認ください。
+        <img src="/assets/images/docs/advanced/connectors/connect-data-platform-redshift-create.png" alt="Redshift Connection Create" />
+
+        | 項目名            | 説明                                      | 必須  | 例                            |
+        |-------------------|-------------------------------------------|-------|-------------------------------|
+        | `Host`           | データベースのホスト名を入力します。      | ✅    | `example.com`                |
+        | `Port`           | データベースの接続ポートを入力します。    | ✅    | `5439`                       |
+        | `Database`       | データベース名を入力します。              | ✅    | `my_database`                |
+        | `Username`       | データベースのユーザー名を入力します。    | ✅    | `db_user`                    |
+        | `Password`       | データベースのユーザーのパスワードを入力します。 | ✅    | `mypassword`                 |
+        | `SSH`            | SSH接続を使用する場合に指定します。        |       |                               |
+        | `SSH Host`       | リモートサーバーのホスト名を入力します。  |     | `ssh.example.com`            |
+        | `SSH Port`       | リモートサーバーの接続ポートを入力します。|     | `22`                         |
+        | `SSH Username`   | リモートサーバーのユーザー名を入力します。|     | `ssh_user`                   |
+        | `SSH Password`   | リモートサーバーのユーザーのパスワードを入力します。 |     | `sshpassword`                |
+        | `SSH Private Key`| リモートサーバーの秘密鍵を入力します。    |     | `-----BEGIN RSA PRIVATE KEY-----` |
+        | `SSH Passphrase` | リモートサーバーの秘密鍵のパスフレーズを入力します。 |     | `my_passphrase`              |
+
+
+        <Warning>接続先のデータベースの IP ホワイトリストに必ず`54.150.149.0/32`からのアクセスを許可するように設定してください。</Warning>
+
+      </Step>
+      <Step title="作成したデータベースに接続する">
+        作成が成功すると一覧表示からコネクター名を取得することができます。アイコン横の文字列が`connection_name`です。これを使用することでコード上でデータベースに接続可能です。
+
+        <img src="/assets/images/docs/advanced/connectors/connect-data-platform-redshift-complete.png" alt="Redshift Connection Create Complete" />
+
+        SQLまたはPythonのコードに作成したコネクター名を入力しデータを取得します。
+        <CodeGroup>
+        ```sql SQL
+        {{
+            config(
+                connection="connection_name"
+            )
+        }}
+
+        select * from table_name
+        ```
+
+        ```python Python
+        import morph
+        from morph import MorphGlobalContext
+        from morph_lib.database import execute_sql
+
+
+        @morph.func
+        def main(context: MorphGlobalContext):
+            df = execute_sql(
+                sql="SELECT * from table_name"
+                connection="connection_name"
+            )
+            return df
+        ```
+        </CodeGroup>
+      </Step>
+    </Steps>
+
+  </Tab>
+  <Tab title="ローカル版">
+    <Steps>
+      <Step title="morph initコマンドを実行する">
+        `morph init`コマンドを実行してDBの接続情報を`~/.morph/connections.yml`に保存します。
+        ```bash Shell
+        morph init
+        ```
+
+        <Warning>
+        morphパッケージのインストールを行なっていない場合は事前に下記のコマンドでインストールしてからお進みください。
+        ```bash shell
+        pip install morph-data
+        ```
+        </Warning>
+
+        対話式のインターフェースでデータベースの種類一覧が表示されるのでRedshiftを選択します。
+        ```bash Shell
+        Select your database type:
+        1. PostgreSQL
+        2. MySQL
+        3. Redshift
+        4. SQLServer
+        5. Snowflake (User/Password)
+        6. BigQuery (Service Account)
+        Enter the number corresponding to your database type: 3
+
+        Redshift selected.
+        ```
+
+        続いてデータベースの認証情報を入力します。`slug`はコネクター名として扱うもので、この名前をSQLもしくはPythonで指定します。
+
+        以下の入力例は実際に接続できる値に置き換えてください。
+        ```bash shell
+        Create a slug for your connection: redshift-connection
+        Enter your Redshift host (default: localhost): localhost
+        Enter your Redshift username: your_user_name
+        Enter your Redshift password: your_password
+        Enter your Redshift port (default: 5439): 5439
+        Enter your Redshift database name: your_database_name
+        Enter your Redshift schema name (default: public): public
+        Select if you are using SSH tunneling (y/n): n
+        ```
+
+        認証情報の保存が完了すると以下のメッセージが表示されます。
+        ```bash shell
+        Successfully initialized! 🎉
+        You can edit your connection details in `path_to_connections.yml`
+        ```
+
+        `connections.yml`は以下のように保存されています。他のコネクターを作成した場合は`connections`以下に追加されます。
+        ```bash shell
+        cat ~/.morph/connections.yml
+        ```
+
+        ```yaml
+        connections:
+          redshift-connection: # コネクター名
+            dbname: your_database_name
+            host: localhost
+            password: your_password
+            port: 5439
+            schema_: public
+            ssh_host: null
+            ssh_password: null
+            ssh_port: null
+            ssh_private_key: null
+            ssh_user: null
+            type: redshift # 固定
+            user: your_user_name
+        ```
+      </Step>
+      <Step title="コード上でコネクターを使いデータを取得する">
+        SQLまたはPythonのコードに作成したコネクター名を入力しデータを取得します。
+        <CodeGroup>
+        ```sql SQL
+        {{
+            config(
+                connection="connection_name"
+            )
+        }}
+
+        select * from table_name
+        ```
+
+        ```python Python
+        import morph
+        from morph import MorphGlobalContext
+        from morph_lib.database import execute_sql
+
+
+        @morph.func
+        def main(context: MorphGlobalContext):
+            df = execute_sql(
+                sql="SELECT * from table_name"
+                connection="connection_name"
+            )
+            return df
+        ```
+        </CodeGroup>
+      </Step>
+    </Steps>
+
+    <Warning>
+        実際にコネクターを指定してファイルを実行した場合の優先順位は以下の通りです。
+        また`morph deploy`を行なった環境ではクラウド版で作成したコネクターのみが使用可能なため注意してください。
+        1. ローカルマシンの`~/.morph/connections.yml`に記載されたコネクター
+        2. クラウドで登録されたコネクター
+    </Warning>
+
+  </Tab>  
+</Tabs>
