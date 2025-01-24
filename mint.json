@@ -272,6 +272,13 @@
       ]
     },
     {
+      "group": "Morph CLI",
+      "version": "English",
+      "pages": [
+        "troubleshooting/en/support/deployment-issues"
+      ]
+    },
+    {
       "group": "Support",
       "version": "English",
       "pages": [
@@ -486,6 +493,13 @@
         "data-application/ja/mdx/mdx-1-basic",
         "data-application/ja/mdx/mdx-2-styling",
         "data-application/ja/mdx/mdx-3-js"
+      ]
+    },
+    {
+      "group": "Morph CLI",
+      "version": "日本語",
+      "pages": [
+        "troubleshooting/ja/support/deployment-issues"
       ]
     },
     {
