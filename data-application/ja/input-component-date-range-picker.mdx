@@ -1,0 +1,28 @@
+---
+title: '<DateRangePicker />'
+---
+
+<Frame>
+  <iframe
+    height={90}
+    width='100%'
+    src="https://morph-data-components-storybook.netlify.app/iframe.html?args=&globals=&id=input-components-date-picker--date-range-picker-story"
+  />
+</Frame>
+
+`<DateRangePicker>` は、`defineState()` 関数で宣言した状態に、期間を入力するためのコンポーネントです。
+
+```tsx
+import { defineState } from '@morph-data/components';
+
+export const { dateStart, dateEnd } = defineState({ dateStart: undefined, dateEnd: undefined });
+
+<DateRangePicker state={[dateStart, dateEnd]} />
+```
+
+## プロパティ
+
+<ParamField path="state" type="[State, State]" required>
+  コンポーネントの入力値をバインドするStateオブジェクト。 `defineState()` 関数で宣言した状態を指定してください。長さ2の配列で、開始日と終了日を指定してください。
+</ParamField>
+

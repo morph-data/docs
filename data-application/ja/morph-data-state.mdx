@@ -1,0 +1,115 @@
+---
+title: '状態管理 - defineState()'
+---
+
+フロントエンドを開発しているとm、ユーザーが入力した文字列や、選択した値を状態として保存し、サーバーに変数として送信したい時があります。そのような場合には以下のガイドに従って実装してください。
+
+## 状態の宣言: `defineState()`
+
+状態の宣言には `defineState()` を使用してください。defineStateは、オブジェクトを引数に取り、初期値として設定します。
+
+```tsx
+import { defineState } from '@morph-data/components';
+
+export const topPageState = defineState({
+  dateRangeStart: new Date(),
+  dateRangeEnd: new Date(),
+  industry: 'All',
+});
+
+# My Data App page
+...
+```
+
+
+## 状態の値にアクセスする: `.value`
+
+宣言した状態の値には、以下のように `.value` プロパティを呼び出すことでアクセスできます。
+
+```tsx
+topPageState.dateRangeStart.value // 2025-01-01T00:00:00.000Z
+```
+
+<Note>
+  Tips
+  この例のように、 `topPageState.` とdefineStateで宣言した変数名を毎回指定するのが面倒な場合は、変数を分割代入することで短縮することができます。
+  ```tsx
+  const { dateRangeStart, dateRangeEnd, industry } = defineState({
+    dateRangeStart: new Date(),
+    dateRangeEnd: new Date(),
+    industry: 'All',
+  });
+  ```
+</Note>
+
+
+## 状態の更新: `.update()`
+
+状態を更新するには、 `update()` メソッドを使用してください。
+
+```tsx
+topPageState.dateRangeStart.update(new Date('2025-01-01'));
+```
+
+## 入力コンポーネントの利用
+
+Morphフレームワークでは、 `defineState()` で宣言した状態に対して、ユーザー入力を反映させるためのコンポーネントが用意されています。詳しくは、[入力コンポーネント](/data-application/ja/input-components)を参照してください。
+
+入力コンポーネントを使用すると、簡単にユーザー入力を状態に反映させることができます。
+
+```tsx
+import { defineState } from '@morph-data/components';
+
+export const topPageState = defineState({
+  dateRangeStart: new Date(),
+  dateRangeEnd: new Date(),
+});
+
+# My Data App page
+
+Showing stock prices from {topPageState.dateRangeStart.value} to {topPageState.dateRangeEnd.value};
+
+<DateRangePicker
+  state={[
+    topPageState.dateRangeStart,
+    topPageState.dateRangeEnd
+  ]}
+/>
+
+```
+
+## データコンポーネントに値を渡す
+
+データコンポーネントは `variables` というプロパティを受け取ることができるようになっています。このプロパティに `defineState()` で宣言した状態の値を渡すことで、ユーザーが入力した値をPython関数やSQLファイルに渡すことができます。
+
+ここまで見てきた機能を全て組み合わせることで、以下のようなデータアプリを完成させることができます。
+
+
+```tsx
+import { defineState } from '@morph-data/components';
+
+export const topPageState = defineState({
+  dateRangeStart: new Date(),
+  dateRangeEnd: new Date(),
+});
+
+# My Data App page
+
+Showing stock prices from {topPageState.dateRangeStart.value} to {topPageState.dateRangeEnd.value};
+
+<DateRangePicker
+  state={[
+    topPageState.dateRangeStart,
+    topPageState.dateRangeEnd
+  ]}
+/>
+
+<DataTable
+  alias="stocks"
+  variables={{
+    start_date: topPageState.dateRangeStart,
+    end_date: topPageState.dateRangeEnd
+  }}
+/>
+
+```

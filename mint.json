@@ -37,7 +37,7 @@
       "url": "reference"
     },
     {
-      "name": "Data App (MDX)",
+      "name": "Components",
       "url": "data-application"
     },
     {
@@ -225,20 +225,19 @@
       ]
     },
     {
-      "group": "Getting Started",
-      "version": "English",
-      "pages": [
-        "data-application/en/getting-started-introduction",
-        "data-application/en/getting-started-quickstart"
-      ]
-    },
-    {
       "group": "Data Components",
       "version": "English",
       "pages": [
         "data-application/en/data-component-table",
         "data-application/en/data-component-embed",
         "data-application/en/data-component-metrics"
+      ]
+    },
+    {
+      "group": "Input Components",
+      "version": "English",
+      "pages": [
+        "data-application/en/ai-component-llm"
       ]
     },
     {
@@ -249,12 +248,11 @@
       ]
     },
     {
-      "group": "Advanced",
+      "group": "State & Data",
       "version": "English",
       "pages": [
-        "data-application/en/advanced-morph-data-basic",
-        "data-application/en/morph-data-getjson",
-        "data-application/en/morph-data-variables"
+        "data-application/en/morph-data-state",
+        "data-application/en/advanced-morph-data-basic"
       ]
     },
     {
@@ -264,6 +262,14 @@
         "data-application/en/mdx/mdx-1-basic",
         "data-application/en/mdx/mdx-2-styling",
         "data-application/en/mdx/mdx-3-js"
+      ]
+    },
+    {
+      "group": "Deprecated",
+      "version": "English",
+      "pages": [
+        "data-application/en/morph-data-getjson",
+        "data-application/en/morph-data-variables"
       ]
     },
     {
@@ -444,20 +450,22 @@
       ]
     },
     {
-      "group": "Getting Started",
-      "version": "日本語",
-      "pages": [
-        "data-application/ja/getting-started-introduction",
-        "data-application/ja/getting-started-quickstart"
-      ]
-    },
-    {
       "group": "データコンポーネント",
       "version": "日本語",
       "pages": [
         "data-application/ja/data-component-table",
         "data-application/ja/data-component-embed",
         "data-application/ja/data-component-metrics"
+      ]
+    },
+    {
+      "group": "入力コンポーネント",
+      "version": "日本語",
+      "pages": [
+        "data-application/ja/input-component-input",
+        "data-application/ja/input-component-date-picker",
+        "data-application/ja/input-component-date-range-picker",
+        "data-application/ja/input-component-select"
       ]
     },
     {
@@ -468,12 +476,11 @@
       ]
     },
     {
-      "group": "応用",
+      "group": "状態管理とデータ",
       "version": "日本語",
       "pages": [
-        "data-application/ja/advanced-morph-data-basic",
-        "data-application/ja/morph-data-getjson",
-        "data-application/ja/morph-data-variables"
+        "data-application/ja/morph-data-state",
+        "data-application/ja/advanced-morph-data-basic"
       ]
     },
     {
@@ -483,6 +490,14 @@
         "data-application/ja/mdx/mdx-1-basic",
         "data-application/ja/mdx/mdx-2-styling",
         "data-application/ja/mdx/mdx-3-js"
+      ]
+    },
+    {
+      "group": "廃止された仕様",
+      "version": "日本語",
+      "pages": [
+        "data-application/ja/morph-data-getjson",
+        "data-application/ja/morph-data-variables"
       ]
     },
     {

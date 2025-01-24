@@ -1,0 +1,88 @@
+---
+title: '<Select />'
+---
+
+<Frame>
+  <iframe
+    height={160}
+    width='100%'
+    src="https://morph-data-components-storybook.netlify.app/iframe.html?args=&globals=&id=input-components-select--select-story"
+  />
+</Frame>
+
+`<Select>` は、`defineState()` 関数で宣言した状態に、選択形式で値を入力するためのコンポーネントです。
+
+```tsx
+import { defineState } from '@morph-data/components';
+
+export const { category } = defineState({ category: 'book' });
+
+<Select state={category}>
+  <SelectItem value="book">Book</SelectItem>
+  <SelectItem value="electronics">Electronics</SelectItem>
+  <SelectItem value="office-products">Office products</SelectItem>
+</Select>
+```
+
+## プロパティ
+
+<ParamField path="state" type="State" required>
+  コンポーネントの入力値をバインドするStateオブジェクト。 `defineState()` 関数で宣言した状態を指定してください。
+</ParamField>
+
+## サブコンポーネント
+
+### `<SelectItem />`
+
+`<SelectItem>` は、`<Select>` コンポーネント内で選択肢を定義するためのコンポーネントです。
+
+```tsx
+<SelectItem value="book">Book</SelectItem>
+```
+
+<ParamField path="value" type="string" required>
+  選択肢の値
+</ParamField>
+
+
+### `<SelectItems />`
+
+`<SelectItems>` は、`<Select>` コンポーネント内で選択肢を一括で定義するためのコンポーネントです。
+
+Select Itemsに値を渡す方法は2つあります。
+
+1. 配列で指定する
+
+2. DataFrameを返却する関数のaliasを指定する
+
+
+
+```tsx
+<SelectItems>
+  // 1. 配列で指定する
+  <SelectItems 
+    items={[
+      {value: 'book', label: 'Book' },
+      { value: 'electronics', label: 'Electronics' }
+    ]}
+    valueKey='value'
+    labelKey='label'
+  />
+
+  // 2. DataFrameを返却する関数のaliasを指定する
+  <SelectItems loadData="get_categories" valueKey='value' labelKey='label' />
+</SelectItems>
+```
+
+<ParamField path="items" type="Array">
+  選択肢の値とラベルを含む配列。どのフィールドが値として使われるか、どのフィールドがラベルとして使われるかを指定するために、`valueKey` と `labelKey` プロパティを使ってください。
+</ParamField>
+<ParamField path="loadData" type="string">
+  選択肢を取得するためのPython関数のalias
+</ParamField>
+<ParamField path="valueKey" type="string">
+  選択肢の値を含むフィールド名
+</ParamField>
+<ParamField path="labelKey" type="string">
+  選択肢のラベルを含むフィールド名
+</ParamField>

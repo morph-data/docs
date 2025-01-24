@@ -12,9 +12,6 @@ Embedコンポーネントは、Python関数の実行結果がHTMLの場合に�
 ```tsx
 <Embed 
   loadData="visualize_py" 
-  vars={{
-    department
-  }}
   height={300}
 />
 ```
@@ -25,8 +22,8 @@ Embedコンポーネントは、Python関数の実行結果がHTMLの場合に�
   Python関数やSQLファイルの name
 </ParamField>
 
-<ParamField path="vars" type="{ [key: string]: Variable }">
-  Python関数やSQLファイルに渡す変数。 `variable()`関数 を使って宣言してください。
+<ParamField path="variables" type="{ [key: string]: any }">
+  Python関数やSQLファイルに渡す変数。 `defineState()`関数 を使って宣言してください。
 </ParamField>
 
 <ParamField path="height" type="number">
