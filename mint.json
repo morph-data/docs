@@ -58,6 +58,21 @@
       "name": "Blog",
       "icon": "newspaper",
       "url": "https://www.morphdb.io/blogs"
+    },
+    {
+      "name": "Changelog",
+      "icon": "rss",
+      "url": "https://www.morph-data.io/changelog"
+    },
+    {
+      "name": "Connectors",
+      "icon": "plug",
+      "url": "https://www.morph-data.io/tools/connectors/database"
+    },
+    {
+      "name": "Code Snippets",
+      "icon": "brackets-curly",
+      "url": "https://www.morph-data.io/tools/snippets/undefined"
     }
   ],
   "navigation": [
