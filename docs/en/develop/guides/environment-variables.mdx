@@ -1,0 +1,28 @@
+---
+title: 'Environment Variables'
+icon: "square-terminal"
+---
+
+In the Morph framework, you can set environment variables to be used in your code.
+
+Accessing environment variables is done in the same way as in regular Python code.
+
+```python
+import os
+import pandas as pd
+import morph
+from morph import MorphGlobalContext
+
+@morph.func
+def get_env_value(context: MorphGlobalContext):
+    # get env variable named "ENV_NAME"
+    env_name = os.environ["ENV_NAME"]
+    return pd.DataFrame({})
+```
+
+By creating a `.env` file at the root of your project and setting your variables there, the Morph framework will automatically read them.
+
+```bash .env
+KEY1=value1
+KEY2=value2
+```
