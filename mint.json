@@ -213,7 +213,6 @@
       "pages": [
         "reference/en/cli-commands/version",
         "reference/en/cli-commands/run",
-        "reference/en/cli-commands/create",
         "reference/en/cli-commands/compile",
         "reference/en/cli-commands/clean",
         "reference/en/cli-commands/init",
@@ -432,7 +431,6 @@
       "pages": [
         "reference/ja/cli-commands/version",
         "reference/ja/cli-commands/run",
-        "reference/ja/cli-commands/create",
         "reference/ja/cli-commands/compile",
         "reference/ja/cli-commands/clean",
         "reference/ja/cli-commands/init",
