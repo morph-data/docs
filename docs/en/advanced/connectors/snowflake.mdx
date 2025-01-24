@@ -1,6 +1,5 @@
 ---
 title: "Snowflake"
-icon: "database"
 ---
 
 ## Connecting to Snowflake
@@ -22,7 +21,7 @@ For an overview of the connector, please refer to the following link:
 
         Please refer to the official page for the Snowflake Server URL.
 
-        - [Connecting to Your Account](https://docs.snowflake.com/en/user-guide/organizations-connect)        
+        - [Connecting to Your Account](https://docs.snowflake.com/en/user-guide/organizations-connect)
 
         ### Connecting with Private Key
 
@@ -35,7 +34,7 @@ For an overview of the connector, please refer to the following link:
         | `Server`          | Standard Snowflake Account URL           | ✅       | `https://<account_locator>.<region>.<cloud>.snowflakecomputing.com` |
         | `Username`        | Username                                 | ✅       | `DEMO_USER`                    |
         | `Private Key`     | Private Key                              | ✅       | `-----BEGIN PRIVATE KEY-----`  |
-        | `Passphrase`      | Private Key Passphrase                   |          | `passphrase`                   |        
+        | `Passphrase`      | Private Key Passphrase                   |          | `passphrase`                   |
 
         Please refer to the official page for creating a private key.
 
@@ -59,14 +58,14 @@ For an overview of the connector, please refer to the following link:
         ### Connecting with OAuth
 
         Select Snowflake (OAuth) and enter the required credentials in the displayed form.
-        
+
         <img src="/assets/images/docs/advanced/connectors/connect-data-platform-snowflake-oauth-create.png" alt="Snowflake OAuth Connection Create" />
 
         | Field Name        | Description                              | Required | Example                        |
         |-------------------|------------------------------------------|----------|--------------------------------|
         | `Server`          | Standard Snowflake Account URL           | ✅       | `https://<account_locator>.<region>.<cloud>.snowflakecomputing.com` |
         | `Client Id`       | Client ID                                | ✅       | `CLIENT_ID`                    |
-        | `Client Secret`   | Client Secret                            | ✅       | `CLIENT_SECRET`                |        
+        | `Client Secret`   | Client Secret                            | ✅       | `CLIENT_SECRET`                |
 
         Please refer to the official page for creating a Client ID and Client Secret.
 
@@ -260,8 +259,8 @@ For an overview of the connector, please refer to the following link:
         code_verifier: str
         schema_: str # optional
         access_token: str # optional
-    ```    
+    ```
 
-  </Tab>  
+  </Tab>
 </Tabs>
 

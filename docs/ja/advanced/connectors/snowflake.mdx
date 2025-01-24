@@ -1,6 +1,5 @@
 ---
 title: "Snowflake"
-icon: "database"
 ---
 
 ## Snowflake に接続する
@@ -22,7 +21,7 @@ icon: "database"
 
         SnowflakeのServer URLについては公式ページを参照してください。
 
-        - [アカウントへの接続](https://docs.snowflake.com/ja/user-guide/organizations-connect)        
+        - [アカウントへの接続](https://docs.snowflake.com/ja/user-guide/organizations-connect)
 
         ### 秘密鍵方式で接続する
 
@@ -35,7 +34,7 @@ icon: "database"
         | `Server`           | Snowflake標準アカウントURL      | ✅    | `https://<アカウントロケーター>.<リージョン>.<クラウド>.snowflakecomputing.com`                |
         | `Username`           | ユーザー名    | ✅    | `DEMO_USER`                       |
         | `Private Key`       | 秘密鍵              | ✅    | `-----BEGIN PRIVATE KEY-----`                |
-        | `Passphrase`       | 秘密鍵のパスフレーズ    |    | `passphrase`                    |        
+        | `Passphrase`       | 秘密鍵のパスフレーズ    |    | `passphrase`                    |
 
         秘密鍵の作成については公式ページを参照してください。
 
@@ -59,14 +58,14 @@ icon: "database"
         ### OAuthで接続する
 
         Snowflake (OAuth)を選択し表示されたフォームに接続する認証情報を入力します。
-        
+
         <img src="/assets/images/docs/advanced/connectors/connect-data-platform-snowflake-oauth-create.png" alt="Snowflake OAuth Connection Create" />
 
         | 項目名            | 説明                                      | 必須  | 例                            |
         |-------------------|-------------------------------------------|-------|-------------------------------|
         | `Server`           | Snowflake標準アカウントURL      | ✅    | `https://<アカウントロケーター>.<リージョン>.<クラウド>.snowflakecomputing.com`                |
         | `Client Id`           | クライアントID    | ✅    | `CLIENT_ID`                       |
-        | `Client Secret`       | クライアントシークレット              | ✅    | `CLIENT_SECRET`                |        
+        | `Client Secret`       | クライアントシークレット              | ✅    | `CLIENT_SECRET`                |
 
         クライアントID、クライアントシークレットの作成については公式ページを参照してください。
 
@@ -260,7 +259,7 @@ icon: "database"
         code_verifier: str
         schema_: str # 任意
         access_token: str # 任意
-    ```    
+    ```
 
-  </Tab>  
+  </Tab>
 </Tabs>
