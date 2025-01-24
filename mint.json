@@ -219,7 +219,7 @@
         "reference/en/cli-commands/init",
         "reference/en/cli-commands/new",
         "reference/en/cli-commands/config",
-        "reference/en/cli-commands/sync",
+        "reference/en/cli-commands/deploy",
         "reference/en/cli-commands/serve",
         "reference/en/cli-commands/print"
       ]
@@ -438,7 +438,7 @@
         "reference/ja/cli-commands/init",
         "reference/ja/cli-commands/new",
         "reference/ja/cli-commands/config",
-        "reference/ja/cli-commands/sync",
+        "reference/ja/cli-commands/deploy",
         "reference/ja/cli-commands/serve",
         "reference/ja/cli-commands/print"
       ]
