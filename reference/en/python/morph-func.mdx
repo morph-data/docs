@@ -8,7 +8,6 @@ By adding the `@morph.func` annotation, you can register the function to be exec
 @morph.func(
     name: str | None = None,
     description: str | None = None,
-    output_paths: list[str] | None = None,
     output_type: Optional[
         Literal["dataframe", "csv", "visualization", "markdown", "json"]
     ] = None,
@@ -28,12 +27,6 @@ The name of the process, which can also be used as an alias when called from oth
 A description of the process can be written.
 </ParamField>
 
-<ParamField body="output_paths" type="array: string" default="['/tmp/morph/{name}/{now()}{ext()}']">
-The output destination of the result file.
-
-Refer to [here](/reference/en/framework/output-paths) for the description method.
-</ParamField>
-
 <ParamField body="output_type" type="string">
 Specifies the format of the output result. If not specified, the system will automatically infer it.
 
@@ -44,7 +37,7 @@ Values: `dataframe`, `visualization`, `markdown`, `json`
 Specifies the cache expiration time of the data pipeline execution result in seconds.
 </ParamField>
 
-## 使用例
+## How to Use
 
 ```python
 @morph.func(
