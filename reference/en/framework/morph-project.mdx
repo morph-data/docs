@@ -2,23 +2,23 @@
 title: 'morph_project.yml'
 ---
 
-The `morph_project.yml` file is a configuration file used when running the Morph framework. When you create a Morph project using the `morph new` command, a file with default values is automatically generated.
+The `morph_project.yml` file is a configuration file used when running the Morph framework. When you create a Morph project using the [`morph new`](../cli-commands/new) command, a file with default values is automatically generated.
 
 ```yaml
-# profile `~/.morph/credentials`
+# Profile Section in `~/.morph/credentials`
 profile: default
 
 # Project ID
 project_id: xxxxxx-xxxxx-xxxx-xxxxx
 
-# connection
+# Connection
 default_connection: DUCKDB
 
-# src directory
+# Source Directory
 source_paths:
 - src
 
-# result cache(seconds)
+# Result Cache (seconds)
 result_cache_ttl: 0
 
 # Python Package Manager
@@ -28,45 +28,45 @@ package_manager: pip
 ## Parameters
 
 <ParamField body="profile" type="string" default="default">
-Sets the profile to be used. Defines which profile from `~/.morph/credentials` configured with the `morph config` command to use.
+    Specifies the profile to be used. Selects which profile from `~/.morph/credentials` configured using the `morph config` command should be utilized.
 </ParamField>
 
 <ParamField body="project_id" type="string" default="null">
-Sets the ID of the Project created in the cloud. This is required when using cloud connectors or deploying.
+    Specifies the ID of the project created in the Morph cloud. This is mandatory when using cloud connectors or performing deployments.
 
-The ID can be obtained from the individual project page on the cloud.
+    You can retrieve the project ID from the individual project page on the Morph cloud.
 
-<img src="/assets/images/reference/framework/copy-project-id.png" alt="Copy Project ID" />
+    <img src="/assets/images/reference/framework/copy-project-id.png" alt="Copy Project ID" />
 </ParamField>
 
 <ParamField body="default_connection" type="string" default="DUCKDB">
-Specifies the default DB connection. If the connection is not specified in the config function within the SQL file, this connection will be used automatically.
+    Sets the default database connection. If no connection is explicitly defined in the `config` function of an SQL file, this default connection will be used.
 
-When setting, specify the connection name in the config's connection as well.
+    **Reserved Words**
 
-**Reserved Words**
+    The following reserved words can be used without defining a connection:
 
-The following reserved words can be used without creating a connection.
+    - `DUCKDB`: DuckDB is used as the database engine.
+    - `MORPH_BUILTIN_DB`: Morph's built-in PostgreSQL database engine is used.
 
-- `DUCKDB`: DuckDB is used as the database engine.
-- `MORPH_BUILTIN_DB`: Morph's built-in PostgreSQL is used as the database engine.
-
+    To configure a custom connection, set the connection name in the `config` function, consistent with this setting.
 </ParamField>
 
 <ParamField body="source_paths" type="string" default="src">
-Specifies the source paths.
-
-Files under the directories specified as source paths are treated as executable source code on Morph.
+    Specifies the directories to be used as source paths. Files within these directories are recognized as executable source code in Morph.
 </ParamField>
 
 <ParamField body="result_cache_ttl" type="integer" default="0">
-Specifies the cache expiration time of the data pipeline execution results in seconds. If there are execution results within the specified seconds, the results will be returned from the cache.
+    Defines the cache expiration time in seconds for data pipeline execution results. If results are available within the specified duration, they will be retrieved from the cache.
+    Setting `result_cache_ttl: 0` disables caching.
+    This parameter affects the results cached during the execution of the [`morph serve`](../cli-commands/serve) command.
 </ParamField>
 
 <ParamField body="package_manager" type="string" default="pip">
-Sets the type of Python package manager to be used in the project. When creating a project using the `morph new` command, select either pip or poetry from the command line.
+    Specifies the Python package manager to be used in the project.
+    When creating a project with the [`morph new`](../cli-commands/new) command, the selected package manager (either `pip` or `poetry`) will be set in this parameter.
 
-Available package managers:
-- `pip`
-- `poetry`
+    Available options:
+    - `pip`
+    - `poetry`
 </ParamField>
