@@ -1,0 +1,52 @@
+---
+title: 'Deploy to the Cloud'
+icon: ''
+---
+
+Follow the steps below to deploy using your Project ID and API key.
+
+<Note>
+    The following steps require the `morph` command. If it is not installed, run the command `pip install morph-data` to install it.
+</Note>
+
+<Steps>
+    <Step title="Set up the morph CLI">
+        Run the following command to configure the API key in `~/.morph/credentials`:
+        ```bash Shell
+        morph config
+        ```
+    </Step>
+    <Step title="Set up your project">
+        1. Navigate to the root directory of your project:
+            ```bash Shell
+            cd /path/to/your-project
+            ```
+        1. Edit the `morph_project.yml` file in the root directory to set the `project_id`:
+            ```yaml YAML
+            # Profile Section in `~/.morph/credentials`
+            profile: default
+
+            # Project ID
+            project_id: [YOUR_PROJECT_ID]
+
+            # Python Package Manager
+            package_manager: pip
+
+            -- omitted --
+            ```
+            - The `profile` corresponds to the section in `~/.morph/credentials`. Typically, `default` is sufficient, but modify it if you have multiple credentials.
+            - The `package_manager` is set to the selected package manager when the project was created. Normally, you do not need to change this. The `morph deploy` command builds based on this setting.
+                - If `package_manager=pip` is specified, edit the `requirements.txt` file in the root directory to specify the packages to install in the deployment environment. Otherwise, `requirements.txt` is automatically generated during the build process.
+    </Step>
+    <Step title="Deploy to the cloud">
+        Run the following command to deploy to the cloud:
+        ```bash Shell
+        morph deploy
+        ```
+        - To disable Docker cache, use:
+        ```bash Shell
+        morph deploy --no-cache
+        ```
+        After deployment, log in to [https://app.morph-data.io/](https://app.morph-data.io/), and check the results.
+    </Step>
+</Steps>
