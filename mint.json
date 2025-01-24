@@ -248,6 +248,17 @@
       ]
     },
     {
+      "group": "Layout Components",
+      "version": "English",
+      "pages": [
+        "data-application/en/layout-component-accordion",
+        "data-application/en/layout-component-callout",
+        "data-application/en/layout-component-card",
+        "data-application/en/layout-component-grid",
+        "data-application/en/layout-component-panel"
+      ]
+    },
+    {
       "group": "State & Data",
       "version": "English",
       "pages": [
@@ -473,6 +484,17 @@
       "version": "日本語",
       "pages": [
         "data-application/ja/ai-component-llm"
+      ]
+    },
+    {
+      "group": "レイアウトコンポーネント",
+      "version": "日本語",
+      "pages": [
+        "data-application/ja/layout-component-accordion",
+        "data-application/ja/layout-component-callout",
+        "data-application/ja/layout-component-card",
+        "data-application/ja/layout-component-grid",
+        "data-application/ja/layout-component-panel"
       ]
     },
     {
