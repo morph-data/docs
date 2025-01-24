@@ -13,7 +13,7 @@ The MetricsGrid component displays each row of a Python function or SQL file exe
 
 ```tsx
 <MetricsGrid 
-  alias="aggregate_py" 
+  loadData="aggregate_py" 
   variables={{
     department
   }}
@@ -25,7 +25,7 @@ The MetricsGrid component displays each row of a Python function or SQL file exe
 
 ## Properties
 
-<ParamField path="alias" type="string" required>
+<ParamField path="loadData" type="string" required>
   Name of the Python function or SQL file.
 </ParamField>
 

@@ -1,0 +1,29 @@
+---
+title: '<DatePicker />'
+icon: 'calendar-day'
+---
+
+<Frame>
+  <iframe
+    height={90}
+    width='100%'
+    src="https://morph-data-components-storybook.netlify.app/iframe.html?args=&globals=&id=input-components-date-picker--date-picker-story"
+  />
+</Frame>
+
+`<DatePicker>` は、`defineState()` 関数で宣言した状態に、日付を入力するためのコンポーネントです。
+
+```tsx
+import { defineState } from '@morph-data/components';
+
+export const { date } = defineState({ date: undefined });
+
+<DatePicker state={date} />
+```
+
+## プロパティ
+
+<ParamField path="state" type="State" required>
+  コンポーネントの入力値をバインドするStateオブジェクト。 `defineState()` 関数で宣言した状態を指定してください。
+</ParamField>
+

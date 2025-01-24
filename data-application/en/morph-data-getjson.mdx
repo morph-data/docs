@@ -2,6 +2,38 @@
 title: 'getJson()'
 ---
 
+<Warning>
+  The getJson() function was deprecated in v0.1.0; a loadData() function with functionality equivalent to getJson() will be provided in v0.1.1.
+
+Until then, you can declare and use functional components as an alternative.
+
+  ```tsx
+  # A page with custom fetch function
+
+This is a demo page with custom fetch function.
+
+import { useState, useEffect } from 'react';
+
+export const ComponentWithFetch = () => {
+	const [data, setData] = useState(undefined);
+	
+	const execFetch = async () => {
+		const response = await fetch('https://api.example.com/v1/some_endopoint')
+		setData(response.data);
+	}
+	
+	useEffect(() => {
+		execFetch();
+	}, [])
+	
+	return (
+		<div>{ JSON.stringify(data) }</div>
+	)
+}
+  ```
+</Warning>
+
+
 The `getJson()` function is one of Morph's data retrieval functions; if the process specified by alias is SQL or a Python function that returns a DataFrame, you can retrieve the result in JSON format.
 
 ```tsx index.mdx

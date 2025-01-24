@@ -11,10 +11,7 @@ DataTable component displays the results of a Python function or SQL file execut
 
 ```tsx
 <DataTable 
-  alias="aggregate_py" 
-  variable={{
-    department
-  }}
+  loadData="aggregate_py" 
   hederKeys={['name', 'email', 'department']}
   height={300} 
 />
@@ -22,7 +19,7 @@ DataTable component displays the results of a Python function or SQL file execut
 
 ## Properties
 
-<ParamField path="alias" type="string" required>
+<ParamField path="loadData" type="string" required>
   Name of the Python function or SQL file.
 </ParamField>
 

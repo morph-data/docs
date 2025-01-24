@@ -1,0 +1,32 @@
+---
+title: '<Panel />'
+---
+
+<Frame>
+  <iframe
+    height={500}
+    width='100%'
+    src="https://morph-data-components-storybook.netlify.app/iframe.html?args=&globals=&id=layout-components-panel--panel-story"
+    style={{ background: "white" }}
+  />
+</Frame>
+
+`<Panel>` は、拡大可能なカードを表示するためのコンポーネントです。
+
+```tsx
+<Grid cols="2">
+  <Panel>
+    <p>RDS</p>
+    <h3
+      style={{
+        fontSize: "32px",
+        fontWeight: "bold",
+        margin: ".25rem 0",
+      }}
+    >
+      $ 89 /mo{" "}
+    </h3>
+    <p>db.t3.small, ap-northeast-1</p>
+  </Panel>
+</Grid>
+```

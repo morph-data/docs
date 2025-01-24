@@ -1,0 +1,30 @@
+---
+title: '<Card />'
+---
+
+<Frame>
+  <iframe
+    height={240}
+    width='100%'
+    src="https://morph-data-components-storybook.netlify.app/iframe.html?args=&globals=&id=layout-components-card--card-story"
+    style={{ background: "white" }}
+  />
+</Frame>
+
+`<Card>` は、カード形式で情報のまとまりを表示するためのコンポーネントです。
+
+```tsx
+ <Card>
+  <p>EC2</p>
+  <h3
+    style={{
+      fontSize: "32px",
+      fontWeight: "bold",
+      margin: ".25rem 0",
+    }}
+  >
+    $ 15.6 /mo{" "}
+  </h3>
+  <p>t2.micro, us-east-1</p>
+</Card>
+```
