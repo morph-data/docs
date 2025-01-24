@@ -86,67 +86,64 @@ from
     <Tab title="3. MDX(pages)">
 Python, SQLで作成した関数を使用してダッシュボードを作成します。
 
-冒頭で定義している変数は、それぞれ以下のような役割を持っています。
-- `dateRangeStart`, `dateRangeEnd`: 日付の範囲を選択するための入力フォームです。
-- `stateList`: `get_state_list`で取得した選択肢です。
-- `stateSelected`: 選択肢の中で選択された値です。
+`defineState()`関数によって、ページ内で利用できる状態を宣言することができます。
+- `dateStart`, `dateEnd`: 選択された日付の範囲です。
+- `state`: 選択肢の中で選択されたstateの値です。
 
 `<DataTable />`, `<Embed />`を使用して元データとチャートを表示しています。
 `variables`を使用することによって入力フォームで選択された値をPython関数に渡しています。
 
 ```tsx
-export const title = "Filter plotly chart"
-export const dateRangeStart = variable("2024-01-01");
-export const dateRangeEnd = variable("2024-09-30");
-export const stateList = getJson({
-    alias: 'get_state_list',
-})
-export const stateSelected = variable("all");
+export const title = "Filter plotly chart";
+
+import { defineState } from "@morph-data/components";
+
+export const { dateStart, dateEnd, state } = defineState({
+  dateStart: "2024-01-01",
+  dateEnd: "2024-09-30",
+  state: "all",
+});
 
 # Filter plotly chart
 
 This example shows how to filter a plotly chart.
 
 <div className="p-4 border border-gray-300 rounded-lg shadow-md">
-    <Grid cols="2">
-        <div>
-            <DataTable
-                loadData="generate_population_data"
-            />
+  <Grid cols="2">
+    <div>
+      <DataTable loadData="generate_population_data" />
+    </div>
+    <div>
+      <div className="flex items-center gap-3">
+        Date Range
+        <div className="flex-1">
+          <DateRangePicker state={[dateStart, dateEnd]} />
         </div>
-        <div>
-            <div className="flex items-center gap-3">
-                <p>Date Range:</p>
-                <div className="flex-1">
-                    <VariableDatePicker
-                        type="range"
-                        variables={[
-                            dateRangeStart,
-                            dateRangeEnd
-                        ]}
-                    />
-                </div>
-            </div>
-            <div className="flex items-center gap-3">
-                <p>State:</p>
-                <div className="flex-1">
-                    <VariableSelect variable={stateSelected}>
-                        <VariableSelectItem value="all">Not selected</VariableSelectItem>
-                        <VariableSelectItems items={stateList} labelKey="state" valueKey="state" />
-                    </VariableSelect>
-                </div>
-            </div>
-            <Embed
-                loadData="filter_plotly_chart"
-                variables={{
-                    start_date: dateRangeStart,
-                    end_date: dateRangeEnd,
-                    state: stateSelected
-                }}
-                height={400}
+      </div>
+      <div className="flex items-center gap-3">
+        State
+        <div className="flex-1">
+          <Select state={state}>
+            <SelectItem value="all">Not Selected</SelectItem>
+            <SelectItems
+              loadData="get_state_list"
+              valueKey="state"
+              labelKey="state"
             />
+          </Select>
         </div>
-    </Grid>
+      </div>
+      <Embed
+        loadData="filter_plotly_chart"
+        variables={{
+          start_date: dateStart.value,
+          end_date: dateEnd.value,
+          state: state.value,
+        }}
+        height={400}
+      />
+    </div>
+  </Grid>
 </div>
 ```
     </Tab>
