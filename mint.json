@@ -78,6 +78,7 @@
           "icon": "book",
           "pages": [
             "docs/en/develop/guides/framework",
+            "docs/en/develop/guides/environment-variables",
             "docs/en/develop/guides/integration",
             "docs/en/develop/guides/variables"
           ]
@@ -116,8 +117,8 @@
             "docs/en/deploy/deploy"
           ]
         },
-        "docs/en/deploy/deploy-config-params",
-        "docs/en/deploy/customize-dockerfile"
+        "docs/en/deploy/customize-dockerfile",
+        "docs/en/deploy/environment-variables"
       ]
     },
     {
@@ -302,6 +303,7 @@
           "icon": "book",
           "pages": [
             "docs/ja/develop/guides/framework",
+            "docs/ja/develop/guides/environment-variables",
             "docs/ja/develop/guides/integration",
             "docs/ja/develop/guides/variables"
           ]
@@ -340,8 +342,8 @@
               "docs/ja/deploy/deploy"
             ]
         },
-        "docs/ja/deploy/deploy-config-params",
-        "docs/ja/deploy/customize-dockerfile"
+        "docs/ja/deploy/customize-dockerfile",
+        "docs/ja/deploy/environment-variables"
       ]
     },
     {
