@@ -9,7 +9,7 @@ For an overview of the connector, please refer to the following link:
 - [Connecting to DB/SaaS](/docs/en/develop/guides/integration)
 
 <Tabs>
-  <Tab title="Cloud Version">
+  <Tab title="Dashboard">
     <Steps>
       <Step title="Create a Connector">
         Select the "Connectors" tab on the top page and click the "Create" button.
@@ -112,7 +112,7 @@ For an overview of the connector, please refer to the following link:
 
   </Tab>
   <Tab title="Local Version">
-    <Info>Currently, only the User/Password method can be created via command in the local version. For other methods, please use the cloud version or directly write to `~/.morph/connections.yml`.</Info>
+    <Info>Currently, only the User/Password method can be created via command in the local version. For other methods, please use the dashboard or directly write to `~/.morph/connections.yml`.</Info>
 
     <Steps>
       <Step title="Run the morph init Command">
@@ -214,7 +214,7 @@ For an overview of the connector, please refer to the following link:
 
     <Warning>
         When actually specifying the connector and executing the file, the priority is as follows.
-        Also, please note that only connectors created in the cloud version can be used in environments where `morph deploy` has been performed.
+        Also, please note that only connectors created in the dashboard can be used in environments where `morph deploy` has been performed.
         1. Connectors listed in `~/.morph/connections.yml` on the local machine
         2. Connectors registered in the cloud
     </Warning>
@@ -223,7 +223,7 @@ For an overview of the connector, please refer to the following link:
 
     When using a private key or OAuth, directly edit `~/.morph/connections.yml`.
 
-    Access token refresh is a cloud version feature, so the one listed will always be used in the local environment.
+    Access token refresh is a dashboard feature, so the one listed will always be used in the local environment.
 
     **Private Key Method**
     ```yml

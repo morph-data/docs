@@ -9,7 +9,7 @@ For an overview of the connector, please refer to the following link.
 - [Connecting to DB/SaaS](/docs/en/develop/guides/integration)
 
 <Tabs>
-  <Tab title="Cloud Version">
+  <Tab title="Dashboard">
     <Steps>
       <Step title="Create a Connector">
         Select the "Connectors" tab on the top page and press the "Create" button.
@@ -88,7 +88,7 @@ For an overview of the connector, please refer to the following link.
 
   </Tab>
   <Tab title="Local Version">
-    <Info>Currently, only the Service Account method can be created via command in the local version. For other methods, please use the cloud version or directly write to `~/.morph/connections.yml`.</Info>
+    <Info>Currently, only the Service Account method can be created via command in the local version. For other methods, please use the dashboard or directly write to `~/.morph/connections.yml`.</Info>
 
     <Steps>
       <Step title="Run the morph init Command">
@@ -184,7 +184,7 @@ For an overview of the connector, please refer to the following link.
 
     <Warning>
         When actually specifying the connector and executing the file, the priority is as follows.
-        Also, please note that only connectors created in the cloud version can be used in the environment where `morph deploy` is performed.
+        Also, please note that only connectors created in the dashboard can be used in the environment where `morph deploy` is performed.
         1. Connectors listed in `~/.morph/connections.yml` on the local machine
         2. Connectors registered in the cloud
     </Warning>
@@ -193,7 +193,7 @@ For an overview of the connector, please refer to the following link.
 
     When using OAuth, directly edit `~/.morph/connections.yml`.
 
-    Refreshing the access token is a cloud version feature, so the one described will always be used in the local environment.
+    Refreshing the access token is a dashboard feature, so the one described will always be used in the local environment.
 
     **OAuth Method**
     ```yml

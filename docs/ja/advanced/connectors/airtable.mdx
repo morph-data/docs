@@ -9,7 +9,7 @@ title: "Airtable"
 - [DB/SaaSと接続する](/docs/en/develop/guides/integration)
 
 <Tabs>
-  <Tab title="クラウド版">
+  <Tab title="ダッシュボード">
     <Steps>
       <Step title="Connectorを作成する">
         トップページの「Connectors」タブを選択し「Create」ボタンを押下します。
@@ -45,8 +45,8 @@ title: "Airtable"
     </Steps>
 
   </Tab>
-  <Tab title="ローカル版">
-    <Info>ローカル版では現在直接~/.morph/connections.ymlに認証情報を記述する必要があります。それ以外の方式はクラウド版で作成してください。</Info>
+  <Tab title="ローカル">
+    <Info>ローカル版では現在直接~/.morph/connections.ymlに認証情報を記述する必要があります。それ以外の方式はダッシュボードで作成してください。</Info>
 
     <Steps>
       <Step title="connections.ymlを編集する">
@@ -86,11 +86,11 @@ title: "Airtable"
       </Step>
     </Steps>
 
-    access_tokenのリフレッシュはクラウド版の機能のためローカル環境では記載したものが常時使用されます。
+    access_tokenのリフレッシュはダッシュボードの機能のためローカル環境では記載したものが常時使用されます。
 
     <Warning>
         実際にコネクターを指定してファイルを実行した場合の優先順位は以下の通りです。
-        また`morph deploy`を行なった環境ではクラウド版で作成したコネクターのみが使用可能なため注意してください。
+        また`morph deploy`を行なった環境ではダッシュボードで作成したコネクターのみが使用可能なため注意してください。
         1. ローカルマシンの`~/.morph/connections.yml`に記載されたコネクター
         2. クラウドで登録されたコネクター
     </Warning>

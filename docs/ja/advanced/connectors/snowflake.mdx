@@ -9,7 +9,7 @@ title: "Snowflake"
 - [DB/SaaSと接続する](/docs/ja/develop/guides/integration)
 
 <Tabs>
-  <Tab title="クラウド版">
+  <Tab title="ダッシュボード">
     <Steps>
       <Step title="Connectorを作成する">
         トップページの「Connectors」タブを選択し「Create」ボタンを押下します。
@@ -111,8 +111,8 @@ title: "Snowflake"
     </Steps>
 
   </Tab>
-  <Tab title="ローカル版">
-    <Info>ローカル版では現在User/Password方式のみがコマンドで作成可能です。それ以外の方式はクラウド版をご利用いただくか、直接~/.morph/connections.ymlに記述する必要があります。</Info>
+  <Tab title="ローカル">
+    <Info>ローカルでは現在User/Password方式のみがコマンドで作成可能です。それ以外の方式はダッシュボードをご利用いただくか、直接~/.morph/connections.ymlに記述する必要があります。</Info>
 
     <Steps>
       <Step title="morph initコマンドを実行する">
@@ -214,7 +214,7 @@ title: "Snowflake"
 
     <Warning>
         実際にコネクターを指定してファイルを実行した場合の優先順位は以下の通りです。
-        また`morph deploy`を行なった環境ではクラウド版で作成したコネクターのみが使用可能なため注意してください。
+        また`morph deploy`を行なった環境ではダッシュボードで作成したコネクターのみが使用可能なため注意してください。
         1. ローカルマシンの`~/.morph/connections.yml`に記載されたコネクター
         2. クラウドで登録されたコネクター
     </Warning>
@@ -223,7 +223,7 @@ title: "Snowflake"
 
     秘密鍵、もしくはOAuthを使用する際は`~/.morph/connections.yml`を直接編集します。
 
-    access_tokenのリフレッシュはクラウド版の機能のためローカル環境では記載したものが常時使用されます。
+    access_tokenのリフレッシュはダッシュボードの機能のためローカル環境では記載したものが常時使用されます。
 
     **秘密鍵方式**
     ```yml
