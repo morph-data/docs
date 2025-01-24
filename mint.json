@@ -109,7 +109,8 @@
       "version": "English",
       "pages": [
         "docs/en/deploy/quickstart",
-        "docs/en/deploy/deploy-config-params"
+        "docs/en/deploy/deploy-config-params",
+        "docs/en/deploy/customize-dockerfile"
       ]
     },
     {
@@ -271,13 +272,6 @@
       ]
     },
     {
-      "group": "Workspace",
-      "version": "English",
-      "pages": [
-        "troubleshooting/en/workspace/mdx-api-error"
-      ]
-    },
-    {
       "group": "Getting Started",
       "version": "日本語",
       "pages": [
@@ -325,7 +319,8 @@
       "version": "日本語",
       "pages": [
         "docs/ja/deploy/quickstart",
-        "docs/ja/deploy/deploy-config-params"
+        "docs/ja/deploy/deploy-config-params",
+        "docs/ja/deploy/customize-dockerfile"
       ]
     },
     {
@@ -484,13 +479,6 @@
       "version": "日本語",
       "pages": [
         "troubleshooting/ja/support/contact-support"
-      ]
-    },
-    {
-      "group": "ワークスペース",
-      "version": "日本語",
-      "pages": [
-        "troubleshooting/ja/workspace/mdx-api-error"
       ]
     }
   ],
