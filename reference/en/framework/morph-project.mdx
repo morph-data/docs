@@ -2,79 +2,71 @@
 title: 'morph_project.yml'
 ---
 
-`morph_project.yml` is a configuration file used when running the Morph framework. When you start a Morph project, a file with default values is automatically created.
+The `morph_project.yml` file is a configuration file used when running the Morph framework. When you create a Morph project using the `morph new` command, a file with default values is automatically generated.
 
 ```yaml
+# profile `~/.morph/credentials`
+profile: default
+
+# Project ID
+project_id: xxxxxx-xxxxx-xxxx-xxxxx
+
 # connection
-default_connection: MORPH_BUILTIN_DB
+default_connection: DUCKDB
 
 # src directory
 source_paths:
 - src
 
-# output paths where the result of the execution is saved
-output_paths:
-- /tmp/morph/{name}/{run_id}{ext()}
-
 # result cache(seconds)
 result_cache_ttl: 0
 
-# Scheduled Jobs
-scheduled_jobs:
-    function_name_1:
-        schedules:
-        - cron: "cron(0 0 * * 1,3,5)"
-            is_enabled: true
-            timezone: "Asia/Tokyo"
-            variables:
-                priority: "high"
-                retry: 3
-        - cron: "cron(0 12 * * 2)"
-            is_enabled: false
-            timezone: "UTC"
-            variables:
-                notify: true
-                email: "alert@example.com"
-    function_name_2:
-        schedules:
-        - cron: "cron(0 18 * * 6)"
-            is_enabled: true
-            timezone: "Europe/London"
-            variables:
-                type: "maintenance"
-                duration: "2h"
+# Python Package Manager
+package_manager: pip
 ```
 
 ## Parameters
 
-<ParamField body="default_connection" type="string" default="MORPH_BUILTIN_DB">
-Specify the default DB connection. If the connection is not specified within the config function in the SQL file, this connection will be used automatically.
+<ParamField body="profile" type="string" default="default">
+Sets the profile to be used. Defines which profile from `~/.morph/credentials` configured with the `morph config` command to use.
+</ParamField>
 
-When setting, please set the connection name in the config's connection as well.
+<ParamField body="project_id" type="string" default="null">
+Sets the ID of the Project created in the cloud. This is required when using cloud connectors or deploying.
 
-**Reserved Values**
+The ID can be obtained from the individual project page on the cloud.
 
-The following reserved values can be used without creating a connection.
+<img src="/assets/images/reference/framework/copy-project-id.png" alt="Copy Project ID" />
+</ParamField>
 
-- DUCKDB: DuckDB is used as the database engine.
-- MORPH_BUILTIN_DB: Morph's built-in PostgreSQL is used as the database engine. (Cloud version only)
+<ParamField body="default_connection" type="string" default="DUCKDB">
+Specifies the default DB connection. If the connection is not specified in the config function within the SQL file, this connection will be used automatically.
+
+When setting, specify the connection name in the config's connection as well.
+
+**Reserved Words**
+
+The following reserved words can be used without creating a connection.
+
+- `DUCKDB`: DuckDB is used as the database engine.
+- `MORPH_BUILTIN_DB`: Morph's built-in PostgreSQL is used as the database engine.
 
 </ParamField>
 
 <ParamField body="source_paths" type="string" default="src">
-Specify the source path.
+Specifies the source paths.
 
-Files located under the directory specified as the source path are treated as executable source code on Morph.
+Files under the directories specified as source paths are treated as executable source code on Morph.
 </ParamField>
 
-<ParamField body="output_paths" type="string">
-Specify the path where the execution results of the data pipeline are saved.
+<ParamField body="result_cache_ttl" type="integer" default="0">
+Specifies the cache expiration time of the data pipeline execution results in seconds. If there are execution results within the specified seconds, the results will be returned from the cache.
 </ParamField>
 
-<ParamField body="result_cache_ttl" type="integer" default="60">
-Specify the cache expiration time of the data pipeline execution results in seconds.
-</ParamField>
+<ParamField body="package_manager" type="string" default="pip">
+Sets the type of Python package manager to be used in the project. When creating a project using the `morph new` command, select either pip or poetry from the command line.
 
-<ParamField body="scheduled_jobs" type="object">
-Specify the settings for scheduled execution.
+Available package managers:
+- `pip`
+- `poetry`
 </ParamField>
