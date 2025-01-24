@@ -274,13 +274,6 @@
       ]
     },
     {
-      "group": "Workspace",
-      "version": "English",
-      "pages": [
-        "troubleshooting/en/workspace/mdx-api-error"
-      ]
-    },
-    {
       "group": "Getting Started",
       "version": "日本語",
       "pages": [
@@ -490,13 +483,6 @@
       "version": "日本語",
       "pages": [
         "troubleshooting/ja/support/contact-support"
-      ]
-    },
-    {
-      "group": "ワークスペース",
-      "version": "日本語",
-      "pages": [
-        "troubleshooting/ja/workspace/mdx-api-error"
       ]
     }
   ],
