@@ -243,7 +243,10 @@
       "group": "Input Components",
       "version": "English",
       "pages": [
-        "data-application/en/ai-component-llm"
+        "data-application/en/input-component-input",
+        "data-application/en/input-component-date-picker",
+        "data-application/en/input-component-date-range-picker",
+        "data-application/en/input-component-select"
       ]
     },
     {
