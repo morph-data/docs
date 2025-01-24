@@ -108,7 +108,14 @@
       "group": "Deploy",
       "version": "English",
       "pages": [
-        "docs/en/deploy/quickstart",
+        {
+          "group": "How to Deploy",
+          "icon": "rocket",
+          "pages": [
+            "docs/en/deploy/dashboard-setup",
+            "docs/en/deploy/deploy"
+          ]
+        },
         "docs/en/deploy/deploy-config-params",
         "docs/en/deploy/customize-dockerfile"
       ]
@@ -318,7 +325,14 @@
       "group": "Deploy",
       "version": "日本語",
       "pages": [
-        "docs/ja/deploy/quickstart",
+        {
+            "group": "デプロイ手順",
+            "icon": "rocket",
+            "pages": [
+              "docs/ja/deploy/dashboard-setup",
+              "docs/ja/deploy/deploy"
+            ]
+        },
         "docs/ja/deploy/deploy-config-params",
         "docs/ja/deploy/customize-dockerfile"
       ]
