@@ -78,6 +78,7 @@
           "icon": "book",
           "pages": [
             "docs/en/develop/guides/framework",
+            "docs/en/develop/guides/environment-variables",
             "docs/en/develop/guides/integration",
             "docs/en/develop/guides/variables"
           ]
@@ -109,7 +110,8 @@
       "version": "English",
       "pages": [
         "docs/en/deploy/quickstart",
-        "docs/en/deploy/deploy-config-params"
+        "docs/en/deploy/customize-dockerfile",
+        "docs/en/deploy/environment-variables"
       ]
     },
     {
@@ -147,8 +149,7 @@
       "group": "Framework",
       "version": "English",
       "pages": [
-        "reference/en/framework/morph-project",
-        "reference/en/framework/output-paths"
+        "reference/en/framework/morph-project"
       ]
     },
     {
@@ -213,15 +214,13 @@
       "pages": [
         "reference/en/cli-commands/version",
         "reference/en/cli-commands/run",
-        "reference/en/cli-commands/create",
         "reference/en/cli-commands/compile",
         "reference/en/cli-commands/clean",
         "reference/en/cli-commands/init",
         "reference/en/cli-commands/new",
         "reference/en/cli-commands/config",
-        "reference/en/cli-commands/sync",
-        "reference/en/cli-commands/serve",
-        "reference/en/cli-commands/print"
+        "reference/en/cli-commands/deploy",
+        "reference/en/cli-commands/serve"
       ]
     },
     {
@@ -291,13 +290,6 @@
       ]
     },
     {
-      "group": "Workspace",
-      "version": "English",
-      "pages": [
-        "troubleshooting/en/workspace/mdx-api-error"
-      ]
-    },
-    {
       "group": "Getting Started",
       "version": "日本語",
       "pages": [
@@ -314,6 +306,7 @@
           "icon": "book",
           "pages": [
             "docs/ja/develop/guides/framework",
+            "docs/ja/develop/guides/environment-variables",
             "docs/ja/develop/guides/integration",
             "docs/ja/develop/guides/variables"
           ]
@@ -345,7 +338,8 @@
       "version": "日本語",
       "pages": [
         "docs/ja/deploy/quickstart",
-        "docs/ja/deploy/deploy-config-params"
+        "docs/ja/deploy/customize-dockerfile",
+        "docs/ja/deploy/environment-variables"
       ]
     },
     {
@@ -383,8 +377,7 @@
       "group": "フレームワーク",
       "version": "日本語",
       "pages": [
-        "reference/ja/framework/morph-project",
-        "reference/ja/framework/output-paths"
+        "reference/ja/framework/morph-project"
       ]
     },
     {
@@ -449,15 +442,13 @@
       "pages": [
         "reference/ja/cli-commands/version",
         "reference/ja/cli-commands/run",
-        "reference/ja/cli-commands/create",
         "reference/ja/cli-commands/compile",
         "reference/ja/cli-commands/clean",
         "reference/ja/cli-commands/init",
         "reference/ja/cli-commands/new",
         "reference/ja/cli-commands/config",
-        "reference/ja/cli-commands/sync",
-        "reference/ja/cli-commands/serve",
-        "reference/ja/cli-commands/print"
+        "reference/ja/cli-commands/deploy",
+        "reference/ja/cli-commands/serve"
       ]
     },
     {
@@ -527,13 +518,6 @@
       "version": "日本語",
       "pages": [
         "troubleshooting/ja/support/contact-support"
-      ]
-    },
-    {
-      "group": "ワークスペース",
-      "version": "日本語",
-      "pages": [
-        "troubleshooting/ja/workspace/mdx-api-error"
       ]
     }
   ],

@@ -9,7 +9,7 @@ For an overview of connectors, please refer to the following link:
 - [Connecting to DB/SaaS](/docs/en/develop/guides/integration)
 
 <Tabs>
-  <Tab title="Cloud Version">
+  <Tab title="Dashboard">
     <Steps>
       <Step title="Create a Connector">
         Select the "Connectors" tab on the top page and click the "Create" button.
@@ -38,7 +38,7 @@ For an overview of connectors, please refer to the following link:
         | `SSH Private Key` | Enter the remote server private key.      |          | `-----BEGIN RSA PRIVATE KEY-----` |
         | `SSH Passphrase`  | Enter the passphrase for the private key. |          | `my_passphrase`                |
 
-        <Warning>Make sure to allow access from `54.150.149.0/32` in the IP whitelist of the target database.</Warning>
+        <Warning>Make sure to allow access from `13.230.108.96/32` in the IP whitelist of the target database.</Warning>
 
       </Step>
       <Step title="Connect to the Created Database">
@@ -181,7 +181,7 @@ For an overview of connectors, please refer to the following link:
 
     <Warning>
         When actually specifying a connector and executing a file, the priority is as follows:
-        Also, note that only connectors created in the cloud version can be used in the environment where `morph deploy` is performed.
+        Also, note that only connectors created in the dashboard can be used in the environment where `morph deploy` is performed.
         1. Connectors listed in `~/.morph/connections.yml` on the local machine
         2. Connectors registered in the cloud
     </Warning>

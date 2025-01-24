@@ -1,27 +1,87 @@
 ---
-title: 'Deploy to the cloud'
+title: 'Deploy to the Cloud'
 icon: "rocket"
 ---
 
 Morph allows you to easily deploy data applications and share them with your team.
 
+## Prerequisites
+
+Before deploying your locally built data app, ensure you have created a project and generated an associated API key.
+
+Follow the steps below to create a project and an API key.
+
+### Create a Project
+
+<Note>If you already have an existing project, you can skip this section.</Note>
+
 <Steps>
-  <Step title="Login to the cloud and create an API key">
-    Create an API key from the Morph home screen.
-  </Step>
-  <Step title="Set API with CLI">
-    Set the API key and workspace with the `morph config` command.
-    ```bash Shell
-    morph config
-    ```
-  </Step>
-  <Step title="Deploy to the cloud">
-    Deploy to the cloud with the `morph sync` command.
-    ```bash Shell
-    morph sync
-    ```
-  </Step>
-  <Step title="Access the Viewer">
-    Access the Viewer to use the deployed data application!
-  </Step>
+    <Step title="Log in to the Morph Cloud interface">
+        - Morph Cloud: [https://app.morph-data.io/](https://app.morph-data.io/)
+    </Step>
+    <Step title="Create a new project from the Projects tab">
+        1. After logging in, open the Projects tab.
+        1. Click the "+Create" button in the top-right corner to create a new project.
+        1. Once the project is created, make a note of the Project ID.
+    </Step>
+</Steps>
+
+### Create an API Key
+
+<Note>If you already have an API key, you can skip this section.</Note>
+
+<Steps>
+    <Step title="Create an API key from the Settings tab">
+        1. After logging in, open the Settings tab.
+        1. From the left-hand sidebar, select API Keys under Personal settings.
+        1. Click the "+Create" button to create an API key.
+        <Warning>
+            It is recommended to create API keys with minimal permissions. Handle the API keys carefully to avoid leaks.
+        </Warning>
+        1. Make a note of the created API key.
+    </Step>
+</Steps>
+
+For more detailed instructions, refer to the [API Key Documentation](../advanced/api_key).
+
+## Deployment
+
+<Note>
+    The following steps require the `morph` command. If it is not installed, run the command `pip install morph-data` to install it.
+</Note>
+
+Using your Project ID and API key, follow the steps below to deploy your app.
+
+<Steps>
+    <Step title="Set up the morph CLI">
+        Run the following command to configure the API key in `~/.morph/credentials`:
+        ```bash Shell
+        morph config
+        ```
+    </Step>
+    <Step title="Set up your project">
+        1. Navigate to the root directory of your project:
+        ```bash Shell
+        cd /path/to/your-project
+        ```
+        1. Edit the `morph_project.yml` file in the root directory to set the `project_id`:
+        ```yaml YAML
+        -- omitted --
+        profile: default
+        project_id: [YOUR_PROJECT_ID]
+        -- omitted --
+        ```
+        Note: The profile corresponds to the section in `~/.morph/credentials`. Typically, `default` is sufficient, but modify it if you have multiple credentials.
+    </Step>
+    <Step title="Deploy to the cloud">
+        Run the following command to deploy to the cloud:
+        ```bash Shell
+        morph deploy
+        ```
+        - To disable Docker cache, use:
+        ```bash Shell
+        morph deploy --no-cache
+        ```
+        After deployment, log in to [https://app.morph-data.io/](https://app.morph-data.io/) to verify the results.
+    </Step>
 </Steps>

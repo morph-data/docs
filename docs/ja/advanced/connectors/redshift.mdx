@@ -9,7 +9,7 @@ title: "Redshift"
 - [DB/SaaSと接続する](/docs/ja/develop/guides/integration)
 
 <Tabs>
-  <Tab title="クラウド版">
+  <Tab title="ダッシュボード">
     <Steps>
       <Step title="Connectorを作成する">
         トップページの「Connectors」タブを選択し「Create」ボタンを押下します。
@@ -39,7 +39,7 @@ title: "Redshift"
         | `SSH Passphrase` | リモートサーバーの秘密鍵のパスフレーズを入力します。 |     | `my_passphrase`              |
 
 
-        <Warning>接続先のデータベースの IP ホワイトリストに必ず`54.150.149.0/32`からのアクセスを許可するように設定してください。</Warning>
+        <Warning>接続先のデータベースの IP ホワイトリストに必ず`13.230.108.96/32`からのアクセスを許可するように設定してください。</Warning>
 
       </Step>
       <Step title="作成したデータベースに接続する">
@@ -78,7 +78,7 @@ title: "Redshift"
     </Steps>
 
   </Tab>
-  <Tab title="ローカル版">
+  <Tab title="ローカル">
     <Steps>
       <Step title="morph initコマンドを実行する">
         `morph init`コマンドを実行してDBの接続情報を`~/.morph/connections.yml`に保存します。
@@ -182,7 +182,7 @@ title: "Redshift"
 
     <Warning>
         実際にコネクターを指定してファイルを実行した場合の優先順位は以下の通りです。
-        また`morph deploy`を行なった環境ではクラウド版で作成したコネクターのみが使用可能なため注意してください。
+        また`morph deploy`を行なった環境ではダッシュボードで作成したコネクターのみが使用可能なため注意してください。
         1. ローカルマシンの`~/.morph/connections.yml`に記載されたコネクター
         2. クラウドで登録されたコネクター
     </Warning>
