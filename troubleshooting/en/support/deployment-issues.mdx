@@ -1,0 +1,15 @@
+---
+title: 'Deploy'
+---
+
+# Build Errors
+
+If `morph deploy` fails, refer to the following to identify the problem.
+
+#### `Deployment failed: [MESSAGES]`
+
+This error indicates that the deployment of the data app to the Morph cloud environment failed after the build process was completed.
+
+Please note that deployment will fail if the built image exceeds 10GB. In this case, check the `Dockerfile` in the project root and remove any unnecessary files or directories.
+
+If the source data used for analysis is large, consider using Morph's Built-in Postgres or external storage instead of including it in the `Dockerfile`.

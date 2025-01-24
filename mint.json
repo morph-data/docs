@@ -109,7 +109,14 @@
       "group": "Deploy",
       "version": "English",
       "pages": [
-        "docs/en/deploy/quickstart",
+        {
+          "group": "How to Deploy",
+          "icon": "rocket",
+          "pages": [
+            "docs/en/deploy/dashboard-setup",
+            "docs/en/deploy/deploy"
+          ]
+        },
         "docs/en/deploy/customize-dockerfile",
         "docs/en/deploy/environment-variables"
       ]
@@ -283,6 +290,13 @@
       ]
     },
     {
+      "group": "Morph CLI",
+      "version": "English",
+      "pages": [
+        "troubleshooting/en/support/deployment-issues"
+      ]
+    },
+    {
       "group": "Support",
       "version": "English",
       "pages": [
@@ -337,7 +351,14 @@
       "group": "Deploy",
       "version": "日本語",
       "pages": [
-        "docs/ja/deploy/quickstart",
+        {
+            "group": "デプロイ手順",
+            "icon": "rocket",
+            "pages": [
+              "docs/ja/deploy/dashboard-setup",
+              "docs/ja/deploy/deploy"
+            ]
+        },
         "docs/ja/deploy/customize-dockerfile",
         "docs/ja/deploy/environment-variables"
       ]
@@ -511,6 +532,13 @@
       "pages": [
         "data-application/ja/morph-data-getjson",
         "data-application/ja/morph-data-variables"
+      ]
+    },
+    {
+      "group": "Morph CLI",
+      "version": "日本語",
+      "pages": [
+        "troubleshooting/ja/support/deployment-issues"
       ]
     },
     {
