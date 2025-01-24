@@ -148,8 +148,7 @@
       "group": "Framework",
       "version": "English",
       "pages": [
-        "reference/en/framework/morph-project",
-        "reference/en/framework/output-paths"
+        "reference/en/framework/morph-project"
       ]
     },
     {
@@ -368,8 +367,7 @@
       "group": "フレームワーク",
       "version": "日本語",
       "pages": [
-        "reference/ja/framework/morph-project",
-        "reference/ja/framework/output-paths"
+        "reference/ja/framework/morph-project"
       ]
     },
     {

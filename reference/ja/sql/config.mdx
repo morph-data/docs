@@ -9,9 +9,6 @@ title: 'config'
 	config(
 		name="test",
 		description="this is test sql statement",
-		output_paths=[
-			"/tmp/morph/{name}/{now()}{ext()}"
-		],
 		connection="your_connection_slug",
 		result_cache_ttl=0
 	)
@@ -28,12 +25,6 @@ select 1 as test
 
 <ParamField body="description" type="string">
 処理の説明を記述できる
-</ParamField>
-
-<ParamField body="output_paths" type="array: string" default="['/tmp/morph/{name}/{now()}{ext()}']">
-結果ファイルの出力先。
-
-記述方法は[こちら](/reference/ja/framework/output-paths)を参照してください。
 </ParamField>
 
 <ParamField body="connection" type="string" default="morph_project.ymlで設定したdefault_connection">
