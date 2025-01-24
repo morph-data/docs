@@ -18,9 +18,11 @@
       "to": "#07C983"
     }
   },
-  "topbarLinks": [
+  "topbarLinks": [],
+  "versions": [
+    "English",
+    "日本語"
   ],
-  "versions": ["English", "日本語"],
   "topbarCtaButton": {
     "name": "Website",
     "url": "https://www.morphdb.io"
@@ -77,8 +79,7 @@
           "pages": [
             "docs/en/develop/guides/framework",
             "docs/en/develop/guides/integration",
-            "docs/en/develop/guides/variables",
-            "docs/en/develop/guides/job-schedule"
+            "docs/en/develop/guides/variables"
           ]
         },
         {
@@ -108,8 +109,7 @@
       "version": "English",
       "pages": [
         "docs/en/deploy/quickstart",
-        "docs/en/deploy/environment",
-        "docs/en/deploy/how-to-install-pip"
+        "docs/en/deploy/deploy-config-params"
       ]
     },
     {
@@ -117,8 +117,30 @@
       "version": "English",
       "pages": [
         "docs/en/advanced/api_key",
-        "docs/en/advanced/canvas",
-        "docs/en/advanced/builtin-postgres"
+        "docs/en/advanced/builtin-postgres",
+        {
+          "group": "Connectors",
+          "icon": "plug",
+          "pages": [
+            "docs/en/advanced/connectors/mysql",
+            "docs/en/advanced/connectors/postgresql",
+            "docs/en/advanced/connectors/bigquery",
+            "docs/en/advanced/connectors/snowflake",
+            "docs/en/advanced/connectors/redshift",
+            "docs/en/advanced/connectors/mssql",
+            "docs/en/advanced/connectors/athena",
+            "docs/en/advanced/connectors/salesforce",
+            "docs/en/advanced/connectors/hubspot",
+            "docs/en/advanced/connectors/stripe",
+            "docs/en/advanced/connectors/linear",
+            "docs/en/advanced/connectors/airtable",
+            "docs/en/advanced/connectors/attio",
+            "docs/en/advanced/connectors/intercom",
+            "docs/en/advanced/connectors/notion",
+            "docs/en/advanced/connectors/mailchimp",
+            "docs/en/advanced/connectors/freee"
+          ]
+        }
       ]
     },
     {
@@ -126,8 +148,7 @@
       "version": "English",
       "pages": [
         "reference/en/framework/morph-project",
-        "reference/en/framework/output-paths",
-        "reference/en/framework/scheduled_jobs"
+        "reference/en/framework/output-paths"
       ]
     },
     {
@@ -254,7 +275,6 @@
     },
     {
       "group": "Workspace",
-
       "version": "English",
       "pages": [
         "troubleshooting/en/workspace/mdx-api-error"
@@ -278,8 +298,7 @@
           "pages": [
             "docs/ja/develop/guides/framework",
             "docs/ja/develop/guides/integration",
-            "docs/ja/develop/guides/variables",
-            "docs/ja/develop/guides/job-schedule"
+            "docs/ja/develop/guides/variables"
           ]
         },
         {
@@ -309,8 +328,7 @@
       "version": "日本語",
       "pages": [
         "docs/ja/deploy/quickstart",
-        "docs/ja/deploy/environment",
-        "docs/ja/deploy/how-to-install-pip"
+        "docs/ja/deploy/deploy-config-params"
       ]
     },
     {
@@ -318,8 +336,30 @@
       "version": "日本語",
       "pages": [
         "docs/ja/advanced/api_key",
-        "docs/ja/advanced/canvas",
-        "docs/ja/advanced/builtin-postgres"
+        "docs/ja/advanced/builtin-postgres",
+        {
+          "group": "Connectors",
+          "icon": "plug",
+          "pages": [
+            "docs/ja/advanced/connectors/mysql",
+            "docs/ja/advanced/connectors/postgresql",
+            "docs/ja/advanced/connectors/bigquery",
+            "docs/ja/advanced/connectors/snowflake",
+            "docs/ja/advanced/connectors/redshift",
+            "docs/ja/advanced/connectors/mssql",
+            "docs/ja/advanced/connectors/athena",
+            "docs/ja/advanced/connectors/salesforce",
+            "docs/ja/advanced/connectors/hubspot",
+            "docs/ja/advanced/connectors/stripe",
+            "docs/ja/advanced/connectors/linear",
+            "docs/ja/advanced/connectors/airtable",
+            "docs/ja/advanced/connectors/attio",
+            "docs/ja/advanced/connectors/intercom",
+            "docs/ja/advanced/connectors/notion",
+            "docs/ja/advanced/connectors/mailchimp",
+            "docs/ja/advanced/connectors/freee"
+          ]
+        }
       ]
     },
     {
@@ -327,8 +367,7 @@
       "version": "日本語",
       "pages": [
         "reference/ja/framework/morph-project",
-        "reference/ja/framework/output-paths",
-        "reference/ja/framework/scheduled_jobs"
+        "reference/ja/framework/output-paths"
       ]
     },
     {

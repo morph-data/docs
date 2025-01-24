@@ -1,0 +1,100 @@
+---
+title: "Linear"
+---
+
+## Connecting to Linear
+
+For an overview of connectors, please refer to the following link:
+
+- [Connecting to DB/SaaS](/docs/en/develop/guides/integration)
+
+<Tabs>
+  <Tab title="Cloud Version">
+    <Steps>
+      <Step title="Create a Connector">
+        Select the "Connectors" tab on the top page and press the "Create" button.
+        <img src="/assets/images/docs/advanced/connectors/connect-data-platform-connection.png" alt="Connection" />
+      </Step>
+
+      <Step title="Enter Linear Authentication Information">
+        Select Linear and press the sign-in button.
+
+        <img src="/assets/images/docs/advanced/connectors/connect-data-platform-linear-create.png" alt="Linear Connection Create" />
+
+        After entering the information, press the Create button to complete the creation. If there are any errors in the parameters, an error will be displayed, so please check the connection details again.
+
+      </Step>
+      <Step title="Retrieve access_token from the Created Connector">
+        Once the creation is successful, you can retrieve the connector name from the list display.
+
+        Use the dedicated function to enter the connector name in the Python code and retrieve the access_token.
+        <CodeGroup>
+        ```python Python
+        import morph
+        from morph import MorphGlobalContext
+        from morph_lib.api import get_auth_token
+
+
+        @morph.func
+        def main(context: MorphGlobalContext):
+            access_token = get_auth_token("connection_name")
+            # ↓↓↓ Process using access_token ↓↓↓
+        ```
+        </CodeGroup>
+      </Step>
+    </Steps>
+
+  </Tab>
+  <Tab title="Local Version">
+    <Info>In the local version, you currently need to directly write the authentication information in ~/.morph/connections.yml. Please create it in the cloud version if you prefer other methods.</Info>
+
+    <Steps>
+      <Step title="Edit connections.yml">
+        If the file does not exist in `~/.morph/connections.yml`, please create it beforehand and then edit it.
+        ```bash shell
+        mkdir ~/.morph
+        touch ~/.morph/connections.yml
+        ```
+
+        ```yaml
+        connections:
+          linear-connection: # Any unique name
+            type: linear # Fixed
+            method: linear_oauth # Fixed
+            refresh_token: str
+            client_id: str
+            client_secret: str
+            redirect_uri: str
+            access_token: str # Optional
+        ```
+      </Step>
+      <Step title="Use the Connector in Code to Retrieve Data">
+        Use the dedicated function to enter the connector name in the Python code and retrieve the access_token.
+        <CodeGroup>
+        ```python Python
+        import morph
+        from morph import MorphGlobalContext
+        from morph_lib.api import get_auth_token
+
+
+        @morph.func
+        def main(context: MorphGlobalContext):
+            access_token = get_auth_token("connection_name")
+            # ↓↓↓ Process using access_token ↓↓↓
+        ```
+        </CodeGroup>
+      </Step>
+    </Steps>
+
+    Refreshing the access_token is a cloud version feature, so the one specified will always be used in the local environment.
+
+    <Warning>
+        When actually specifying a connector and executing the file, the priority is as follows:
+        Also, note that only connectors created in the cloud version can be used in environments where `morph deploy` has been performed.
+        1. Connectors specified in `~/.morph/connections.yml` on the local machine
+        2. Connectors registered in the cloud
+    </Warning>
+
+  </Tab>
+</Tabs>
+

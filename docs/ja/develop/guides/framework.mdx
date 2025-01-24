@@ -11,12 +11,16 @@ SQL, PythonそしてMDXを使用してデータアプリを構築できるフレ
 
 ```bash workdir
 .
-├── morph_project.yml
-└── src
-    ├── pages/
-    ├── python/
-    ├── sql/
-    └── utils/
+├── src
+│   ├── pages/
+│   ├── python/
+│   └── sql/
+├── .env
+├── package.json (mdxで使用するnpmパッケージを管理)
+├── requirements.txt (pipを使用する場合)
+├── poetry.toml (poetryを使用する場合)
+├── Dockerfile (デプロイ用)
+└── morph_project.yml
 ```
 
 ## データパイプライン構築

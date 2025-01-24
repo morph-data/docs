@@ -1,0 +1,100 @@
+---
+title: "Notion"
+---
+
+## Connecting to Notion
+
+For an overview of connectors, please refer to the following link:
+
+- [Connecting to DB/SaaS](/docs/en/develop/guides/integration)
+
+<Tabs>
+  <Tab title="Cloud Version">
+    <Steps>
+      <Step title="Create a Connector">
+        Select the "Connectors" tab on the homepage and click the "Create" button.
+        <img src="/assets/images/docs/advanced/connectors/connect-data-platform-connection.png" alt="Connection" />
+      </Step>
+
+      <Step title="Enter Notion Credentials">
+        Select Notion and click the sign-in button.
+
+        <img src="/assets/images/docs/advanced/connectors/connect-data-platform-notion-create.png" alt="Notion Connection Create" />
+
+        After entering the information, click the Create button to complete the creation. If there are any errors, please check the connection details again.
+
+      </Step>
+      <Step title="Retrieve access_token from the created connector">
+        Once created successfully, you can retrieve the connector name from the list.
+
+        Use the dedicated function to input the connector name in the Python code and retrieve the access_token.
+        <CodeGroup>
+        ```python Python
+        import morph
+        from morph import MorphGlobalContext
+        from morph_lib.api import get_auth_token
+
+
+        @morph.func
+        def main(context: MorphGlobalContext):
+            access_token = get_auth_token("connection_name")
+            # ↓↓↓ Use the access_token for processing ↓↓↓
+        ```
+        </CodeGroup>
+      </Step>
+    </Steps>
+
+  </Tab>
+  <Tab title="Local Version">
+    <Info>For the local version, you need to directly write the credentials in `~/.morph/connections.yml`. For other methods, please create them in the cloud version.</Info>
+
+    <Steps>
+      <Step title="Edit connections.yml">
+        If the file `~/.morph/connections.yml` does not exist, create it beforehand and then edit it.
+        ```bash shell
+        mkdir ~/.morph
+        touch ~/.morph/connections.yml
+        ```
+
+        ```yaml
+        connections:
+          notion-connection: # Unique arbitrary name
+            type: notion # Fixed
+            method: notion_oauth # Fixed
+            refresh_token: str
+            client_id: str
+            client_secret: str
+            redirect_uri: str
+            access_token: str # Optional
+        ```
+      </Step>
+      <Step title="Use the connector in code to retrieve data">
+        Use the dedicated function to input the connector name in the Python code and retrieve the access_token.
+        <CodeGroup>
+        ```python Python
+        import morph
+        from morph import MorphGlobalContext
+        from morph_lib.api import get_auth_token
+
+
+        @morph.func
+        def main(context: MorphGlobalContext):
+            access_token = get_auth_token("connection_name")
+            # ↓↓↓ Use the access_token for processing ↓↓↓
+        ```
+        </CodeGroup>
+      </Step>
+    </Steps>
+
+    The access_token refresh is a cloud version feature, so the one specified in the local environment will always be used.
+
+    <Warning>
+        When actually specifying the connector and executing the file, the priority is as follows:
+        Also, note that only connectors created in the cloud version can be used in the environment where `morph deploy` is performed.
+        1. Connectors listed in `~/.morph/connections.yml` on the local machine
+        2. Connectors registered in the cloud
+    </Warning>
+
+  </Tab>
+</Tabs>
+

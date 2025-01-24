@@ -3,22 +3,27 @@ title: 'DB/SaaSと接続する'
 icon: "database"
 ---
 
-## DBと接続する
+## コネクターを作成する
 
-データベース接続を行う事で、Pythonで処理するデータをSQLから直接取得することができます。
+コネクターを作成することで、DBやSaaSとの接続を行うことができます。
+コネクターはクラウド環境、ローカル環境どちらでも作成することができますが、クラウド環境で作成したものを使用することでデプロイ時にもそのままコネクターを使用することができます。
 
 <Tabs>
   <Tab title="クラウド版">
     <Steps>
-      <Step title="SQL Connectionを作成する">
-        ワークスペースの「Data」タブからSQL Connectionを作成します。
+      <Step title="CLIにAPI Keyを設定する">
+        [API Key認証](/docs/ja/advanced/api_key)を行い、ローカル環境からMorphのクラウドへアクセスできる設定をします。
       </Step>
-      <Step title="SQL Connectionのコネクション名を取得する">
-      作成が成功すると一覧表示からコネクション名を取得することができます。
-      <img src="/assets/images/docs/connection.png" alt="Connection" />
+      <Step title="コネクターを作成する">
+        ダッシュボードの「Connectors」タブからコネクターを作成します。
       </Step>
-      <Step title="SQLファイルを作成してデータを取得する">
-        SQLファイルを作成して、データを取得します。
+      <Step title="コネクション名を取得する">
+        作成が成功したら、プロジェクト詳細画面からコネクターの使用をアクティブにして、コネクション名を取得します。
+        <img src="/assets/images/docs/connection.png" alt="Connection" />
+      </Step>
+      <Step title="SQL/Pythonの中でコネクターを使用する">
+        SQLファイルやPythonファイルの中でコネクション名を使用してコネクターを使用します。
+        接続方法の詳細は、このページの下部のセクションをご覧ください。
         ```sql
         {{
           config(
@@ -40,8 +45,9 @@ icon: "database"
         morph init
         ```
       </Step>
-      <Step title="SQLファイルを作成してデータを取得する">
-        SQLファイルを作成して、データを取得します。
+      <Step title="SQL/Pythonの中でコネクターを使用する">
+        SQLファイルやPythonファイルの中でコネクション名を使用してコネクターを使用します。
+        接続方法の詳細は、このページの下部のセクションをご覧ください。
         ```sql
         {{
           config(
@@ -56,11 +62,39 @@ icon: "database"
   </Tab>
 </Tabs>
 
+<Warning>
+ローカル環境とクラウド環境で同じ名前のコネクターが定義されている場合は、ローカル環境のコネクターが優先されます。
+
+クラウドへデプロイをした後は、クラウド環境に定義されているコネクターのみを使用します。
+</Warning>
+
+## DBと接続する
+
+SQLファイルを作成して、データを取得します。`config`関数の中コネクション名を定義することで、接続しているデータベースのSQLの文法を使用してデータを取得することができます。
+
+```sql
+{{
+  config(
+    connection="connection_name"
+  )
+}}
+
+select * from table_name;
+```
+
+種類別のDBへの接続は以下を参照してください。
+
+- [Athena](/docs/ja/advanced/connectors/athena)
+- [BigQuery](/docs/ja/advanced/connectors/bigquery)
+- [SQLServer](/docs/ja/advanced/connectors/mssql)
+- [MySQL](/docs/ja/advanced/connectors/mysql)
+- [PostgreSQL](/docs/ja/advanced/connectors/postgresql)
+- [Redshift](/docs/ja/advanced/connectors/redshift)
+- [Snowflake](/docs/ja/advanced/connectors/snowflake)
+
 ## SaaSと接続する
 
-<Warning>SaaS接続はクラウド版のみで利用可能です。</Warning>
-
-Morphでは、一部のSaaSとの連携を用意しています。
+Morphでは、SaaSとの連携を用意しています。
 連携を使うことにより、認証周りの実装を全てMorphに任せてビジネスロジックの実装に集中をすることができます。
 
 以下のようにして、Pythonで作成したIntegrationからaccess_tokenを取得します。
@@ -78,3 +112,16 @@ def get_salesforce_opportunities(context: MorphGlobalContext) -> pd.DataFrame:
 
     # ↓↓↓ call API with access_token ↓↓↓
 ```
+
+種類別のSaaSへの接続は以下を参照してください。
+
+- [Airtable](/docs/ja/advanced/connectors/airtable)
+- [Attio](/docs/ja/advanced/connectors/attio)
+- [Freee](/docs/ja/advanced/connectors/freee)
+- [HubSpot](/docs/ja/advanced/connectors/hubspot)
+- [Intercom](/docs/ja/advanced/connectors/intercom)
+- [Linear](/docs/ja/advanced/connectors/linear)
+- [Notion](/docs/ja/advanced/connectors/notion)
+- [Mailchimp](/docs/ja/advanced/connectors/mailchimp)
+- [Salesforce](/docs/ja/advanced/connectors/salesforce)
+- [Stripe](/docs/ja/advanced/connectors/stripe)

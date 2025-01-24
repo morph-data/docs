@@ -1,0 +1,191 @@
+---
+title: "PostgreSQL"
+---
+
+## Connecting to PostgreSQL
+
+For an overview of connectors, please refer to the following link:
+
+- [Connecting to DB/SaaS](/docs/en/develop/guides/integration)
+
+<Tabs>
+  <Tab title="Cloud Version">
+    <Steps>
+      <Step title="Create a Connector">
+        Select the "Connectors" tab on the top page and click the "Create" button.
+        <img src="/assets/images/docs/advanced/connectors/connect-data-platform-connection.png" alt="Connection" />
+      </Step>
+
+      <Step title="Enter PostgreSQL Credentials">
+        Enter the credentials for the database you want to connect to in the displayed form.
+        If you are connecting via a remote server, check the "SSH" box and fill in the necessary fields.
+
+        After entering the information, click the Create button to complete the creation. If there are any errors in the parameters, an error message will be displayed, so please check the connection details again.
+        <img src="/assets/images/docs/advanced/connectors/connect-data-platform-postgresql-create.png" alt="PostgreSQL Connection Create" />
+
+        | Field Name        | Description                               | Required | Example                        |
+        |-------------------|-------------------------------------------|----------|--------------------------------|
+        | `Host`            | Enter the database host name.             | ✅       | `example.com`                  |
+        | `Port`            | Enter the database connection port.       | ✅       | `5432`                         |
+        | `Database`        | Enter the database name.                  | ✅       | `my_database`                  |
+        | `Username`        | Enter the database username.              | ✅       | `db_user`                      |
+        | `Password`        | Enter the database user password.         | ✅       | `mypassword`                   |
+        | `SSH`             | Specify if using SSH connection.          |          |                                |
+        | `SSH Host`        | Enter the remote server host name.        |          | `ssh.example.com`              |
+        | `SSH Port`        | Enter the remote server connection port.  |          | `22`                           |
+        | `SSH Username`    | Enter the remote server username.         |          | `ssh_user`                     |
+        | `SSH Password`    | Enter the remote server user password.    |          | `sshpassword`                  |
+        | `SSH Private Key` | Enter the remote server private key.      |          | `-----BEGIN RSA PRIVATE KEY-----` |
+        | `SSH Passphrase`  | Enter the passphrase for the private key. |          | `my_passphrase`                |
+
+        <Warning>Make sure to allow access from `54.150.149.0/32` in the IP whitelist of the target database.</Warning>
+
+      </Step>
+      <Step title="Connect to the Created Database">
+        Once created successfully, you can get the connector name from the list display. The string next to the icon is `connection_name`. You can use this to connect to the database in your code.
+
+        <img src="/assets/images/docs/advanced/connectors/connect-data-platform-postgresql-complete.png" alt="PostgreSQL Connection Create Complete" />
+
+        Enter the created connector name in SQL or Python code to retrieve data.
+        <CodeGroup>
+        ```sql SQL
+        {{
+            config(
+                connection="connection_name"
+            )
+        }}
+
+        select * from table_name
+        ```
+
+        ```python Python
+        import morph
+        from morph import MorphGlobalContext
+        from morph_lib.database import execute_sql
+
+
+        @morph.func
+        def main(context: MorphGlobalContext):
+            df = execute_sql(
+                sql="SELECT * from table_name"
+                connection="connection_name"
+            )
+            return df
+        ```
+        </CodeGroup>
+      </Step>
+    </Steps>
+
+  </Tab>
+  <Tab title="Local Version">
+    <Steps>
+      <Step title="Run the morph init Command">
+        Run the `morph init` command to save the DB connection information in `~/.morph/connections.yml`.
+        ```bash Shell
+        morph init
+        ```
+
+        <Warning>
+        If you have not installed the morph package, please install it with the following command before proceeding.
+        ```bash shell
+        pip install morph-data
+        ```
+        </Warning>
+
+        An interactive interface will display a list of database types, select PostgreSQL.
+        ```bash Shell
+        Select your database type:
+        1. PostgreSQL
+        2. MySQL
+        3. Redshift
+        4. SQLServer
+        5. Snowflake (User/Password)
+        6. BigQuery (Service Account)
+        Enter the number corresponding to your database type: 1
+
+        PostgreSQL selected.
+        ```
+
+        Next, enter the database credentials. `slug` is treated as the connector name, which you specify in SQL or Python.
+
+        Replace the following input examples with actual values that can connect.
+        ```bash shell
+        Create a slug for your connection: postgresql-connection
+        Enter your PostgreSQL host (default: localhost): localhost
+        Enter your PostgreSQL username: your_user_name
+        Enter your PostgreSQL password: your_password
+        Enter your PostgreSQL port (default: 5432): 5432
+        Enter your PostgreSQL database name: your_database_name
+        Enter your PostgreSQL schema name (default: public): public
+        Select if you are using SSH tunneling (y/n): n
+        ```
+
+        Once the credentials are saved, the following message will be displayed.
+        ```bash shell
+        Successfully initialized! 🎉
+        You can edit your connection details in `path_to_connections.yml`
+        ```
+
+        `connections.yml` is saved as follows. If you create other connectors, they will be added under `connections`.
+        ```bash shell
+        cat ~/.morph/connections.yml
+        ```
+
+        ```yaml
+        connections:
+          postgresql-connection: # Connector name
+            dbname: your_database_name
+            host: localhost
+            password: your_password
+            port: 5432
+            schema_: public
+            ssh_host: null
+            ssh_password: null
+            ssh_port: null
+            ssh_private_key: null
+            ssh_user: null
+            type: postgres # Fixed
+            user: your_user_name
+        ```
+      </Step>
+      <Step title="Retrieve Data Using the Connector in Code">
+        Enter the created connector name in SQL or Python code to retrieve data.
+        <CodeGroup>
+        ```sql SQL
+        {{
+            config(
+                connection="connection_name"
+            )
+        }}
+
+        select * from table_name
+        ```
+
+        ```python Python
+        import morph
+        from morph import MorphGlobalContext
+        from morph_lib.database import execute_sql
+
+
+        @morph.func
+        def main(context: MorphGlobalContext):
+            df = execute_sql(
+                sql="SELECT * from table_name"
+                connection="connection_name"
+            )
+            return df
+        ```
+        </CodeGroup>
+      </Step>
+    </Steps>
+
+    <Warning>
+        When actually specifying a connector and executing a file, the priority is as follows:
+        Also, note that only connectors created in the cloud version can be used in the environment where `morph deploy` is performed.
+        1. Connectors listed in `~/.morph/connections.yml` on the local machine
+        2. Connectors registered in the cloud
+    </Warning>
+
+  </Tab>
+</Tabs>
+
