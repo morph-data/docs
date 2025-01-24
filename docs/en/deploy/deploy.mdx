@@ -23,12 +23,20 @@ Follow the steps below to deploy using your Project ID and API key.
             ```
         1. Edit the `morph_project.yml` file in the root directory to set the `project_id`:
             ```yaml YAML
-            -- omitted --
+            # Profile Section in `~/.morph/credentials`
             profile: default
+
+            # Project ID
             project_id: [YOUR_PROJECT_ID]
+
+            # Python Package Manager
+            package_manager: pip
+
             -- omitted --
             ```
-        Note: The profile corresponds to the section in `~/.morph/credentials`. Typically, `default` is sufficient, but modify it if you have multiple credentials.
+            - The `profile` corresponds to the section in `~/.morph/credentials`. Typically, `default` is sufficient, but modify it if you have multiple credentials.
+            - The `package_manager` is set to the selected package manager when the project was created. Normally, you do not need to change this. The `morph deploy` command builds based on this setting.
+                - If `package_manager=pip` is specified, edit the `requirements.txt` file in the root directory to specify the packages to install in the deployment environment. Otherwise, `requirements.txt` is automatically generated during the build process.
     </Step>
     <Step title="Deploy to the cloud">
         Run the following command to deploy to the cloud:

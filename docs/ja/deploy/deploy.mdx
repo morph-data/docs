@@ -22,14 +22,22 @@ icon: ''
             ```bash Shell
             cd /path/to/your-project
             ```
-        1. プロジェクトの `morph_project.yml` を編集して `project_id` を設定します。
+        1. `morph_project.yml`を編集して`project_id`を設定します。
             ```yaml YAML
-            -- 省略 --
+            # Profile Section in `~/.morph/credentials`
             profile: default
+
+            # Project ID
             project_id: [YOUR_PROJECT_ID]
+
+            # Python Package Manager
+            package_manager: pip
+
             -- 省略 --
             ```
-            ※ profileは`~/.morph/credentials`のセクションに紐付きます。通常は`default`で問題ありませんが、複数の認証情報をお持ちの場合は必要に応じて変更してください。
+            - `profile`は`~/.morph/credentials`のセクションに紐付きます。通常は`default`で問題ありませんが、複数の認証情報をお持ちの場合は必要に応じて変更してください。
+            - `package_manager`はプロジェクト作成時のパッケージマネージャーが設定されています。通常変更する必要はありませんが、`morph deploy`コマンドではこの設定に基づいてビルドを行います。
+                - `package_manager=pip`が指定されている場合は、プロジェクト直下の`requirements.txt`を編集してデプロイ環境でインストールするパッケージを指定してください。それ以外の場合は`requirements.txt`がビルド時に自動で生成されます。
     </Step>
     <Step title="クラウドにデプロイする">
         コマンドを実行してクラウドにデプロイします。
