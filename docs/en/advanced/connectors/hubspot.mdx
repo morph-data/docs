@@ -9,7 +9,7 @@ For an overview of the connector, please refer to the following link.
 - [Connecting to DB/SaaS](/docs/en/develop/guides/integration)
 
 <Tabs>
-  <Tab title="Cloud Version">
+  <Tab title="Dashboard">
     <Steps>
       <Step title="Create a Connector">
         Select the "Connectors" tab on the top page and press the "Create" button.
@@ -46,7 +46,7 @@ For an overview of the connector, please refer to the following link.
 
   </Tab>
   <Tab title="Local Version">
-    <Info>For the local version, you need to directly write the credentials in `~/.morph/connections.yml`. For other methods, please create them in the cloud version.</Info>
+    <Info>For the local version, you need to directly write the credentials in `~/.morph/connections.yml`. For other methods, please create them in the dashboard.</Info>
 
     <Steps>
       <Step title="Edit connections.yml">
@@ -86,11 +86,11 @@ For an overview of the connector, please refer to the following link.
       </Step>
     </Steps>
 
-    The access_token refresh is a cloud version feature, so the one specified will always be used in the local environment.
+    The access_token refresh is a dashboard feature, so the one specified will always be used in the local environment.
 
     <Warning>
         When actually specifying the connector and executing the file, the priority is as follows:
-        Also, note that only connectors created in the cloud version can be used in environments where `morph deploy` is performed.
+        Also, note that only connectors created in the dashboard can be used in environments where `morph deploy` is performed.
         1. Connectors listed in `~/.morph/connections.yml` on the local machine
         2. Connectors registered in the cloud
     </Warning>
