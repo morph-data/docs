@@ -1,0 +1,28 @@
+---
+title: '環境変数'
+icon: "square-terminal"
+---
+
+Morphのフレームワークではコードで使用する環境変数を設定することができます。
+
+環境変数へのアクセスは通常のPythonのコードと同じように行うことができます。
+
+```python
+import os
+import pandas as pd
+import morph
+from morph import MorphGlobalContext
+
+@morph.func
+def get_env_value(context: MorphGlobalContext):
+    # get env variable named "ENV_NAME"
+    env_name = os.environ["ENV_NAME"]
+    return pd.DataFrame({})
+```
+
+プロジェクトのルートに `.env`ファイルを作成して設定をすることでMorphのフレームワークが自動で読み取りを行います。
+
+```bash .env
+KEY1=value1
+KEY2=value2
+```

@@ -1,0 +1,266 @@
+---
+title: "Snowflake"
+---
+
+## Connecting to Snowflake
+
+For an overview of the connector, please refer to the following link:
+
+- [Connecting to DB/SaaS](/docs/en/develop/guides/integration)
+
+<Tabs>
+  <Tab title="Dashboard">
+    <Steps>
+      <Step title="Create a Connector">
+        Select the "Connectors" tab on the top page and click the "Create" button.
+        <img src="/assets/images/docs/advanced/connectors/connect-data-platform-connection.png" alt="Connection" />
+      </Step>
+
+      <Step title="Enter Snowflake Credentials">
+        Snowflake offers three authentication methods.
+
+        Please refer to the official page for the Snowflake Server URL.
+
+        - [Connecting to Your Account](https://docs.snowflake.com/en/user-guide/organizations-connect)
+
+        ### Connecting with Private Key
+
+        Select Snowflake (Key Pair) and enter the required credentials in the displayed form.
+
+        <img src="/assets/images/docs/advanced/connectors/connect-data-platform-snowflake-kp-create.png" alt="Snowflake Key Pair Connection Create" />
+
+        | Field Name        | Description                              | Required | Example                        |
+        |-------------------|------------------------------------------|----------|--------------------------------|
+        | `Server`          | Standard Snowflake Account URL           | ✅       | `https://<account_locator>.<region>.<cloud>.snowflakecomputing.com` |
+        | `Username`        | Username                                 | ✅       | `DEMO_USER`                    |
+        | `Private Key`     | Private Key                              | ✅       | `-----BEGIN PRIVATE KEY-----`  |
+        | `Passphrase`      | Private Key Passphrase                   |          | `passphrase`                   |
+
+        Please refer to the official page for creating a private key.
+
+        - [Key Pair Authentication and Key Pair Rotation](https://docs.snowflake.com/en/user-guide/key-pair-auth)
+
+
+        ### Connecting with User/Password
+
+        Select Snowflake (user / password) and enter the required credentials in the displayed form.
+
+        <Warning>Please note that if two-factor authentication is enabled, approval will be required each time.</Warning>
+
+        <img src="/assets/images/docs/advanced/connectors/connect-data-platform-snowflake-ip-create.png" alt="Snowflake ID Password Connection Create" />
+
+        | Field Name        | Description                              | Required | Example                        |
+        |-------------------|------------------------------------------|----------|--------------------------------|
+        | `Server`          | Standard Snowflake Account URL           | ✅       | `https://<account_locator>.<region>.<cloud>.snowflakecomputing.com` |
+        | `Username`        | Username                                 | ✅       | `DEMO_USER`                    |
+        | `Password`        | Password                                 | ✅       | `password`                     |
+
+        ### Connecting with OAuth
+
+        Select Snowflake (OAuth) and enter the required credentials in the displayed form.
+
+        <img src="/assets/images/docs/advanced/connectors/connect-data-platform-snowflake-oauth-create.png" alt="Snowflake OAuth Connection Create" />
+
+        | Field Name        | Description                              | Required | Example                        |
+        |-------------------|------------------------------------------|----------|--------------------------------|
+        | `Server`          | Standard Snowflake Account URL           | ✅       | `https://<account_locator>.<region>.<cloud>.snowflakecomputing.com` |
+        | `Client Id`       | Client ID                                | ✅       | `CLIENT_ID`                    |
+        | `Client Secret`   | Client Secret                            | ✅       | `CLIENT_SECRET`                |
+
+        Please refer to the official page for creating a Client ID and Client Secret.
+
+        - [Configuring Snowflake OAuth for Custom Clients](https://docs.snowflake.com/en/user-guide/oauth-custom)
+
+
+        After entering the information, click the Create button to complete the creation. If there are any errors, please check the connection details again.
+
+      </Step>
+      <Step title="Connect to the Created Database">
+        Once successfully created, you can obtain the connector name from the list display. The string next to the icon is `connection_name`. You can use this to connect to the database in your code.
+
+        <img src="/assets/images/docs/advanced/connectors/connect-data-platform-snowflake-complete.png" alt="Snowflake Connection Create Complete" />
+
+        Enter the created connector name in your SQL or Python code to retrieve data.
+        <CodeGroup>
+        ```sql SQL
+        {{
+            config(
+                connection="connection_name"
+            )
+        }}
+
+        select * from table_name
+        ```
+
+        ```python Python
+        import morph
+        from morph import MorphGlobalContext
+        from morph_lib.database import execute_sql
+
+
+        @morph.func
+        def main(context: MorphGlobalContext):
+            df = execute_sql(
+                sql="SELECT * from table_name"
+                connection="connection_name"
+            )
+            return df
+        ```
+        </CodeGroup>
+      </Step>
+    </Steps>
+
+  </Tab>
+  <Tab title="Local Version">
+    <Info>Currently, only the User/Password method can be created via command in the local version. For other methods, please use the dashboard or directly write to `~/.morph/connections.yml`.</Info>
+
+    <Steps>
+      <Step title="Run the morph init Command">
+        Run the `morph init` command to save the DB connection information to `~/.morph/connections.yml`.
+        ```bash Shell
+        morph init
+        ```
+
+        <Warning>
+        If the morph package is not installed, please install it with the following command before proceeding.
+        ```bash shell
+        pip install morph-data
+        ```
+        </Warning>
+
+        A list of database types will be displayed in the interactive interface, select Snowflake (User/Password).
+        ```bash Shell
+        Select your database type:
+        1. PostgreSQL
+        2. MySQL
+        3. Redshift
+        4. SQLServer
+        5. Snowflake (User/Password)
+        6. BigQuery (Service Account)
+        Enter the number corresponding to your database type: 5
+
+        Snowflake (User/Password) selected.
+        ```
+
+        Next, enter the credentials. `slug` is treated as the connector name, which you specify in SQL or Python.
+
+        Replace the following input examples with actual values that can connect.
+        ```bash shell
+        Create a slug for your connection: snowflake-connection
+        Enter your Snowflake account: https://~
+        Enter your Snowflake database name: DEMO
+        Enter your Snowflake username: DEMO_USER
+        Enter your Snowflake password: password
+        Enter your Snowflake role name: DEMO_ROLE
+        Enter your Snowflake warehouse: DEMO_WAREHOUSE
+        Enter your Snowflake schema name (optional):
+        ```
+
+        Once the credentials are saved, the following message will be displayed.
+        ```bash shell
+        Successfully initialized! 🎉
+        You can edit your connection details in `path_to_connections.yml`
+        ```
+
+        `connections.yml` is saved as follows. If other connectors are created, they will be added under `connections`.
+        ```bash shell
+        cat ~/.morph/connections.yml
+        ```
+
+        ```yaml
+        connections:
+          snowflake-connection:
+            account: https://~
+            database: DEMO
+            method: snowflake_user_password
+            password: password
+            role: DEMO_ROLE
+            schema_: ''
+            type: snowflake
+            user: DEMO_USER
+            warehouse: DEMO_WAREHOUSE
+        ```
+      </Step>
+      <Step title="Retrieve Data Using the Connector in Code">
+        Enter the created connector name in your SQL or Python code to retrieve data.
+        <CodeGroup>
+        ```sql SQL
+        {{
+            config(
+                connection="connection_name"
+            )
+        }}
+
+        select * from table_name
+        ```
+
+        ```python Python
+        import morph
+        from morph import MorphGlobalContext
+        from morph_lib.database import execute_sql
+
+
+        @morph.func
+        def main(context: MorphGlobalContext):
+            df = execute_sql(
+                sql="SELECT * from table_name"
+                connection="connection_name"
+            )
+            return df
+        ```
+        </CodeGroup>
+      </Step>
+    </Steps>
+
+    <Warning>
+        When actually specifying the connector and executing the file, the priority is as follows.
+        Also, please note that only connectors created in the dashboard can be used in environments where `morph deploy` has been performed.
+        1. Connectors listed in `~/.morph/connections.yml` on the local machine
+        2. Connectors registered in the cloud
+    </Warning>
+
+    ### How to Write for Private Key and OAuth
+
+    When using a private key or OAuth, directly edit `~/.morph/connections.yml`.
+
+    Access token refresh is a dashboard feature, so the one listed will always be used in the local environment.
+
+    **Private Key Method**
+    ```yml
+    connections:
+      snowflake-key-pair-connection
+        type: snowflake # fixed
+        method: snowflake_key_pair # fixed
+        account: str
+        username: str
+        database: str
+        key_pair: str
+        role: str
+        warehouse: str
+        schema_: str # optional
+        passphrase: str # optional
+        access_token: str # optional
+    ```
+
+    **OAuth Method**
+    ```yml
+    connections:
+      snowflake-oauth-connection
+        type: snowflake # fixed
+        method: snowflake_oauth # fixed
+        account: str
+        database: str
+        refresh_token: str
+        client_id: str
+        client_secret: str
+        redirect_uri: str
+        role: str
+        warehouse: str
+        code_verifier: str
+        schema_: str # optional
+        access_token: str # optional
+    ```
+
+  </Tab>
+</Tabs>
+

@@ -1,0 +1,114 @@
+---
+title: 'State Management - defineState()'
+---
+
+When developing a frontend, there are cases where you need to store user-entered strings or selected values as state and send them to the server as variables. Follow this guide to implement it effectively.
+
+## Declaring State: `defineState()`
+
+To declare a state, use `defineState()`. This function takes an object as an argument and sets it as the initial value.
+
+```tsx
+import { defineState } from '@morph-data/components';
+
+export const topPageState = defineState({
+  dateRangeStart: new Date(),
+  dateRangeEnd: new Date(),
+  industry: 'All',
+});
+
+# My Data App page
+...
+```
+
+## Accessing State Value: `.value`
+
+You can access the values of a declared state using the .value property, as shown below:
+
+```tsx
+topPageState.dateRangeStart.value // 2025-01-01T00:00:00.000Z
+```
+
+<Note>
+  Tips
+  If specifying `topPageState.` followed by the variable name declared with `defineState` every time feels cumbersome, you can simplify this by destructuring the variables.
+  ```tsx
+  const { dateRangeStart, dateRangeEnd, industry } = defineState({
+    dateRangeStart: new Date(),
+    dateRangeEnd: new Date(),
+    industry: 'All',
+  });
+  ```
+</Note>
+
+
+## Updating State: `.update()`
+
+To update a state value, use the `update()` method.
+
+```tsx
+topPageState.dateRangeStart.update(new Date('2025-01-01'));
+```
+
+## Using Input Components
+
+The Morph framework provides components to reflect user input into states declared with defineState(). For details, refer to Input Components.
+
+By using input components, you can easily bind user input to the state.
+
+```tsx
+import { defineState } from '@morph-data/components';
+
+export const topPageState = defineState({
+  dateRangeStart: new Date(),
+  dateRangeEnd: new Date(),
+});
+
+# My Data App page
+
+Showing stock prices from {topPageState.dateRangeStart.value} to {topPageState.dateRangeEnd.value};
+
+<DateRangePicker
+  state={[
+    topPageState.dateRangeStart,
+    topPageState.dateRangeEnd
+  ]}
+/>
+
+```
+
+## Passing Values to Data Components
+
+Data components can accept a variables property. By passing the values of states declared with defineState() to this property, you can send user-entered values to Python functions or SQL files.
+
+By combining all the features we've covered so far, you can build a complete data app like this:
+
+
+```tsx
+import { defineState } from '@morph-data/components';
+
+export const topPageState = defineState({
+  dateRangeStart: new Date(),
+  dateRangeEnd: new Date(),
+});
+
+# My Data App page
+
+Showing stock prices from {topPageState.dateRangeStart.value} to {topPageState.dateRangeEnd.value};
+
+<DateRangePicker
+  state={[
+    topPageState.dateRangeStart,
+    topPageState.dateRangeEnd
+  ]}
+/>
+
+<DataTable
+  alias="stocks"
+  variables={{
+    start_date: topPageState.dateRangeStart,
+    end_date: topPageState.dateRangeEnd
+  }}
+/>
+
+```

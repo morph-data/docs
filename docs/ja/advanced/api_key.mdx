@@ -3,24 +3,34 @@ title: 'API Key'
 icon: "key"
 ---
 
-クラウドにログインをして、ホーム画面からAPI Keyを作成することで以下のことができます。
+API Keyは、ダッシュボードから Settings > Personal Settings > API Keyから作成することができます。
 
-- ローカルで構築したデータアプリのデプロイ
-- ビルトインPostgreSQLへRestAPIでアクセスをする
+<CardGroup cols={2}>
+    <Card title="コネクタを使用する" icon="square-1" href="/docs/ja/develop/guides/integration">
+        ダッシュボードで作成したコネクタを使用してDB/SaaSにアクセスする
+    </Card>
+    <Card title="Deploy" icon="square-2" href="/docs/ja/deploy/quickstart">
+        Morphのフレームワークを用いて構築したアプリをデプロイする
+    </Card>
+</CardGroup>
 
-## CLIでAPI Keyを使用する
+
+## API Keyを設定 / 使用する
 
 CLIで以下のコマンドを実行することによって、`~/.morph/credentials`にAPI Keyが保存されます。
-`morph sync`などのCLIからクラウドにアクセスをする場合はこの設定を用いてアクセスをされます。
 
 ```bash Shell
 morph config
 ```
 
-<Tip>`~/.morph/credentials`の中身を直接編集をすることでも設定をすることができます。</Tip>
+`~/.morph/credentials`には、以下のようにProfileごとに認証情報が登録をされます。`~/.morph/credentials`の中身を直接編集をすることで設定を変更することもできます。
 
-## Source IPについて
+```
+[default]
+api_key = [API_KEY]
 
-API Keyを作成する際に指定できるSource IPは、ビルトインPostgreSQLへRestAPIでアクセスする際のIPアドレスを制限します。
+[profile_name]
+api_key = [API_KEY]
+```
 
-<Warning>`morph sync`などのCLI操作で使用する場合のIP制限としては機能しません。</Warning>
+<Tip>profileを指定しない場合は`default`が使用されます。`morph_project.yml`でprofileを指定することで、プロジェクトで指定するprofileを切り替えることができます。</Tip>

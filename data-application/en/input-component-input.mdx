@@ -1,0 +1,32 @@
+---
+title: '<Input />'
+icon: 'input-pipe'
+---
+
+<Frame>
+  <iframe
+    height={90}
+    width='100%'
+    src="https://morph-data-components-storybook.netlify.app/iframe.html?args=&globals=&id=input-components-input--input-story"
+  />
+</Frame>
+
+`<Input>` is a component for inputting values into the state declared by the `defineState()` function.
+
+```tsx
+import { defineState } from '@morph-data/components';
+
+export const { useName } = defineState({ userName: '' });
+
+<Input state={userName} />
+```
+
+## Properties
+
+<ParamField path="state" type="State" required>
+  The State object that binds the input value of the component. Specify the state declared by the `defineState()` function.
+</ParamField>
+
+<ParamField path="type" type="string">
+  The `type` property of the HTML `<input>` tag.
+</ParamField>

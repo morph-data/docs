@@ -1,0 +1,126 @@
+---
+title: "Athena"
+---
+
+## Athena に接続する
+
+コネクターについての概要は以下のリンクを参照してください。
+
+- [DB/SaaSと接続する](/docs/en/develop/guides/integration)
+
+<Tabs>
+  <Tab title="ダッシュボード">
+    <Steps>
+      <Step title="Connectorを作成する">
+        トップページの「Connectors」タブを選択し「Create」ボタンを押下します。
+        <img src="/assets/images/docs/advanced/connectors/connect-data-platform-connection.png" alt="Connection" />
+      </Step>
+
+      <Step title="Athenaの認証情報を入力する">
+        Athenaを選択し認証方法を入力します。
+
+        <img src="/assets/images/docs/advanced/connectors/connect-data-platform-athena-create.png" alt="Athena Connection Create" />
+
+        入力後Createボタンを押下すると作成が完了します。パラメータに不備がある場合はエラーが表示されるため接続内容が正しいか再度ご確認ください。
+
+      </Step>
+      <Step title="作成したデータベースに接続する">
+        作成が成功すると一覧表示からコネクター名を取得することができます。
+
+        SQLまたはPythonのコードに作成したコネクター名を入力しデータを取得します。
+        <CodeGroup>
+        ```sql SQL
+        {{
+            config(
+                connection="connection_name"
+            )
+        }}
+
+        select * from table_name
+        ```
+
+        ```python Python
+        import morph
+        from morph import MorphGlobalContext
+        from morph_lib.database import execute_sql
+
+
+        @morph.func
+        def main(context: MorphGlobalContext):
+            df = execute_sql(
+                sql="SELECT * from table_name"
+                connection="connection_name"
+            )
+            return df
+        ```
+        </CodeGroup>
+      </Step>
+    </Steps>
+
+  </Tab>
+  <Tab title="ローカル">
+    <Info>ローカルでは現在直接~/.morph/connections.ymlに認証情報を記述する必要があります。それ以外の方式はダッシュボードで作成してください。</Info>
+
+    <Steps>
+      <Step title="connections.ymlを編集する">
+        `~/.morph/connections.yml`にファイルが存在しない場合は事前に作成してから編集してください。
+        ```bash shell
+        mkdir ~/.morph
+        touch ~/.morph/connections.yml
+        ```
+
+        ```yaml
+        connections:
+          athena-connection: # 一意な任意の名前
+            type: athena　# 固定
+            access_key: str
+            secret_key: str
+            session_token: str
+            region: str
+            catalog: str
+            database: str # 任意
+            work_group: str # 任意
+        ```
+      </Step>
+      <Step title="コード上でコネクターを使いデータを取得する">
+        SQLまたはPythonのコードに作成したコネクター名を入力しデータを取得します。
+        <CodeGroup>
+        ```sql SQL
+        {{
+            config(
+                connection="connection_name"
+            )
+        }}
+
+        select * from table_name
+        ```
+
+        ```python Python
+        import morph
+        from morph import MorphGlobalContext
+        from morph_lib.database import execute_sql
+
+
+        @morph.func
+        def main(context: MorphGlobalContext):
+            df = execute_sql(
+                sql="SELECT * from table_name"
+                connection="connection_name"
+            )
+            return df
+        ```
+        </CodeGroup>
+      </Step>
+    </Steps>
+
+    access_tokenのリフレッシュはダッシュボードの機能のためローカル環境では記載したものが常時使用されます。
+
+    <Warning>
+        実際にコネクターを指定してファイルを実行した場合の優先順位は以下の通りです。
+        また`morph deploy`を行なった環境ではダッシュボードで作成したコネクターのみが使用可能なため注意してください。
+        1. ローカルマシンの`~/.morph/connections.yml`に記載されたコネクター
+        2. クラウドで登録されたコネクター
+    </Warning>
+
+  </Tab>
+</Tabs>

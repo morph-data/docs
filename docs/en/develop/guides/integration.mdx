@@ -3,22 +3,28 @@ title: 'DB/SaaS Connection'
 icon: "database"
 ---
 
-## Connect to DB
+## Create a Connector
 
-By connecting to a database, you can directly retrieve data processed in Python from SQL.
+By creating a connector, you can connect to DBs and SaaS.
+Connectors can be created in both cloud and local environments, but using those created in the cloud environment allows you to use them as-is after deployment.
 
 <Tabs>
-  <Tab title="Cloud">
+  <Tab title="Dashboard">
     <Steps>
-      <Step title="Create an SQL Connection">
-        Create an SQL Connection from the "Data" tab in the workspace.
+      <Step title="Set API Key in CLI">
+        Run [API Key Authentication](/docs/en/advanced/api_key) to set up access from the local environment to Morph cloud.
       </Step>
-      <Step title="Obtain the Connection Name of the SQL Connection">
-      Once created successfully, you can obtain the connection name from the list display.
-      <img src="/assets/images/docs/connection.png" alt="Connection" />
+      <Step title="Create a Connector">
+        Create a connector from the "Connectors" tab on the dashboard.
       </Step>
-      <Step title="Create an SQL File and Retrieve Data">
-        Create an SQL file and retrieve data.
+      <Step title="Obtain Connection Name">
+        Once created successfully, activate the use of the connector from the project details page and obtain the connection name.
+        <img src="/assets/images/docs/connection.png" alt="Connection" />
+      </Step>
+      <Step title="Use Connector in SQL/Python">
+        Use the connection name in SQL or Python files to utilize the connector.
+        For detailed connection methods, please refer to the section at the bottom of this page.
+
         ```sql
         {{
           config(
@@ -33,15 +39,14 @@ By connecting to a database, you can directly retrieve data processed in Python 
   </Tab>
   <Tab title="Local">
     <Steps>
-      <Step title="Install Morph with pip Command">
-        Execute the `morph init` command to save the DB connection information in `~/.morph/connections.yml`.
-        Use the connection name set here in the SQL file.
+      <Step title="Install morph with pip command">
+        Execute the `morph init` command to save DB connection information in `~/.morph/connections.yml`. Use the connection name set here in SQL files.
         ```bash Shell
         morph init
         ```
       </Step>
-      <Step title="Create an SQL File and Retrieve Data">
-        Create an SQL file and retrieve data.
+      <Step title="Use Connector in SQL/Python">
+        Use the connection name in SQL or Python files to utilize the connector. For detailed connection methods, please refer to the section at the bottom of this page.
         ```sql
         {{
           config(
@@ -56,14 +61,42 @@ By connecting to a database, you can directly retrieve data processed in Python 
   </Tab>
 </Tabs>
 
-## Connecting to SaaS
+<Warning>
+If a connector with the same name is defined in both the local and cloud environments, the local environment's connector will be used.
 
-<Warning>SaaS connections are only available in the cloud version.</Warning>
+After deploying to the cloud, only the connectors defined in the cloud environment are used.
+</Warning>
 
-Morph provides integration with some SaaS services.
-By using these integrations, you can delegate all authentication implementations to Morph and focus on implementing business logic.
+## Connect to DB
 
-Here is how to obtain an access_token from an Integration created in Python.
+Create an SQL file to retrieve data. You can use the SQL syntax of the connected database by defining the connection name in the `config` function.
+
+```sql
+{{
+  config(
+    connection="connection_name"
+  )
+}}
+
+select * from table_name;
+```
+
+For information on connecting to different types of databases, please refer to the following.
+
+- [MySQL](/docs/en/advanced/connectors/mysql)
+- [PostgreSQL](/docs/en/advanced/connectors/postgresql)
+- [BigQuery](/docs/en/advanced/connectors/bigquery)
+- [Snowflake](/docs/en/advanced/connectors/snowflake)
+- [Redshift](/docs/en/advanced/connectors/redshift)
+- [SQLServer](/docs/en/advanced/connectors/mssql)
+- [Athena](/docs/en/advanced/connectors/athena)
+
+## Connect to SaaS
+
+Morph provides integration with SaaS.
+By using integration, you can focus on implementing business logic without having to implement authentication.
+
+You can obtain the access_token from the integration created in Python as follows.
 
 ```python
 import pandas as pd
@@ -78,3 +111,16 @@ def get_salesforce_opportunities(context: MorphGlobalContext) -> pd.DataFrame:
 
     # ↓↓↓ call API with access_token ↓↓↓
 ```
+
+For information on connecting to different types of SaaS, please refer to the following.
+
+- [Airtable](/docs/en/advanced/connectors/airtable)
+- [Attio](/docs/en/advanced/connectors/attio)
+- [Freee](/docs/en/advanced/connectors/freee)
+- [HubSpot](/docs/en/advanced/connectors/hubspot)
+- [Intercom](/docs/en/advanced/connectors/intercom)
+- [Linear](/docs/en/advanced/connectors/linear)
+- [Notion](/docs/en/advanced/connectors/notion)
+- [Mailchimp](/docs/en/advanced/connectors/mailchimp)
+- [Salesforce](/docs/en/advanced/connectors/salesforce)
+- [Stripe](/docs/en/advanced/connectors/stripe)

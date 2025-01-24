@@ -1,0 +1,63 @@
+---
+title: 'OSレベルのパッケージ追加'
+icon: "server"
+---
+
+Morphではプロジェクト内の`Dockerfile`をカスタマイズすることで、OSレベルのパッケージを追加することができます。
+
+## Dockerfileの基本構成
+
+`morph new`コマンドで初期生成されるDockerfileは以下のような構成になっています。
+
+<Warning>
+    `MORPH_TASK_ROOT`の予約語は、`pip install`を正常に動作させるために必要な環境変数です。特別な理由がない限りは変更しないでください。
+</Warning>
+
+```Dockerfile
+# Base image for Morph Cloud
+FROM public.ecr.aws/i1l4z0u0/morph-cloud:python3.9
+
+# Set working directory
+WORKDIR /var/task
+
+# Install Python dependencies with poetry
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt --target "${MORPH_TASK_ROOT}"
+
+# Copy source code and dependencies
+COPY .morph/frontend/dist /var/task/.morph/frontend/dist
+COPY .morph/core /var/task/core
+COPY .morph/meta.json .morph/
+COPY morph_project.yml .
+COPY src ./src
+
+# Command to run the Lambda function
+CMD ["core.morph.api.app.handler"]
+```
+
+## パッケージの追加
+
+Morph Cloudのベースイメージではyumを用いてパッケージを管理します。必要なパッケージをRUNコマンドで追加することができます。
+
+- Morph CloudのベースイメージはAmazon Linuxをベースに作成されているため、パッケージの追加には`yum`コマンドを使用します。
+
+例えば、以下のように`Dockerfile`に`yum`コマンドを追加することで、`curl`パッケージをインストールすることができます。
+
+<Note>
+    イメージサイズ削減のために、パッケージの追加後には`yum clean all`コマンドを実行して不要なパッケージを削除することをお勧めします。
+</Note>
+
+```Dockerfile
+# Base image for Morph Cloud
+FROM public.ecr.aws/i1l4z0u0/morph-cloud:python3.9
+
+# Set working directory
+WORKDIR /var/task
+
+# Install OS-level dependencies
+RUN yum update -y && yum install -y \
+    curl \
+    && yum clean all
+
+-- 省略 --
+```

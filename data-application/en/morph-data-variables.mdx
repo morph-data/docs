@@ -1,6 +1,9 @@
 ---
 title: 'Using Variables'
 ---
+<Warning>
+  The variable() function is obsolete as of v0.1.0. Please use the defineState() function, which is more flexible and more versatile.
+</Warning>
 
 Morph allows variables to be defined in Python functions and SQL files, but variables can also be used when executing from MDX files.
 
@@ -65,7 +68,6 @@ import pandas as pd
 @morph.func(
     name="stocks",
     description="stock prices with dates",
-    output_paths=["/tmp/morph/{name}/{now()}{ext()}"],
     output_type="dataframe",
 )
 @morph.variables('start_date')

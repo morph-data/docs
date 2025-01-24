@@ -1,0 +1,87 @@
+---
+title: '<Select />'
+icon: 'caret-down'
+---
+
+<Frame>
+  <iframe
+    height={160}
+    width='100%'
+    src="https://morph-data-components-storybook.netlify.app/iframe.html?args=&globals=&id=input-components-select--select-story"
+  />
+</Frame>
+
+`<Select>` is a component for inputting values in a selection format to the state declared by the `defineState()` function.
+
+```tsx
+import { defineState } from '@morph-data/components;
+
+export const { category } = defineState({ category: 'book' });
+
+<Select state={category}>
+  <SelectItem value="book">Book</SelectItem>
+  <SelectItem value="electronics">Electronics</SelectItem>
+  <SelectItem value="office-products">Office products</SelectItem>
+</Select>
+```
+
+## Properties
+
+<ParamField path="state" type="State" required>
+  State object to bind the input value of the component. Please specify the state declared by the `defineState()` function.
+</ParamField>
+
+## Subcomponents
+
+### `<SelectItem />`
+
+`<SelectItem>` is a component for defining options within the `<Select>` component.
+
+```tsx
+<SelectItem value="book">Book</SelectItem>
+```
+
+<ParamField path="value" type="string" required>
+  Value of the option
+</ParamField>
+
+
+### `<SelectItems />`
+
+`<SelectItems>` is a component for defining options in bulk within the `<Select>` component.
+
+There are two ways to pass values to Select Items.
+
+1. Specify as an array
+
+2. Specify an alias of a function that returns a DataFrame
+
+```tsx
+<SelectItems>
+  // 1. Specify as an array
+  <SelectItems 
+    items={[
+      {value: 'book', label: 'Book' },
+      { value: 'electronics', label: 'Electronics' }
+    ]}
+    valueKey='value'
+    labelKey='label'
+  />
+
+  // 2. Specify an alias of a function that returns a DataFrame
+  <SelectItems loadData="get_categories" valueKey='value' labelKey='label' />
+</SelectItems>
+```
+
+<ParamField path="items" type="Array">
+  Array containing the values and labels of the options. Use the `valueKey` and `labelKey` properties to specify which field is used as the value and which field is used as the label.
+</ParamField>
+<ParamField path="loadData" type="string">
+  Alias of the Python function to retrieve the options
+</ParamField>
+<ParamField path="valueKey" type="string">
+  Field name containing the value of the options
+</ParamField>
+<ParamField path="labelKey" type="string">
+  Field name containing the label of the options
+</ParamField>

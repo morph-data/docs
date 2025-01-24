@@ -1,0 +1,215 @@
+---
+title: "BigQuery"
+---
+
+## BigQuery に接続する
+
+コネクターについての概要は以下のリンクを参照してください。
+
+- [DB/SaaSと接続する](/docs/ja/develop/guides/integration)
+
+<Tabs>
+  <Tab title="ダッシュボード">
+    <Steps>
+      <Step title="Connectorを作成する">
+        トップページの「Connectors」タブを選択し「Create」ボタンを押下します。
+        <img src="/assets/images/docs/advanced/connectors/connect-data-platform-connection.png" alt="Connection" />
+      </Step>
+
+      <Step title="BigQueryの認証情報を入力する">
+        BigQueryでは２つの認証方式が提供されています。
+
+        ### サービスアカウント方式で接続する
+
+        BigQuery (Service Account)を選択し表示されたフォームに接続する認証情報を入力します。
+
+        <img src="/assets/images/docs/advanced/connectors/connect-data-platform-bigquery-sa-create.png" alt="BigQuery Service Account Connection Create" />
+
+        | 項目名            | 説明                                      | 必須  | 例                            |
+        |-------------------|-------------------------------------------|-------|-------------------------------|
+        | `Credential`           | サービスアカウントJSON      | ✅    | `{"project_id": "", ...}`                |
+
+        サービスアカウントの作成については公式ページを参照してください。
+
+        - [サービス アカウントを作成する](https://cloud.google.com/iam/docs/service-accounts-create?hl=ja)
+
+
+        ### OAuthで接続する
+
+        BigQuery (OAuth)を選択し表示されたGoogleへのサインインボタンを押下して認証します。
+
+        <img src="/assets/images/docs/advanced/connectors/connect-data-platform-bigquery-oauth-create.png" alt="BigQuery OAuth Connection Create" />
+
+        その他共通で入力が必要な項目は以下です。
+
+        | 項目名            | 説明                                      | 必須  | 例                            |
+        |-------------------|-------------------------------------------|-------|-------------------------------|
+        | `Project ID`           | プロジェクトID      | ✅    | `demo-project`                |
+        | `Dataset`           | データセット名    |     | `demo_dataset`                       |
+        | `Location`       | ローケーション              |     | `asia-northeast1`                |
+
+        入力後Createボタンを押下すると作成が完了します。パラメータに不備がある場合はエラーが表示されるため接続内容が正しいか再度ご確認ください。
+
+      </Step>
+      <Step title="作成したデータベースに接続する">
+        作成が成功すると一覧表示からコネクター名を取得することができます。アイコン横の文字列が`connection_name`です。これを使用することでコード上でデータベースに接続可能です。
+
+        <img src="/assets/images/docs/advanced/connectors/connect-data-platform-bigquery-complete.png" alt="Snowflake Connection Create Complete" />
+
+        SQLまたはPythonのコードに作成したコネクター名を入力しデータを取得します。
+        <CodeGroup>
+        ```sql SQL
+        {{
+            config(
+                connection="connection_name"
+            )
+        }}
+
+        select * from table_name
+        ```
+
+        ```python Python
+        import morph
+        from morph import MorphGlobalContext
+        from morph_lib.database import execute_sql
+
+
+        @morph.func
+        def main(context: MorphGlobalContext):
+            df = execute_sql(
+                sql="SELECT * from table_name"
+                connection="connection_name"
+            )
+            return df
+        ```
+        </CodeGroup>
+      </Step>
+    </Steps>
+
+  </Tab>
+  <Tab title="ローカル">
+    <Info>ローカルでは現在Service Account方式のみがコマンドで作成可能です。それ以外の方式はダッシュボードをご利用いただくか、直接~/.morph/connections.ymlに記述する必要があります。</Info>
+
+    <Steps>
+      <Step title="morph initコマンドを実行する">
+        `morph init`コマンドを実行してDBの接続情報を`~/.morph/connections.yml`に保存します。
+        ```bash Shell
+        morph init
+        ```
+
+        <Warning>
+        morphパッケージのインストールを行なっていない場合は事前に下記のコマンドでインストールしてからお進みください。
+        ```bash shell
+        pip install morph-data
+        ```
+        </Warning>
+
+        対話式のインターフェースでデータベースの種類一覧が表示されるのでSnowflake (User/Password)を選択します。
+        ```bash Shell
+        Select your database type:
+        1. PostgreSQL
+        2. MySQL
+        3. Redshift
+        4. SQLServer
+        5. Snowflake (User/Password)
+        6. BigQuery (Service Account)
+        Enter the number corresponding to your database type: 6
+
+        BigQuery (Service Account) selected.
+        ```
+
+        続いて認証情報を入力します。`slug`はコネクター名として扱うもので、この名前をSQLもしくはPythonで指定します。
+
+        以下の入力例は実際に接続できる値に置き換えてください。
+        ```bash shell
+        Create a slug for your connection: bigquery-connection
+        Enter your BigQuery project ID: demo-project
+        Enter your BigQuery keyfile path: ~/path_to_pem_file
+        Enter your BigQuery dataset name (Optional): demo_dataset
+        Enter your BigQuery location (Optional): asia-northeast1
+        ```
+
+        認証情報の保存が完了すると以下のメッセージが表示されます。
+        ```bash shell
+        Successfully initialized! 🎉
+        You can edit your connection details in `path_to_connections.yml`
+        ```
+
+        `connections.yml`は以下のように保存されています。他のコネクターを作成した場合は`connections`以下に追加されます。
+        ```bash shell
+        cat ~/.morph/connections.yml
+        ```
+
+        ```yaml
+        connections:
+          bigquery-connection:
+            dataset: demo_dataset
+            keyfile: ~/path_to_pem_file
+            location: asia-northeast1
+            method: bigquery_service_account
+            project: demo-project
+            type: bigquery
+        ```
+      </Step>
+      <Step title="コード上でコネクターを使いデータを取得する">
+        SQLまたはPythonのコードに作成したコネクター名を入力しデータを取得します。
+        <CodeGroup>
+        ```sql SQL
+        {{
+            config(
+                connection="connection_name"
+            )
+        }}
+
+        select * from table_name
+        ```
+
+        ```python Python
+        import morph
+        from morph import MorphGlobalContext
+        from morph_lib.database import execute_sql
+
+
+        @morph.func
+        def main(context: MorphGlobalContext):
+            df = execute_sql(
+                sql="SELECT * from table_name"
+                connection="connection_name"
+            )
+            return df
+        ```
+        </CodeGroup>
+      </Step>
+    </Steps>
+
+    <Warning>
+        実際にコネクターを指定してファイルを実行した場合の優先順位は以下の通りです。
+        また`morph deploy`を行なった環境ではダッシュボードで作成したコネクターのみが使用可能なため注意してください。
+        1. ローカルマシンの`~/.morph/connections.yml`に記載されたコネクター
+        2. クラウドで登録されたコネクター
+    </Warning>
+
+    ### OAuthの場合の記述方法
+
+    OAuthを使用する際は`~/.morph/connections.yml`を直接編集します。
+
+    access_tokenのリフレッシュはダッシュボードの機能のためローカル環境では記載したものが常時使用されます。
+
+    **OAuth方式**
+    ```yml
+    connections:
+      bigquery-oauth-connection
+        type: bigquery # 固定
+        method: bigquery_oauth　# 固定
+        project: str
+        refresh_token: str
+        client_id: str
+        client_secret: str
+        redirect_uri: str
+        dataset: str # 任意
+        location: str # 任意
+        access_token: str # 任意
+    ```
+
+  </Tab>
+</Tabs>

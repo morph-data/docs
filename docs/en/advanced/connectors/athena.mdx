@@ -1,0 +1,127 @@
+---
+title: "Athena"
+---
+
+## Connecting to Athena
+
+For an overview of the connector, please refer to the following link.
+
+- [Connecting to DB/SaaS](/docs/en/develop/guides/integration)
+
+<Tabs>
+  <Tab title="Dashboard">
+    <Steps>
+      <Step title="Create a Connector">
+        Select the "Connectors" tab on the top page and press the "Create" button.
+        <img src="/assets/images/docs/advanced/connectors/connect-data-platform-connection.png" alt="Connection" />
+      </Step>
+
+      <Step title="Enter Athena Credentials">
+        Select Athena and enter the authentication method.
+
+        <img src="/assets/images/docs/advanced/connectors/connect-data-platform-athena-create.png" alt="Athena Connection Create" />
+
+        After entering, press the Create button to complete the creation. If there are any errors in the parameters, an error will be displayed, so please check if the connection details are correct.
+
+      </Step>
+      <Step title="Connect to the Created Database">
+        Once created successfully, you can obtain the connector name from the list display.
+
+        Enter the created connector name in the SQL or Python code to retrieve data.
+        <CodeGroup>
+        ```sql SQL
+        {{
+            config(
+                connection="connection_name"
+            )
+        }}
+
+        select * from table_name
+        ```
+
+        ```python Python
+        import morph
+        from morph import MorphGlobalContext
+        from morph_lib.database import execute_sql
+
+
+        @morph.func
+        def main(context: MorphGlobalContext):
+            df = execute_sql(
+                sql="SELECT * from table_name"
+                connection="connection_name"
+            )
+            return df
+        ```
+        </CodeGroup>
+      </Step>
+    </Steps>
+
+  </Tab>
+  <Tab title="Local Version">
+    <Info>In the local version, you currently need to directly write the authentication information in `~/.morph/connections.yml`. Please create it in the dashboard if you prefer other methods.</Info>
+
+    <Steps>
+      <Step title="Edit connections.yml">
+        If the file does not exist in `~/.morph/connections.yml`, please create it beforehand and then edit it.
+        ```bash shell
+        mkdir ~/.morph
+        touch ~/.morph/connections.yml
+        ```
+
+        ```yaml
+        connections:
+          athena-connection: # Unique arbitrary name
+            type: athena # Fixed
+            access_key: str
+            secret_key: str
+            session_token: str
+            region: str
+            catalog: str
+            database: str # Optional
+            work_group: str # Optional
+        ```
+      </Step>
+      <Step title="Retrieve Data Using the Connector in Code">
+        Enter the created connector name in the SQL or Python code to retrieve data.
+        <CodeGroup>
+        ```sql SQL
+        {{
+            config(
+                connection="connection_name"
+            )
+        }}
+
+        select * from table_name
+        ```
+
+        ```python Python
+        import morph
+        from morph import MorphGlobalContext
+        from morph_lib.database import execute_sql
+
+
+        @morph.func
+        def main(context: MorphGlobalContext):
+            df = execute_sql(
+                sql="SELECT * from table_name"
+                connection="connection_name"
+            )
+            return df
+        ```
+        </CodeGroup>
+      </Step>
+    </Steps>
+
+    Refreshing the access token is a dashboard feature, so the one specified will always be used in the local environment.
+
+    <Warning>
+        When actually specifying and executing the file with the connector, the priority is as follows.
+        Also, please note that only connectors created in the dashboard can be used in the environment where `morph deploy` is performed.
+        1. Connectors listed in `~/.morph/connections.yml` on the local machine
+        2. Connectors registered in the cloud
+    </Warning>
+
+  </Tab>
+</Tabs>
+

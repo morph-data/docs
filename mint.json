@@ -18,9 +18,11 @@
       "to": "#07C983"
     }
   },
-  "topbarLinks": [
+  "topbarLinks": [],
+  "versions": [
+    "English",
+    "日本語"
   ],
-  "versions": ["English", "日本語"],
   "topbarCtaButton": {
     "name": "Website",
     "url": "https://www.morphdb.io"
@@ -35,7 +37,7 @@
       "url": "reference"
     },
     {
-      "name": "Data App (MDX)",
+      "name": "Components",
       "url": "data-application"
     },
     {
@@ -76,9 +78,9 @@
           "icon": "book",
           "pages": [
             "docs/en/develop/guides/framework",
+            "docs/en/develop/guides/environment-variables",
             "docs/en/develop/guides/integration",
-            "docs/en/develop/guides/variables",
-            "docs/en/develop/guides/job-schedule"
+            "docs/en/develop/guides/variables"
           ]
         },
         {
@@ -107,9 +109,16 @@
       "group": "Deploy",
       "version": "English",
       "pages": [
-        "docs/en/deploy/quickstart",
-        "docs/en/deploy/environment",
-        "docs/en/deploy/how-to-install-pip"
+        {
+          "group": "How to Deploy",
+          "icon": "rocket",
+          "pages": [
+            "docs/en/deploy/dashboard-setup",
+            "docs/en/deploy/deploy"
+          ]
+        },
+        "docs/en/deploy/customize-dockerfile",
+        "docs/en/deploy/environment-variables"
       ]
     },
     {
@@ -117,17 +126,37 @@
       "version": "English",
       "pages": [
         "docs/en/advanced/api_key",
-        "docs/en/advanced/canvas",
-        "docs/en/advanced/builtin-postgres"
+        "docs/en/advanced/builtin-postgres",
+        {
+          "group": "Connectors",
+          "icon": "plug",
+          "pages": [
+            "docs/en/advanced/connectors/mysql",
+            "docs/en/advanced/connectors/postgresql",
+            "docs/en/advanced/connectors/bigquery",
+            "docs/en/advanced/connectors/snowflake",
+            "docs/en/advanced/connectors/redshift",
+            "docs/en/advanced/connectors/mssql",
+            "docs/en/advanced/connectors/athena",
+            "docs/en/advanced/connectors/salesforce",
+            "docs/en/advanced/connectors/hubspot",
+            "docs/en/advanced/connectors/stripe",
+            "docs/en/advanced/connectors/linear",
+            "docs/en/advanced/connectors/airtable",
+            "docs/en/advanced/connectors/attio",
+            "docs/en/advanced/connectors/intercom",
+            "docs/en/advanced/connectors/notion",
+            "docs/en/advanced/connectors/mailchimp",
+            "docs/en/advanced/connectors/freee"
+          ]
+        }
       ]
     },
     {
       "group": "Framework",
       "version": "English",
       "pages": [
-        "reference/en/framework/morph-project",
-        "reference/en/framework/output-paths",
-        "reference/en/framework/scheduled_jobs"
+        "reference/en/framework/morph-project"
       ]
     },
     {
@@ -192,23 +221,13 @@
       "pages": [
         "reference/en/cli-commands/version",
         "reference/en/cli-commands/run",
-        "reference/en/cli-commands/create",
         "reference/en/cli-commands/compile",
         "reference/en/cli-commands/clean",
         "reference/en/cli-commands/init",
         "reference/en/cli-commands/new",
         "reference/en/cli-commands/config",
-        "reference/en/cli-commands/sync",
-        "reference/en/cli-commands/serve",
-        "reference/en/cli-commands/print"
-      ]
-    },
-    {
-      "group": "Getting Started",
-      "version": "English",
-      "pages": [
-        "data-application/en/getting-started-introduction",
-        "data-application/en/getting-started-quickstart"
+        "reference/en/cli-commands/deploy",
+        "reference/en/cli-commands/serve"
       ]
     },
     {
@@ -221,6 +240,16 @@
       ]
     },
     {
+      "group": "Input Components",
+      "version": "English",
+      "pages": [
+        "data-application/en/input-component-input",
+        "data-application/en/input-component-date-picker",
+        "data-application/en/input-component-date-range-picker",
+        "data-application/en/input-component-select"
+      ]
+    },
+    {
       "group": "AI Components",
       "version": "English",
       "pages": [
@@ -228,12 +257,22 @@
       ]
     },
     {
-      "group": "Advanced",
+      "group": "Layout Components",
       "version": "English",
       "pages": [
-        "data-application/en/advanced-morph-data-basic",
-        "data-application/en/morph-data-getjson",
-        "data-application/en/morph-data-variables"
+        "data-application/en/layout-component-accordion",
+        "data-application/en/layout-component-callout",
+        "data-application/en/layout-component-card",
+        "data-application/en/layout-component-grid",
+        "data-application/en/layout-component-panel"
+      ]
+    },
+    {
+      "group": "State & Data",
+      "version": "English",
+      "pages": [
+        "data-application/en/morph-data-state",
+        "data-application/en/advanced-morph-data-basic"
       ]
     },
     {
@@ -246,18 +285,25 @@
       ]
     },
     {
+      "group": "Deprecated",
+      "version": "English",
+      "pages": [
+        "data-application/en/morph-data-getjson",
+        "data-application/en/morph-data-variables"
+      ]
+    },
+    {
+      "group": "Morph CLI",
+      "version": "English",
+      "pages": [
+        "troubleshooting/en/support/deployment-issues"
+      ]
+    },
+    {
       "group": "Support",
       "version": "English",
       "pages": [
         "troubleshooting/en/support/contact-support"
-      ]
-    },
-    {
-      "group": "Workspace",
-
-      "version": "English",
-      "pages": [
-        "troubleshooting/en/workspace/mdx-api-error"
       ]
     },
     {
@@ -277,9 +323,9 @@
           "icon": "book",
           "pages": [
             "docs/ja/develop/guides/framework",
+            "docs/ja/develop/guides/environment-variables",
             "docs/ja/develop/guides/integration",
-            "docs/ja/develop/guides/variables",
-            "docs/ja/develop/guides/job-schedule"
+            "docs/ja/develop/guides/variables"
           ]
         },
         {
@@ -308,9 +354,16 @@
       "group": "Deploy",
       "version": "日本語",
       "pages": [
-        "docs/ja/deploy/quickstart",
-        "docs/ja/deploy/environment",
-        "docs/ja/deploy/how-to-install-pip"
+        {
+            "group": "デプロイ手順",
+            "icon": "rocket",
+            "pages": [
+              "docs/ja/deploy/dashboard-setup",
+              "docs/ja/deploy/deploy"
+            ]
+        },
+        "docs/ja/deploy/customize-dockerfile",
+        "docs/ja/deploy/environment-variables"
       ]
     },
     {
@@ -318,17 +371,37 @@
       "version": "日本語",
       "pages": [
         "docs/ja/advanced/api_key",
-        "docs/ja/advanced/canvas",
-        "docs/ja/advanced/builtin-postgres"
+        "docs/ja/advanced/builtin-postgres",
+        {
+          "group": "Connectors",
+          "icon": "plug",
+          "pages": [
+            "docs/ja/advanced/connectors/mysql",
+            "docs/ja/advanced/connectors/postgresql",
+            "docs/ja/advanced/connectors/bigquery",
+            "docs/ja/advanced/connectors/snowflake",
+            "docs/ja/advanced/connectors/redshift",
+            "docs/ja/advanced/connectors/mssql",
+            "docs/ja/advanced/connectors/athena",
+            "docs/ja/advanced/connectors/salesforce",
+            "docs/ja/advanced/connectors/hubspot",
+            "docs/ja/advanced/connectors/stripe",
+            "docs/ja/advanced/connectors/linear",
+            "docs/ja/advanced/connectors/airtable",
+            "docs/ja/advanced/connectors/attio",
+            "docs/ja/advanced/connectors/intercom",
+            "docs/ja/advanced/connectors/notion",
+            "docs/ja/advanced/connectors/mailchimp",
+            "docs/ja/advanced/connectors/freee"
+          ]
+        }
       ]
     },
     {
       "group": "フレームワーク",
       "version": "日本語",
       "pages": [
-        "reference/ja/framework/morph-project",
-        "reference/ja/framework/output-paths",
-        "reference/ja/framework/scheduled_jobs"
+        "reference/ja/framework/morph-project"
       ]
     },
     {
@@ -393,23 +466,13 @@
       "pages": [
         "reference/ja/cli-commands/version",
         "reference/ja/cli-commands/run",
-        "reference/ja/cli-commands/create",
         "reference/ja/cli-commands/compile",
         "reference/ja/cli-commands/clean",
         "reference/ja/cli-commands/init",
         "reference/ja/cli-commands/new",
         "reference/ja/cli-commands/config",
-        "reference/ja/cli-commands/sync",
-        "reference/ja/cli-commands/serve",
-        "reference/ja/cli-commands/print"
-      ]
-    },
-    {
-      "group": "Getting Started",
-      "version": "日本語",
-      "pages": [
-        "data-application/ja/getting-started-introduction",
-        "data-application/ja/getting-started-quickstart"
+        "reference/ja/cli-commands/deploy",
+        "reference/ja/cli-commands/serve"
       ]
     },
     {
@@ -422,6 +485,16 @@
       ]
     },
     {
+      "group": "入力コンポーネント",
+      "version": "日本語",
+      "pages": [
+        "data-application/ja/input-component-input",
+        "data-application/ja/input-component-date-picker",
+        "data-application/ja/input-component-date-range-picker",
+        "data-application/ja/input-component-select"
+      ]
+    },
+    {
       "group": "AIコンポーネント",
       "version": "日本語",
       "pages": [
@@ -429,12 +502,22 @@
       ]
     },
     {
-      "group": "応用",
+      "group": "レイアウトコンポーネント",
       "version": "日本語",
       "pages": [
-        "data-application/ja/advanced-morph-data-basic",
-        "data-application/ja/morph-data-getjson",
-        "data-application/ja/morph-data-variables"
+        "data-application/ja/layout-component-accordion",
+        "data-application/ja/layout-component-callout",
+        "data-application/ja/layout-component-card",
+        "data-application/ja/layout-component-grid",
+        "data-application/ja/layout-component-panel"
+      ]
+    },
+    {
+      "group": "状態管理とデータ",
+      "version": "日本語",
+      "pages": [
+        "data-application/ja/morph-data-state",
+        "data-application/ja/advanced-morph-data-basic"
       ]
     },
     {
@@ -447,17 +530,25 @@
       ]
     },
     {
+      "group": "廃止された仕様",
+      "version": "日本語",
+      "pages": [
+        "data-application/ja/morph-data-getjson",
+        "data-application/ja/morph-data-variables"
+      ]
+    },
+    {
+      "group": "Morph CLI",
+      "version": "日本語",
+      "pages": [
+        "troubleshooting/ja/support/deployment-issues"
+      ]
+    },
+    {
       "group": "サポート",
       "version": "日本語",
       "pages": [
         "troubleshooting/ja/support/contact-support"
-      ]
-    },
-    {
-      "group": "ワークスペース",
-      "version": "日本語",
-      "pages": [
-        "troubleshooting/ja/workspace/mdx-api-error"
       ]
     }
   ],

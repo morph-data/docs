@@ -1,0 +1,20 @@
+---
+title: 'Environment Variables'
+icon: "square-terminal"
+---
+
+### Setting Locally
+
+If there is a `.env` file in your local project, you can run the `morph deploy` command to automatically sync the environment variables to the cloud version, making them available in the deployed environment.
+
+### Setting in the Dashboard
+
+You can create or delete environment variables by clicking the "Update" button in the "Environment Variables" tab of the individual project page.
+
+Since you cannot edit registered values, you need to delete and re-register them if you want to update them.
+
+<img src="/assets/images/docs/envvars.png" alt="Environment Variables" />
+
+<Warning>
+Updating environment variables will reflect in the deployed project, but please note that it may take about 10 seconds for the changes to take effect.
+</Warning>
