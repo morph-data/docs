@@ -109,8 +109,7 @@
       "version": "English",
       "pages": [
         "docs/en/deploy/quickstart",
-        "docs/en/deploy/environment",
-        "docs/en/deploy/how-to-install-pip"
+        "docs/en/deploy/deploy-config-params"
       ]
     },
     {
@@ -328,8 +327,7 @@
       "version": "日本語",
       "pages": [
         "docs/ja/deploy/quickstart",
-        "docs/ja/deploy/environment",
-        "docs/ja/deploy/how-to-install-pip"
+        "docs/ja/deploy/deploy-config-params"
       ]
     },
     {
