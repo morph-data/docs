@@ -109,7 +109,8 @@
       "version": "English",
       "pages": [
         "docs/en/deploy/quickstart",
-        "docs/en/deploy/deploy-config-params"
+        "docs/en/deploy/deploy-config-params",
+        "docs/en/deploy/customize-dockerfile"
       ]
     },
     {
@@ -328,7 +329,8 @@
       "version": "日本語",
       "pages": [
         "docs/ja/deploy/quickstart",
-        "docs/ja/deploy/deploy-config-params"
+        "docs/ja/deploy/deploy-config-params",
+        "docs/ja/deploy/customize-dockerfile"
       ]
     },
     {
