@@ -1,11 +1,12 @@
 ---
-title: 'フレームワーク'
+title: 'データアプリを構築する'
 icon: "brackets-curly"
 ---
 
-SQL, PythonそしてMDXを使用してデータアプリを構築できるフレームワークを提供しています。
+Morphは、柔軟でフルスタックなデータアプリを構築するための機能を搭載したフレームワークを提供しています。
+この「データアプリを構築する」では、これらの機能の使い方やデータアプリの挙動をカスタマイズする方法を説明します。
 
-アーキテクチャとしてはSQL, Pythonでデータパイプラインを構築し、その結果をMDXでデータアプリとして可視化するというものです。
+MorphのフレームワークではSQL, Pythonでバックエンドを構築し、MDXでフロントエンドを構築します。
 フレームワークのディレクトリ構成は以下のようになっています。
 各種設定は、`morph_project.yml`で行うことができ、フレームワークとしても`morph_project.yml`が配置されているディレクトリをフレームワークのルートディレクトリとして認識します。
 
@@ -23,10 +24,11 @@ SQL, PythonそしてMDXを使用してデータアプリを構築できるフレ
 └── morph_project.yml
 ```
 
-## データパイプライン構築
+## バックエンドを構築する
 
-SQLとPythonを使用して関数を実装することによりデータパイプラインを構築することができます。
-関数名を使用することでフレームワークの中で関数を組み合わせてパイプラインを構築したり、データアプリを構築する際に使用する事ができます。
+SQLとPythonを使用して関数を実装することによりバックエンドを構築することができます。
+関数名を使用することでフレームワークの中で関数を組み合わせて複雑なパイプラインを構築することができます。
+また、関数名から自動的にAPIが自動生成されるため、フロントエンドを構築する際には関数名をエイリアスとして使用してAPIを呼び出すことができます。
 
 関数名は、以下のように命名をする事ができます。
 
@@ -61,22 +63,17 @@ def example_dataframe(context: MorphGlobalContext):
 
 </CodeGroup>
 
-### SQL,Pythonを実行する
+### SQL,Pythonを単体実行/テストをする
 
-パイプラインを構築した際に命名をした関数名を使用してデータパイプラインの実行を行う事ができます。
+パイプラインを構築した際に命名をした関数名を使用してデータパイプラインの実行やテストを行う事ができます。
 
 ```bash Shell
 morph run example_sql_cell
 ```
 
-<Tip>
-実行結果は、`morph_project.yml`で設定された`data_dir`に保存されます。
-`config`(SQL)や`morph.func`(Python)で保存するパスは関数個別にも設定する事ができます。
-</Tip>
+## フロントエンドを構築する
 
-## データアプリ構築
-
-データアプリは、`pages`ディレクトリに配置されたMDXファイルで構築する事ができます。
+フロントエンドは、`pages`ディレクトリに配置されたMDXファイルで構築する事ができます。
 
 MDXファイルに定義されたコンポーネントの`loadData`プロパティに関数名を指定することで、データパイプラインの実行結果を使用する事ができます。
 
@@ -97,3 +94,37 @@ Morph is a full-stack framework for building data apps using Python, SQL and MDX
 </Grid>
 
 ```
+
+## 開発サーバーを起動する
+
+データアプリの挙動を確認するために、開発サーバーを起動します。
+
+```bash Shell
+morph serve
+```
+
+上記コマンドでサーバーの起動が成功したら、`http://localhost:8080`にアクセスすることでデータアプリにアクセスすることができます。
+
+## 詳細なカスタマイズ
+
+Morphには、データアプリをカスタマイズするためのより便利な機能が用意されています。
+SQLやPythonで使用できる関数や機能を確認するためには、[フレームワークリファレンス](/reference/ja/framework/morph-project)をご覧ください。
+フロントエンド開発で使用できるMDXコンポーネントの詳細は、[コンポーネントリファレンス](/data-application/ja/data-component-table)をご覧ください。
+
+最後に、準備ができてチームに共有する場合には[デプロイガイド](/docs/ja/deploy/dashboard-setup)をご覧ください。
+
+
+<CardGroup cols={2}>
+    <Card title="環境変数" icon="square-1" href="/docs/ja/develop/guides/environment-variables">
+        環境変数でシークレット情報を管理する
+    </Card>
+    <Card title="DB/SaaSと接続する" icon="square-2" href="/docs/ja/develop/guides/integration">
+        DBやSaaSにアクセスをしたデータアプリを構築する
+    </Card>
+    <Card title="変数を使う" icon="square-3" href="/docs/ja/develop/guides/variables">
+        ユーザーインプットに応じて、データアプリの挙動をカスタマイズする
+    </Card>
+    <Card title="ロールベースのアクセス制御" icon="square-4" href="/docs/ja/develop/guides/user-role">
+        ユーザーのプロジェクトロールを活用してデータのアクセス制御やアプリの挙動をカスタマイズする
+    </Card>
+</CardGroup>

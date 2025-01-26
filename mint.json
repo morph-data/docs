@@ -95,7 +95,8 @@
             "docs/en/develop/guides/framework",
             "docs/en/develop/guides/environment-variables",
             "docs/en/develop/guides/integration",
-            "docs/en/develop/guides/variables"
+            "docs/en/develop/guides/variables",
+            "docs/en/develop/guides/user-role"
           ]
         },
         {
@@ -340,7 +341,8 @@
             "docs/ja/develop/guides/framework",
             "docs/ja/develop/guides/environment-variables",
             "docs/ja/develop/guides/integration",
-            "docs/ja/develop/guides/variables"
+            "docs/ja/develop/guides/variables",
+            "docs/ja/develop/guides/user-role"
           ]
         },
         {

@@ -1,13 +1,13 @@
 ---
-title: 'Framework'
+title: 'Building a Data App'
 icon: "brackets-curly"
 ---
+Morph provides a framework equipped with features for building flexible and full-stack data apps.
+In this "Building a Data App", we explain how to use these features and customize the behavior of data apps.
 
-We provide a framework that allows you to build data applications using SQL, Python, and MDX.
-
-The architecture involves constructing data pipelines with SQL and Python, and visualizing the results as data applications using MDX.
-The directory structure of the framework is as follows.
-Various settings can be configured in `morph_project.yml`, and the framework recognizes the directory where `morph_project.yml` is located as the root directory of the framework.
+In the Morph framework, the backend is built with SQL and Python, and the frontend is built with MDX.
+The directory structure of the framework is as the followings.
+Various settings can be made in `morph_project.yml`, and the framework recognizes the directory where `morph_project.yml` is located as the root directory of the framework.
 
 ```bash workdir
 .
@@ -16,23 +16,25 @@ Various settings can be configured in `morph_project.yml`, and the framework rec
 │   ├── python/
 │   └── sql/
 ├── .env
-├── package.json (manages npm packages used in mdx)
-├── requirements.txt (in case of using pip)
-├── poetry.toml (in case of using poetry)
-├── Dockerfile (for deployment)
+├── package.json (mdxで使用するnpmパッケージを管理)
+├── requirements.txt (pipを使用する場合)
+├── poetry.toml (poetryを使用する場合)
+├── Dockerfile (デプロイ用)
 └── morph_project.yml
 ```
 
-## Building Data Pipelines
+## Building the Backend
 
-You can build data pipelines by implementing functions using SQL and Python. By using function names, you can combine functions within the framework to construct pipelines or use them when building data applications.
+You can build the backend by implementing functions using SQL and Python.
+You can combine functions in the framework to build complex pipelines using function names.
+Also, since the API is automatically generated from the function name, you can use the function name as an alias of the API when building the frontend.
 
-Function names can be defined as follows:
+Function names can be named as follows.
 
-- SQL: Set it like `config(name="func_name")`. If not set, the file name without the extension is used as the function name. (e.g. `example_data.sql` -> `example_data`)
-- Python: Set it like `@morph.func(name="func_name")`. If not set, the function name itself is used.
+- SQL: Set it like `config(name="func_name")`. If not set, the file name without the extension will be used as the function name. (e.g. `example_data.sql` -> `example_data`)
+- Python: Set it like `@morph.func(name="func_name")`. If not set, the function name will be used as the function name.
 
-By specifying function names within `load_data`, you can build pipelines by using the execution results of other functions.
+You can build a pipeline by specifying the function name in `load_data`.
 
 <CodeGroup>
 
@@ -60,23 +62,19 @@ def example_dataframe(context: MorphGlobalContext):
 
 </CodeGroup>
 
-### Executing SQL and Python
+### Running/Testing SQL,Python
 
-You can execute data pipelines using the function names defined when constructing the pipeline.
+You can run and test the data pipeline by the `morph run` command.
 
 ```bash Shell
 morph run example_sql_cell
 ```
 
-<Tip>
-The execution results are saved in the `data_dir` set in `morph_project.yml`.
-The path to save can also be set individually for each function using `config` (SQL) or `morph.func` (Python).
-</Tip>
+## Building the Frontend
 
-## データアプリ構築
-Data applications can be built using MDX files placed in the `pages` directory.
+You can build the frontend by placing MDX files in the `pages` directory.
 
-By specifying function names in the `loadData` property of components defined in the MDX file, you can use the execution results of the data pipeline.
+You can use the execution result of the data pipeline by specifying the function name in the `loadData` property of the component defined in the MDX file.
 
 ```tsx MDX (pages/index.mdx)
 # Starter App
@@ -95,3 +93,36 @@ Morph is a full-stack framework for building data apps using Python, SQL and MDX
 </Grid>
 
 ```
+
+## Starting the Development Server
+
+To check the behavior of the data app, start the development server.
+
+```bash Shell
+morph serve
+```
+
+You can access the data app by accessing `http://localhost:8080` after the server is successfully started.
+
+## More Customization
+
+Morph provides more convenient features for customizing data apps.
+To check the functions and features available in SQL and Python, see [Framework Reference](/reference/ja/framework/morph-project).
+For details on MDX components available for frontend development, see [Component Reference](/data-application/ja/data-component-table).
+
+When you are ready to share with your team, see [Deploy Guide](/docs/ja/deploy/dashboard-setup).
+
+<CardGroup cols={2}>
+    <Card title="Environment Variables" icon="square-1" href="/docs/ja/develop/guides/environment-variables">
+        Manage secrets with environment variables
+    </Card>
+    <Card title="Connect to DB/SaaS" icon="square-2" href="/docs/ja/develop/guides/integration">
+        Build a data app that accesses DB and SaaS
+    </Card>
+    <Card title="Use Variables" icon="square-3" href="/docs/ja/develop/guides/variables">
+        Customize the behavior of the data app according to user input
+    </Card>
+    <Card title="Role Based Access Control" icon="square-4" href="/docs/ja/develop/guides/user-role">
+        Customize the behavior of the data app by using the project role of the user
+    </Card>
+</CardGroup>
