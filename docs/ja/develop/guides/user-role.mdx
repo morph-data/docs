@@ -1,0 +1,77 @@
+---
+title: 'ロールベースのアクセス制御'
+icon: "user"
+---
+
+Morphで構築するデータアプリでは、アクセスするユーザーの情報を活用してロールベースのアクセス制御を行うことができます。
+Morphのフレームワーク上のPython関数では、`context: MorphGlobalContext`という引数を受け取ることができます。
+この`context`の`user_info`という変数にユーザー情報が格納されています。
+
+<CardGroup cols={1}>
+    <Card title="MorphGlobalContext" icon="book" href="/reference/ja/python/morph-global-context">
+        Pythonで`context.user_info`の変数から取得できるユーザー情報の詳細
+    </Card>
+</CardGroup>
+
+`context.user_info`の変数の型は以下の通りです。
+
+|変数|説明|型|
+|:---|:---|:---|
+|`user_id`|ユーザーID|`str`|
+|`email`|ユーザーのメールアドレス|`str`|
+|`username`|ユーザー名|`str`|
+|`first_name`|ユーザーの名前|`str`|
+|`last_name`|ユーザーの苗字|`str`|
+|`roles`|ユーザーのプロジェクトロール|`list[str]`|
+
+## プロジェクトロールの設定方法
+
+`MorphGlobalContext`に格納されるユーザー情報の`roles`という変数には、ユーザーのプロジェクトロールが格納されています。
+プロジェクトロールは、プロジェクトごとにユーザーに設定できるロールです。プロジェクト詳細の"Member Access"タブで設定できます。
+
+<img src="/assets/images/docs/project-user-role.png" alt="project-user-role" />
+
+## 開発環境でのユーザー情報の使用方法
+
+開発環境ではダッシュボードの認証情報を渡していないので、`context.user_info`には、以下の固定の値が格納されます。
+
+```json
+{
+    "user_id": "cea122ea-b240-49d7-ae7f-8b1e3d40dd8f",
+    "email": "mock_user@morph-data.io",
+    "username": "mock_user",
+    "first_name": "Mock",
+    "last_name": "User",
+    "roles": ["Admin"],
+}
+```
+
+### カスタマイズしたユーザー情報を使用する
+
+`/path/to/project/.mock_user_context.json`を作成して、上記のJSONと同じ型で値を保存すると、自動的に`context.user_info`の値が切り替わります。
+rolesの設定値を変更してロールベースのアクセス制御の実装を行うことができます。
+
+<Tip>
+認証用のJSONデータを署名なしのJWTトークンとして、authorizationヘッダーに渡すことでも同様にユーザー情報を切り替えることができます。
+</Tip>
+
+## サンプルコード
+
+以下のサンプルコードは、ユーザーがAdminロールを持っている場合のみにPygwalkerを使用したダッシュボードを表示するコードです。
+
+```python
+import pandas as pd
+import morph
+from morph import MorphGlobalContext
+from morph_lib.types import HtmlResponse
+import pygwalker as pyg
+
+@morph.func
+@morph.load_data("example_data")
+def create_pygwalker_dashboard(context: MorphGlobalContext):
+    data = context.data["example_data"]
+    if "Admin" not in context.user_info["roles"]:
+        return HtmlResponse("You are not authorized to access this dashboard.")
+
+    return pyg.to_html(data)
+```
