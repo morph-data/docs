@@ -18,7 +18,12 @@
       "to": "#07C983"
     }
   },
-  "topbarLinks": [],
+  "topbarLinks": [
+    {
+      "name": "Blog",
+      "url": "https://www.morphdb.io/blogs"
+    }
+  ],
   "versions": [
     "English",
     "日本語"
@@ -54,11 +59,6 @@
     }
   ],
   "anchors": [
-    {
-      "name": "Blog",
-      "icon": "newspaper",
-      "url": "https://www.morphdb.io/blogs"
-    },
     {
       "name": "Changelog",
       "icon": "rss",
@@ -331,44 +331,18 @@
       ]
     },
     {
-      "group": "Develop",
+      "group": "開発",
       "version": "日本語",
       "pages": [
-        {
-          "group": "ガイド",
-          "icon": "book",
-          "pages": [
-            "docs/ja/develop/guides/framework",
-            "docs/ja/develop/guides/environment-variables",
-            "docs/ja/develop/guides/integration",
-            "docs/ja/develop/guides/variables",
-            "docs/ja/develop/guides/user-role"
-          ]
-        },
-        {
-          "group": "チュートリアル",
-          "icon": "graduation-cap",
-          "pages": [
-            {
-              "group": "データ分析",
-              "pages": [
-                "docs/ja/develop/tutorials/pygwalker",
-                "docs/ja/develop/tutorials/plotly"
-              ]
-            },
-            {
-              "group": "LLM連携",
-              "pages": [
-                "docs/ja/develop/tutorials/chatbot",
-                "docs/ja/develop/tutorials/chat_sidebyside"
-              ]
-            }
-          ]
-        }
+        "docs/ja/develop/guides/framework",
+        "docs/ja/develop/guides/environment-variables",
+        "docs/ja/develop/guides/integration",
+        "docs/ja/develop/guides/variables",
+        "docs/ja/develop/guides/user-role"
       ]
     },
     {
-      "group": "Deploy",
+      "group": "デプロイ",
       "version": "日本語",
       "pages": [
         {
@@ -381,6 +355,22 @@
         },
         "docs/ja/deploy/customize-dockerfile",
         "docs/ja/deploy/environment-variables"
+      ]
+    },
+    {
+      "group": "レシピ - データ分析",
+      "version": "日本語",
+      "pages": [
+        "docs/ja/develop/tutorials/pygwalker",
+        "docs/ja/develop/tutorials/plotly"  
+      ]
+    },
+    {
+      "group": "レシピ - AIアプリ",
+      "version": "日本語",
+      "pages": [
+        "docs/ja/develop/tutorials/chatbot",
+        "docs/ja/develop/tutorials/chat_sidebyside"
       ]
     },
     {
