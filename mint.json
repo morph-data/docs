@@ -88,37 +88,11 @@
       "group": "Develop",
       "version": "English",
       "pages": [
-        {
-          "group": "Guides",
-          "icon": "book",
-          "pages": [
-            "docs/en/develop/guides/framework",
-            "docs/en/develop/guides/environment-variables",
-            "docs/en/develop/guides/integration",
-            "docs/en/develop/guides/variables",
-            "docs/en/develop/guides/user-role"
-          ]
-        },
-        {
-          "group": "Tutorials",
-          "icon": "graduation-cap",
-          "pages": [
-            {
-              "group": "Data Analysis",
-              "pages": [
-                "docs/en/develop/tutorials/pygwalker",
-                "docs/en/develop/tutorials/plotly"
-              ]
-            },
-            {
-              "group": "Work with LLM",
-              "pages": [
-                "docs/en/develop/tutorials/chatbot",
-                "docs/en/develop/tutorials/chat_sidebyside"
-              ]
-            }
-          ]
-        }
+        "docs/en/develop/guides/framework",
+        "docs/en/develop/guides/environment-variables",
+        "docs/en/develop/guides/integration",
+        "docs/en/develop/guides/variables",
+        "docs/en/develop/guides/user-role"
       ]
     },
     {
@@ -135,6 +109,22 @@
         },
         "docs/en/deploy/customize-dockerfile",
         "docs/en/deploy/environment-variables"
+      ]
+    },
+    {
+      "group": "Tutorials: Data Analysis",
+      "version": "English",
+      "pages": [
+        "docs/en/develop/tutorials/pygwalker",
+        "docs/en/develop/tutorials/plotly"
+      ]
+    },
+    {
+      "group": "Tutorials: LLM Apps",
+      "version": "English",
+      "pages": [
+        "docs/en/develop/tutorials/chatbot",
+        "docs/en/develop/tutorials/chat_sidebyside"
       ]
     },
     {
@@ -358,7 +348,7 @@
       ]
     },
     {
-      "group": "レシピ - データ分析",
+      "group": "チュートリアル: データ分析",
       "version": "日本語",
       "pages": [
         "docs/ja/develop/tutorials/pygwalker",
@@ -366,7 +356,7 @@
       ]
     },
     {
-      "group": "レシピ - AIアプリ",
+      "group": "チュートリアル: AIアプリ",
       "version": "日本語",
       "pages": [
         "docs/ja/develop/tutorials/chatbot",

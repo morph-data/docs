@@ -9,79 +9,111 @@ icon: '00'
 
 # MetricsGrid
 
-The MetricsGrid component displays each row of a Python function or SQL file execution result in the Metrics component.
+The MetricsGrid component displays each row of the execution results of Python functions or SQL files using the Metrics component.
+
+The display is in grid format.
 
 ```tsx
-<MetricsGrid 
-  loadData="aggregate_py" 
-  variables={{
-    department
-  }}
+<MetricsGrid
   cols="3"
-  valueKey="amount" 
-  labelKey="name" 
+  loadData="aws_cost"
+  value="cost"
+  label="service"
+  prefix={() => "$"}
+  suffix={() => "/mo"}
+  footer={(item) => (
+    <span style={{ opacity: 0.5 }}>
+      {`${item["usage"]["instance_type"]}`}, {item["region"]}
+    </span>
+  )}
 />
 ```
 
 ## Properties
 
 <ParamField path="loadData" type="string" required>
-  Name of the Python function or SQL file.
+  The name of the Python function or SQL file
 </ParamField>
 
-<ParamField path="varialbes" type="{ [key: string]: Variable }">
-  Variables to pass to the Python function or SQL file. Declare using the `variable()` function.
+<ParamField path="variables" type="{ [key: string]: any }">
+  Variables to pass to the Python function or SQL file. Declare them using the `defineState()` function.
 </ParamField>
 
-<ParamField path="valueKey" type="string">
-  Column name of the value to display
+<ParamField path="value" type="function | string">
+  Controls the value displayed in the center of the card.
+  If a function is passed, its execution result is treated as the Value. If a string is passed, it is treated as the column name, and the column value is treated as the Value.
 </ParamField>
 
-<ParamField path="labelKey" type="string">
-  Column name of label when you need to get label string from the data
+<ParamField path="label" type="function | string">
+  Controls the string displayed above the value.
+  If a function is passed, its execution result is treated as the label. If a string is passed, it is treated as the column name, and the column value is treated as the label.
 </ParamField>
 
-<ParamField path="label" type="string">
-  String displayed above the value
+<ParamField path="preix" type="function | string">
+  Controls the string displayed to the left of the Value.
+  If a function is passed, its execution result is treated as the Prefix. If a string is passed, it is treated as the column name, and the column value is treated as the Prefix.
 </ParamField>
 
-<ParamField path="unit" type="string">
-  String displayed to the right of the value
+<ParamField path="suffix" type="function | string">
+  Controls the string displayed to the right of the Value.
+  If a function is passed, its execution result is treated as the Suffix. If a string is passed, it is treated as the column name, and the column value is treated as the Suffix.
 </ParamField>
+
+<ParamField path="footer" type="function">
+  Controls the string displayed at the bottom of the card.
+  If a function is passed, its execution result is displayed as the Footer.
+</ParamField>
+
 
 # Metrics
 
-The Metrics component displays the value of a specific column from the first row of the execution result of a Python function or SQL file.
+The Metrics component displays the value of a specific column from the **first row** of the execution results of Python functions or SQL files.
 
 ```tsx
-<Metrics 
-  alias="aggregate_py"
-  variables={{
-    department
-  }}
-  valueKey="amount" 
-  unit="USD"
-  label="Total Sales"
+<Metrics
+  loadData="aws_coast"
+  value="cost"
+  label="service"
+  prefix={() => "$"}
+  suffix={() => "/mo"}
+  footer={(item) => (
+    <span style={{ opacity: 0.5 }}>
+      {`${item["usage"]["instance_type"]}`}, {item["region"]}
+    </span>
+  )}
 />
 ```
 ## Properties
 
-<ParamField path="alias" type="string" required>
-  Name of the Python function or SQL file.
+<ParamField path="loadData" type="string" required>
+  The name of the Python function or SQL file
 </ParamField>
 
-<ParamField path="varialbes" type="{ [key: string]: Variable }">
-  Variables to pass to the Python function or SQL file. Declare using the `variable()` function.
+<ParamField path="variables" type="{ [key: string]: Variable }">
+  Variables to pass to the Python function or SQL file. Declare them using the `variable()` function.
 </ParamField>
 
-<ParamField path="valueKey" type="string">
-  Column name of the value to display
+<ParamField path="value" type="function | string">
+  Controls the value displayed in the center of the card.
+  If a function is passed, its execution result is treated as the Value. If a string is passed, it is treated as the column name, and the column value is treated as the Value.
 </ParamField>
 
-<ParamField path="label" type="string">
-  String displayed above the value
+<ParamField path="label" type="function | string">
+  Controls the string displayed above the value.
+  If a function is passed, its execution result is treated as the label. If a string is passed, it is treated as the column name, and the column value is treated as the label.
 </ParamField>
 
-<ParamField path="unit" type="string">
-  String displayed to the right of the value
+<ParamField path="preix" type="function | string">
+  Controls the string displayed to the left of the Value.
+  If a function is passed, its execution result is treated as the Prefix. If a string is passed, it is treated as the column name, and the column value is treated as the Prefix.
+</ParamField>
+
+<ParamField path="suffix" type="function | string">
+  Controls the string displayed to the right of the Value.
+  If a function is passed, its execution result is treated as the Suffix. If a string is passed, it is treated as the column name, and the column value is treated as the Suffix.
+</ParamField>
+
+<ParamField path="footer" type="function">
+  Controls the string displayed at the bottom of the card.
+  If a function is passed, its execution result is displayed as the Footer.
 </ParamField>
