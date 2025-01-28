@@ -243,7 +243,8 @@
         "reference/en/cli-commands/new",
         "reference/en/cli-commands/config",
         "reference/en/cli-commands/deploy",
-        "reference/en/cli-commands/serve"
+        "reference/en/cli-commands/serve",
+        "reference/en/cli-commands/context"
       ]
     },
     {
@@ -489,7 +490,8 @@
         "reference/ja/cli-commands/new",
         "reference/ja/cli-commands/config",
         "reference/ja/cli-commands/deploy",
-        "reference/ja/cli-commands/serve"
+        "reference/ja/cli-commands/serve",
+        "reference/ja/cli-commands/context"
       ]
     },
     {

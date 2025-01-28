@@ -1,0 +1,30 @@
+---
+title: "context"
+---
+
+`morph context`コマンドは、クラウドの上のログインユーザー情報を確認するためのコマンドです。
+
+オプションの指定がない場合はコンソール上にユーザー情報を表示し、ファイルパスを指定することでその情報をローカルのテスト用に保存することもできます。
+
+```bash Shell
+morph context
+```
+
+```bash Shell
+{
+    "user_id": "xxxxx-xxxxx-xxxxx-xxxxxx",
+    "email": "mock_user@morph-data.io",
+    "username": "mock_user",
+    "firstName": "Mock",
+    "lastName": "User",
+    "roles": [
+        "Admin"
+    ]
+}
+```
+
+### Arguments
+
+<ParamField body="--output / -o" type="str">
+  ユーザー情報を保存するファイルパスを指定します。ローカルでのテストに使用する際は`.mock_user_context.json`を指定してください。
+</ParamField>
