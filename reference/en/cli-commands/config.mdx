@@ -12,6 +12,7 @@ morph config
 
 ### Arguments
 
-<ParamField body="--profile" type="str">
-You can specify the profile name to be registered in `~/.morph/credentials`.
+<ParamField body="--profile" type="str" requered={false}>
+Using the `--profile` option allows you to select a specific section in the `~/.morph/credentials` file.
+If a section with the same name already exists, a warning will be displayed asking whether to overwrite it.
 </ParamField>
