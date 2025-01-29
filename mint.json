@@ -134,7 +134,8 @@
           ]
         },
         "docs/en/deploy/customize-dockerfile",
-        "docs/en/deploy/environment-variables"
+        "docs/en/deploy/environment-variables",
+        "docs/en/deploy/public"
       ]
     },
     {
@@ -381,7 +382,8 @@
             ]
         },
         "docs/ja/deploy/customize-dockerfile",
-        "docs/ja/deploy/environment-variables"
+        "docs/ja/deploy/environment-variables",
+        "docs/ja/deploy/public"
       ]
     },
     {
