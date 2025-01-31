@@ -14,11 +14,17 @@ MetricsGridコンポーネントは、Python関数やSQLファイルの実行結
 表示はグリッド形式です。
 
 ```tsx
-<MetricsGrid 
-  loadData="aggregate_py" 
-  cols="3"
-  valueKey="amount" 
-  labelKey="name" 
+<Metrics
+  loadData="aws_coast"
+  value="cost"
+  label="service"
+  prefix={() => "$"}
+  suffix={() => "/mo"}
+  footer={(item) => (
+    <span style={{ opacity: 0.5 }}>
+      {`${item["usage"]["instance_type"]}`}, {item["region"]}
+    </span>
+  )}
 />
 ```
 
@@ -32,35 +38,48 @@ MetricsGridコンポーネントは、Python関数やSQLファイルの実行結
   Python関数やSQLファイルに渡す変数。 `defineState()`関数 を使って宣言してください。
 </ParamField>
 
-<ParamField path="valueKey" type="string">
-  値を表示するカラム名
+<ParamField path="value" type="function | string">
+  カード中央に表示される値を制御します。
+  関数を渡すとその実行結果をValueとして扱います。文字列を渡すとそれをカラム名として、カラムの値をValueとして扱います。
 </ParamField>
 
-<ParamField path="labelKey" type="string">
-  値の上部に表示される文字列をデータの中から取得したい場合、そのカラム名
+<ParamField path="label" type="function | string">
+  値の上部に表示される文字列を制御します。
+  関数を渡すとその実行結果をラベルとして扱います。文字列を渡すとそれをカラム名として、カラムの値をラベルとして扱います。
 </ParamField>
 
-<ParamField path="label" type="string">
-  値の上部に表示される文字列
+<ParamField path="preix" type="function | string">
+  Valueの左側に表示される文字列を制御します。
+  関数を渡すとその実行結果をPrefixとして扱います。文字列を渡すとそれをカラム名として、カラムの値をPrefixとして扱います。
 </ParamField>
 
-<ParamField path="unit" type="string">
-  値の右部に表示される文字列
+<ParamField path="suffix" type="function | string">
+  Valueの右側に表示される文字列を制御します。
+  関数を渡すとその実行結果をSuffixとして扱います。文字列を渡すとそれをカラム名として、カラムの値をSuffixとして扱います。
 </ParamField>
+
+<ParamField path="footer" type="function">
+  カード下部に表示される文字列を制御します。
+  関数を渡すとその実行結果をFooterとして表示します。
+</ParamField>
+
 
 # Metrics
 
 Metricsコンポーネントは、Python関数やSQLファイルの実行結果のうち、**1行目**の特定の列の値を表示します。
 
 ```tsx
-<Metrics 
-  loadData="aggregate_py"
-  vars={{
-    department
-  }}
-  valueKey="amount" 
-  unit="USD"
-  label="Total Sales"
+<Metrics
+  loadData="aws_coast"
+  value="cost"
+  label="service"
+  prefix={() => "$"}
+  suffix={() => "/mo"}
+  footer={(item) => (
+    <span style={{ opacity: 0.5 }}>
+      {`${item["usage"]["instance_type"]}`}, {item["region"]}
+    </span>
+  )}
 />
 ```
 ## プロパティ
@@ -69,18 +88,31 @@ Metricsコンポーネントは、Python関数やSQLファイルの実行結果�
   Python関数やSQLファイルの name
 </ParamField>
 
-<ParamField path="vars" type="{ [key: string]: Variable }">
-  Python関数やSQLファイルに渡す変数。 `variable()`関数 を使って宣言してください。
+<ParamField path="variables" type="{ [key: string]: any }">
+  Python関数やSQLファイルに渡す変数。 `defineState()`関数 を使って宣言してください。
 </ParamField>
 
-<ParamField path="valueKey" type="string">
-  値を表示するカラム名
+<ParamField path="value" type="function | string">
+  カード中央に表示される値を制御します。
+  関数を渡すとその実行結果をValueとして扱います。文字列を渡すとそれをカラム名として、カラムの値をValueとして扱います。
 </ParamField>
 
-<ParamField path="label" type="string">
-  値の上部に表示される文字列
+<ParamField path="label" type="function | string">
+  値の上部に表示される文字列を制御します。
+  関数を渡すとその実行結果をラベルとして扱います。文字列を渡すとそれをカラム名として、カラムの値をラベルとして扱います。
 </ParamField>
 
-<ParamField path="unit" type="string">
-  値の右部に表示される文字列
+<ParamField path="preix" type="function | string">
+  Valueの左側に表示される文字列を制御します。
+  関数を渡すとその実行結果をPrefixとして扱います。文字列を渡すとそれをカラム名として、カラムの値をPrefixとして扱います。
+</ParamField>
+
+<ParamField path="suffix" type="function | string">
+  Valueの右側に表示される文字列を制御します。
+  関数を渡すとその実行結果をSuffixとして扱います。文字列を渡すとそれをカラム名として、カラムの値をSuffixとして扱います。
+</ParamField>
+
+<ParamField path="footer" type="function">
+  カード下部に表示される文字列を制御します。
+  関数を渡すとその実行結果をFooterとして表示します。
 </ParamField>
