@@ -1,83 +1,60 @@
 ---
-title: Why Morph
+title: Introduction
 icon: "lightbulb"
+description: Convert AI workflows and agents developed in Python into web applications
 ---
+
+## What is Morph?
+
+Morph is a full-stack Python framework for building and sharing AI and data applications.
+
+With Morph, you can **quickly convert data analysis scripts and custom AI workflows developed in Python into web applications**. Additionally, you can easily share the applications you create with a single command deployment.
 
 <Frame>
   <img src='https://www.morph-data.io/_next/image?url=%2Fassets%2Fv0.1.0%2Foverview.jpg&w=1920&q=75' />
 </Frame>
 
-Morph is a python-centric full-stack framework for building and deploying data apps.
+## Features of Morph
 
-As the importance of data utilization continues to grow, many companies are seeking efficient and rapid data analysis. However, traditional BI tools and data application construction methods do not sufficiently address technical and operational challenges.
+- 🐍 **Developed in Python** ... Build web applications using the source code of data analysis and AI development as is
+- 🎨 **Build pages with Markdown** ... Construct UI with MDX files embedding React components
+- ☁️ **Unlimited freedom** ... Freely add Python packages, React packages, and OS-level packages
+- 🔒 **Secure hosting** ... Deploy with `morph deploy`, protect data and API keys with built-in user authentication
 
-Morph is designed to fundamentally rethink these challenges and enable more flexible and team-centric data utilization.
+## Architecture of Morph
 
-## Challenges of Traditional BI Tools
+### Backend Development
 
-BI tools have democratized data utilization by providing non-engineering users with access to and visualization of data. However, their design philosophy has limitations.
+Backend development uses Python. You can freely add Python packages to build data processing and AI workflows.
 
-1. Lack of Agility
+For data processing, you can use libraries such as Pandas, NumPy, and Scikit-learn. For AI workflows, you can use SDKs from OpenAI and Anthropic, or frameworks like Langchain and CrewAI.
 
-BI tools are fundamentally based on static dashboards and predefined flows, making it difficult to quickly iterate and experiment in response to rapidly changing business needs.
+### UI Construction
 
-2. Insufficient Collaboration with Engineers
+The UI of the application is constructed using MDX files in Markdown format. MDX files can embed React components.
 
-BI tools that emphasize no-code make it difficult for engineers to participate in the data analysis cycle, making it challenging to leverage their expertise to solve complex data issues.
+Additionally, Morph includes commonly used components for AI and data applications, so you can use them simply by placing them in the Markdown.
 
-3. Limitations in Scalability and Flexibility
+Since MDX files can use React components, if you are a React master, you can create your own components or use popular component libraries.
 
-When trying to build advanced data applications beyond basic reporting, BI tools hit their limits and fail to meet business requirements.
+## Deployment
 
-## Current State and Challenges of Data Application Development
+The biggest barrier to seriously operating AI and data applications is deployment.
 
-Frameworks for building data applications for engineers are powerful in that they allow for the creation of advanced applications in a local environment. However, there are still challenges when it comes to actual business use.
-- Complexity of Deployment
+To deploy AI and data applications, you need a web server where Python can run, security is ensured, and the cost is not too high.
 
-To share applications internally and externally, it is necessary to set up hosting environments and authentication settings, which requires a lot of resources and time.
+Security is particularly the biggest issue. For AI applications, you might be using secret keys for LLM APIs, and for data applications, you might be using SQL connection information. You can't just expose them to the internet recklessly.
 
-- Difficulty in Team Utilization
+Morph provides a cloud hosting environment that meets these conditions. **With built-in user authentication, outsiders cannot access the application**.
 
-Because they are specialized for developers, there is a lack of mechanisms for non-engineering users to use and provide feedback on applications in real-time.
+Moreover, **deployment is possible with a single command**.
 
-## What Morph Solves
+## Next Steps
 
-Morph is a framework that addresses these challenges and provides data applications that can be quickly built, shared, and utilized. By using Morph, you can break down the barriers surrounding data and achieve truly agile data utilization.
+<Card title="Installation" icon="wrench" href="/en/getting-started/installation">
+  Let's start with installing Morph.
+</Card>
 
-### Features of Morph
-
-1. Fast Construction and Flexibility
-
-Morph provides an environment where advanced data analysis and application construction can be quickly performed by combining Python, SQL, and MDX (extended Markdown). It is not constrained by the limitations of dashboards and can immediately respond to changing requirements.
-
-2. Easy Deployment and Secure Sharing
-
-Data applications created locally can be deployed to the cloud with a single `morph deploy` command. User authentication and access restrictions are automatically set, allowing anyone to share applications securely.
-
-3. Team-Centric Collaboration
-
-Morph breaks down the barriers between engineers and business users, allowing data applications to be shared in real-time. The entire team can iterate on feedback and accelerate decision-making from data.
-
-4. Building Reusable Logic
-
-By reusing the analysis logic and applications created in other projects, you can maximize operational efficiency and scale data utilization across the organization.
-
-## Data Utilization Environment in the AI Era
-
-In today's data utilization environment, the presence of AI cannot be ignored. Morph is designed with the premise of leveraging AI, as it was born in the AI era.
-
-- Accelerating Construction with AI
-
-Morph's loosely coupled architecture centered around Python allows for maximum utilization of AI's code generation capabilities. By combining MorphAI's construction support with AI code assistance tools like Cursor/Github Copilot, data application construction can be achieved at unprecedented speeds.
-
-- Building Data Applications with Embedded AI
-
-The demand for data applications that leverage AI is also growing explosively. The Python ecosystem has the world's largest ecosystem for leveraging the latest AI models. By embedding these into data applications with Morph and deploying them to teams, you can leverage the latest AI technologies.
-
-## Why Morph is Needed Now
-
-To maintain competitiveness, companies must have the ability to utilize data quickly and accurately. Morph was born to solve challenges that traditional tools and frameworks could not address.
-
-Morph shortens the cycle from data analysis to decision-making and strengthens collaboration between the field and technical departments. It is not just a tool but a new framework to shape a data-driven future.
-
-Morph pioneers the future of agile data utilization.
+<Card title="Quickstart" icon="rocket" href="/en/getting-started/quickstart">
+  Create a chat application with Langchain as the backend in 2 minutes using Morph!
+</Card>

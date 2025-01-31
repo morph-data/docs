@@ -1,31 +1,86 @@
 ---
 title: 'Quickstart'
 icon: "rocket"
+description: Complete your first AI app in 3 minutes.
 ---
 
+## Building Your First Morph App
+
+As your first AI app using Morph, we will create a chat app using Langchain.
+
 <Steps>
-  <Step title="Install Morph with pip Command">
-    ```bash Shell
-    pip install morph-data
+  <Step title="Initialize the Project">
+    Run the following command in the terminal to create a new project.
+    ```bash
+    morph new chat-app
     ```
   </Step>
-  <Step title="Create a Morph Project">
-    Use the `morph new` command to create a Morph project.
-    ```bash Shell
-    morph new morph-starter-app
+  <Step title="Install Packages">
+    To use Langchain, run the following command to install the package.
+    ```bash
+    pip install langchain
     ```
   </Step>
-  <Step title="Start the Morph Development Server">
-    Use the `morph serve` command to start the Morph development server.
-    ```bash Shell
+  <Step title="Create chat.py">
+    Create a `chat.py` file in the `src/python` directory.
+    ```python src/python/chat.py
+      import os
+      import morph
+      from morph import MorphGlobalContext
+      from morph_lib.ai import ChatMesasges, stream_chat
+      from langchain_openai import ChatOpenAI
+
+      llm = ChatOpenAI(model="gpt-4o", stream=True)
+
+      @morph.func
+      def llm_chat_app(context: MorphGlobalContext):
+          messages = ChatMesasges(context)
+          for token in llm.stream(messages);
+            stream_chat(token.content)
+    ```
+  </Step>
+  <Step title="Edit index.mdx">
+    Edit `index.mdx` to use the Python function created earlier.
+    ```md src/pages/index.mdx
+    # 🦜🔗 Langchain Chat
+
+    <Chat postData="llm_chat_app" height={300} />
+    ```
+  </Step>
+  <Step title="Start the Local Server">
+    Run the following command in the terminal to start the development server.
+    ```bash
     morph serve
     ```
-  </Step>
-  <Step title="Open the App in a Browser">
+
     Access `localhost:8080` to open the app.
-  </Step>
-  <Step title="Build your app using SQL, Python, and MDX">
-    This is the end of the quickstart. Now you can build your app using SQL, Python, and MDX!
   </Step>
 </Steps>
 
+Here is all the code needed to build this chat app. That's it!
+
+<CodeGroup>
+
+```python src/python/chat.py
+import os
+import morph
+from morph import MorphGlobalContext
+from morph_lib.ai import ChatMesasges, stream_chat
+from langchain_openai import ChatOpenAI
+
+llm = ChatOpenAI(model="gpt-4o", stream=True)
+
+@morph.func
+def llm_chat_app(context: MorphGlobalContext):
+    messages = ChatMesasges(context)
+    for token in llm.stream(messages);
+      stream_chat(token.content)
+```
+
+```md src/pages/index.mdx
+# 🦜🔗 Langchain Chat
+
+<Chat postData="llm_chat_app" height={300} />
+```
+
+</CodeGroup>

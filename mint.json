@@ -81,6 +81,7 @@
       "version": "English",
       "pages": [
         "docs/en/getting-started/why-morph",
+        "docs/en/getting-started/installation",
         "docs/en/getting-started/quickstart"
       ]
     },
@@ -237,6 +238,14 @@
       ]
     },
     {
+      "group": "AI Components",
+      "version": "English",
+      "pages": [
+        "data-application/en/ai-component-chat",
+        "data-application/en/ai-component-llm"
+      ]
+    },
+    {
       "group": "Data Components",
       "version": "English",
       "pages": [
@@ -253,13 +262,6 @@
         "data-application/en/input-component-date-picker",
         "data-application/en/input-component-date-range-picker",
         "data-application/en/input-component-select"
-      ]
-    },
-    {
-      "group": "AI Components",
-      "version": "English",
-      "pages": [
-        "data-application/en/ai-component-llm"
       ]
     },
     {
@@ -317,6 +319,7 @@
       "version": "日本語",
       "pages": [
         "docs/ja/getting-started/why-morph",
+        "docs/ja/getting-started/installation",
         "docs/ja/getting-started/quickstart"
       ]
     },
@@ -473,6 +476,14 @@
       ]
     },
     {
+      "group": "AIコンポーネント",
+      "version": "日本語",
+      "pages": [
+        "data-application/ja/ai-component-chat",
+        "data-application/ja/ai-component-llm"
+      ]
+    },
+    {
       "group": "データコンポーネント",
       "version": "日本語",
       "pages": [
@@ -489,13 +500,6 @@
         "data-application/ja/input-component-date-picker",
         "data-application/ja/input-component-date-range-picker",
         "data-application/ja/input-component-select"
-      ]
-    },
-    {
-      "group": "AIコンポーネント",
-      "version": "日本語",
-      "pages": [
-        "data-application/ja/ai-component-llm"
       ]
     },
     {
