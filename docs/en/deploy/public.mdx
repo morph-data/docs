@@ -1,0 +1,48 @@
+---
+title: "Enable Public Access"
+icon: "link"
+---
+
+Immediately after creating a project, it is in a private state, and only team members who are admin users or users invited to the project can view the deployed data app. However, by changing the settings, you can make it accessible to anyone who knows the link.
+
+## Private / Public
+
+Here, private and public refer to whether the deployed data application can be viewed by non-members. Even if you change it to public, non-team members cannot operate the project on the dashboard or overwrite your project.
+
+| State     | Operation                                                               |
+| --------- | ----------------------------------------------------------------------- |
+| `Private` | Only team administrators or invited users can view the data application |
+| `Public`  | Anyone who knows the link can view the data application                 |
+
+<Warning>
+  Enabling public access will allow anyone to view it. Please confirm that the
+  content is okay to be viewed by others before changing the setting.
+</Warning>
+
+## Steps to Enable Public Access
+
+<Steps>
+                <Step title="Open the Project Page">
+                                Log in to the dashboard and select the project you want to change.
+
+                                <img src="/assets/images/docs/deploy/project-list.png" alt="Project List" />
+                </Step>
+                <Step title="Change to Public">
+                                Click the three dots to the right of the project name on the target project page.
+
+                                <img src="/assets/images/docs/deploy/change-to-public.png" alt="Project Change to Public" />
+
+                                Click "Change to Public" and confirm in the dialog to enable public access.
+
+                                <img src="/assets/images/docs/deploy/change-to-public-confirmation.png" alt="Project Change to Public Confirmation" />
+                </Step>
+                <Step title="Confirm the Status">
+                                If the "Public" label is displayed next to the project name on the project list page or the individual project page, it is in a public state.
+                                Confirm that it can be viewed in a browser without authentication or by other users.
+
+                                <img src="/assets/images/docs/deploy/public-project.png" alt="Public Project" />
+
+                                <Note>If you want to revert to private, you can change it by following the same steps.</Note>
+                </Step>
+
+</Steps>
