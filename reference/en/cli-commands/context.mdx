@@ -1,0 +1,31 @@
+---
+title: "context"
+---
+
+The `morph context` command is used to check the logged-in user information on the cloud.
+
+If no options are specified, the user information is displayed on the console. By specifying a file path, you can also save this information locally for testing purposes.
+
+```bash Shell
+morph context
+```
+
+```bash Shell
+{
+    "user_id": "xxxxx-xxxxx-xxxxx-xxxxxx",
+    "email": "mock_user@morph-data.io",
+    "username": "mock_user",
+    "firstName": "Mock",
+    "lastName": "User",
+    "roles": [
+        "Admin"
+    ]
+}
+```
+
+### Arguments
+
+<ParamField body="--output / -o" type="str">
+  Specify the file path to save the user information. For local testing, use
+  `.mock_user_context.json`.
+</ParamField>

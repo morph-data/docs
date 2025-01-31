@@ -1,30 +1,89 @@
 ---
 title: 'クイックスタート'
 icon: "rocket"
+description: 3分ではじめてのAIアプリを完成させましょう。
 ---
 
+## はじめてのMorphアプリを構築する
+
+Morphを使った初めてのAIアプリとして、Langchainを使ったチャットアプリを作成します。
+
 <Steps>
-  <Step title="pipコマンドでmorphをインストールする">
-    ```bash Shell
-    pip install morph-data
+  <Step title="プロジェクトの初期化">
+    ターミナルで以下のコマンドを実行して、新しいプロジェクトを作成します。
+    ```bash
+    morph new chat-app
     ```
   </Step>
-  <Step title="Morphプロジェクトを作成する">
-    `morph new` コマンドを使って、Morphプロジェクトを作成します。
-    ```bash Shell
-    morph new morph-starter-app
+  <Step title="パッケージをインストールする">
+    Langchainを使うために、以下のコマンドを実行してパッケージをインストールします。
+    ```bash
+    pip install langchain
     ```
   </Step>
-  <Step title="Morphの開発サーバーを起動する">
-    `morph serve` コマンドを使って、Morphの開発サーバーを起動します。
-    ```bash Shell
+  <Step title="chat.pyを作成する">
+    `src/python` ディレクトリに `chat.py` ファイルを作成します。
+    ```python src/python/chat.py
+      import os
+      import morph
+      from morph import MorphGlobalContext
+      from morph_lib.ai import ChatMesasges, stream_chat
+      from langchain_openai import ChatOpenAI
+
+      llm = ChatOpenAI(model="gpt-4o", stream=True)
+
+      @morph.func
+      def llm_chat_app(context: MorphGlobalContext):
+          messages = ChatMesasges(context)
+          for token in llm.stream(messages);
+            stream_chat(token.content)
+    ```
+  </Step>
+  <Step title="index.mdxを編集する">
+    先ほど作成したPython関数を使用するために、index.mdxを編集します。
+    ```md src/pages/index.mdx
+    # 🦜🔗 Langchain Chat
+
+    <Chat postData="llm_chat_app" height={300} />
+    ```
+  </Step>
+  <Step title="ローカルサーバーを起動する">
+    ターミナルで以下のコマンドを実行して、開発サーバーを起動します。
+    ```bash
     morph serve
     ```
-  </Step>
-  <Step title="ブラウザでアプリを開く">
+
     `localhost:8080` にアクセスして、アプリを開きます。
   </Step>
-  <Step title="SQL, Python, MDXを使ってアプリを構築する">
-    ここまでで、基本的な開発サーバーを起動できました。SQL, Python, MDXを使ってアプリを構築していきましょう!
-  </Step>
 </Steps>
+
+
+このチャットアプリを構築するために必要なコードの全ては、以下の通りです。たったこれだけです！
+
+
+<CodeGroup>
+
+```python src/python/chat.py
+import os
+import morph
+from morph import MorphGlobalContext
+from morph_lib.ai import ChatMesasges, stream_chat
+from langchain_openai import ChatOpenAI
+
+llm = ChatOpenAI(model="gpt-4o", stream=True)
+
+@morph.func
+def llm_chat_app(context: MorphGlobalContext):
+    messages = ChatMesasges(context)
+    for token in llm.stream(messages);
+      stream_chat(token.content)
+```
+
+```md src/pages/index.mdx
+# 🦜🔗 Langchain Chat
+
+<Chat postData="llm_chat_app" height={300} />
+```
+
+
+</CodeGroup>

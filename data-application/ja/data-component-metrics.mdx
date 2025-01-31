@@ -88,8 +88,8 @@ Metricsコンポーネントは、Python関数やSQLファイルの実行結果�
   Python関数やSQLファイルの name
 </ParamField>
 
-<ParamField path="variables" type="{ [key: string]: Variable }">
-  Python関数やSQLファイルに渡す変数。 `variable()`関数 を使って宣言してください。
+<ParamField path="variables" type="{ [key: string]: any }">
+  Python関数やSQLファイルに渡す変数。 `defineState()`関数 を使って宣言してください。
 </ParamField>
 
 <ParamField path="value" type="function | string">

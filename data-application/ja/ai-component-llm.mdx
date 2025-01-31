@@ -35,7 +35,7 @@ icon: "message-dots"
 
 - `is_new_conversation`: 新しい会話が始まったかどうか。 "Start new thread" ボタンをユーザーが押した際などに `true` に更新されます。
 
-これらのデータに加えて送りたいデータや、デフォルトのデータを上書きしたい場合には、 `vars` プロパティを使用してください。
+これらのデータに加えて送りたいデータや、デフォルトのデータを上書きしたい場合には、 `variables` プロパティを使用してください。
 
 ## プロパティ
 
@@ -43,8 +43,8 @@ icon: "message-dots"
   Python関数やSQLファイルの name
 </ParamField>
 
-<ParamField path="vars" type="{ [key: string]: Variable }">
-  Python関数やSQLファイルに渡す変数。 `variable()`関数 を使って宣言してください。
+<ParamField path="variables" type="{ [key: string]: any }">
+  Python関数やSQLファイルに渡す変数。 `defineState()`関数 を使って宣言してください。
 </ParamField>
 
 <ParamField path="height" type="number">

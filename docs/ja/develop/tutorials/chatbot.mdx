@@ -21,13 +21,13 @@ OPENAI_API_KEY=your_api_key
 
 ## チュートリアル
 
-`<LLM />`コンポーネントを使用して、LLMのAPIを活用したチャットアプリを作成します。
-Python関数でLLMを用いたチャットアプリのロジックを実装し、`create_chunk`関数を使用して、チャットのログをストリームで返することで、自動的に`<LLM />`がストリーミングの結果を表示します。
+`<Chat />`コンポーネントを使用して、LLMのAPIを活用したチャットアプリを作成します。
+Python関数でLLMを用いたチャットアプリのロジックを実装し、`stream_chat`関数を使用して、チャットのログをストリームで返することで、自動的に`<Chat />`がストリーミングの結果を表示します。
 
 <Tabs>
     <Tab title="1. Python">
 OpenAIのSDKを使用して、ユーザーからの質問に回答するロジックを実装します。
-`<LLM />`コンポーネントの`postData`属性に指定された関数は`prompt`と`thread_id`を引数として受け取ります。
+`<Chat />`コンポーネントの`postData`属性に指定された関数は`prompt`と`thread_id`を引数として受け取ります。
 - prompt: ユーザーから入力されたプロンプト
 - thread_id: チャットスレッドのID。新しいスレッドが開かれると新しいIDが発行されます。
 
@@ -35,7 +35,7 @@ OpenAIのSDKを使用して、ユーザーからの質問に回答するロジ�
 import os
 import morph
 from morph import MorphGlobalContext
-from morph_lib.stream import create_chunk
+from morph_lib.stream import stream_chat
 from openai import OpenAI
 
 @morph.func
@@ -54,19 +54,19 @@ def llm_chat_app(context: MorphGlobalContext):
     )
 
     for chunk in response:
-        yield create_chunk(chunk.choices[0].delta.content)
+        yield stream_chat(chunk.choices[0].delta.content)
 
 ```
     </Tab>
     <Tab title="2. MDX(pages)">
-`<LLM />`コンポーネントの`postData`属性にPython関数を指定します。
+`<Chat />`コンポーネントの`postData`属性にPython関数を指定します。
 
 ```typescript
 export const title = "LLM Chat App"
 
-# LLM Chat App
+# Chat App
 
-<LLM postData="llm_chat_app" />
+<Chat postData="llm_chat_app" />
 
 ```
     </Tab>

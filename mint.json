@@ -81,6 +81,7 @@
       "version": "English",
       "pages": [
         "docs/en/getting-started/why-morph",
+        "docs/en/getting-started/installation",
         "docs/en/getting-started/quickstart"
       ]
     },
@@ -108,7 +109,8 @@
           ]
         },
         "docs/en/deploy/customize-dockerfile",
-        "docs/en/deploy/environment-variables"
+        "docs/en/deploy/environment-variables",
+        "docs/en/deploy/public"
       ]
     },
     {
@@ -233,7 +235,16 @@
         "reference/en/cli-commands/new",
         "reference/en/cli-commands/config",
         "reference/en/cli-commands/deploy",
-        "reference/en/cli-commands/serve"
+        "reference/en/cli-commands/serve",
+        "reference/en/cli-commands/context"
+      ]
+    },
+    {
+      "group": "AI Components",
+      "version": "English",
+      "pages": [
+        "data-application/en/ai-component-chat",
+        "data-application/en/ai-component-llm"
       ]
     },
     {
@@ -253,13 +264,6 @@
         "data-application/en/input-component-date-picker",
         "data-application/en/input-component-date-range-picker",
         "data-application/en/input-component-select"
-      ]
-    },
-    {
-      "group": "AI Components",
-      "version": "English",
-      "pages": [
-        "data-application/en/ai-component-llm"
       ]
     },
     {
@@ -317,6 +321,7 @@
       "version": "日本語",
       "pages": [
         "docs/ja/getting-started/why-morph",
+        "docs/ja/getting-started/installation",
         "docs/ja/getting-started/quickstart"
       ]
     },
@@ -344,7 +349,8 @@
             ]
         },
         "docs/ja/deploy/customize-dockerfile",
-        "docs/ja/deploy/environment-variables"
+        "docs/ja/deploy/environment-variables",
+        "docs/ja/deploy/public"
       ]
     },
     {
@@ -469,7 +475,16 @@
         "reference/ja/cli-commands/new",
         "reference/ja/cli-commands/config",
         "reference/ja/cli-commands/deploy",
-        "reference/ja/cli-commands/serve"
+        "reference/ja/cli-commands/serve",
+        "reference/ja/cli-commands/context"
+      ]
+    },
+    {
+      "group": "AIコンポーネント",
+      "version": "日本語",
+      "pages": [
+        "data-application/ja/ai-component-chat",
+        "data-application/ja/ai-component-llm"
       ]
     },
     {
@@ -489,13 +504,6 @@
         "data-application/ja/input-component-date-picker",
         "data-application/ja/input-component-date-range-picker",
         "data-application/ja/input-component-select"
-      ]
-    },
-    {
-      "group": "AIコンポーネント",
-      "version": "日本語",
-      "pages": [
-        "data-application/ja/ai-component-llm"
       ]
     },
     {

@@ -11,6 +11,12 @@ icon: ''
 </Note>
 
 <Steps>
+    <Step title="morph CLIを設定する">
+        下記のコマンドを実行してAPIキーを`~/.morph/credentials`に設定します。
+        ```bash Shell
+        morph config
+        ```
+    </Step>
     <Step title="プロジェクトをセットアップする">
         1. プロジェクトのルート階層に移動します。
             ```bash Shell
@@ -32,13 +38,7 @@ icon: ''
             - `profile`は`~/.morph/credentials`のセクションに紐付きます。通常は`default`で問題ありませんが、複数の認証情報をお持ちの場合は必要に応じて変更してください。
             - `package_manager`はプロジェクト作成時のパッケージマネージャーが設定されています。通常変更する必要はありませんが、`morph deploy`コマンドではこの設定に基づいてビルドを行います。
                 - `package_manager=pip`が指定されている場合は、プロジェクト直下の`requirements.txt`を編集してデプロイ環境でインストールするパッケージを指定してください。それ以外の場合は`requirements.txt`がビルド時に自動で生成されます。
-    </Step>
-    <Step title="morph CLIを設定する">
-        下記のコマンドを実行してAPIキーを`~/.morph/credentials`に設定します。
-        ```bash Shell
-        morph config
-        ```
-    </Step>
+    </Step>    
     <Step title="クラウドにデプロイする">
         コマンドを実行してクラウドにデプロイします。
         ```bash Shell
