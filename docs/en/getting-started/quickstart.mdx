@@ -24,19 +24,19 @@ As your first AI app using Morph, we will create a chat app using Langchain.
   <Step title="Create chat.py">
     Create a `chat.py` file in the `src/python` directory.
     ```python src/python/chat.py
-      import os
       import morph
       from morph import MorphGlobalContext
-      from morph_lib.ai import ChatMesasges, stream_chat
+      from morph_lib.stream import stream_chat
       from langchain_openai import ChatOpenAI
+      from langchain_core.messages import HumanMessage
 
       llm = ChatOpenAI(model="gpt-4o", stream=True)
 
       @morph.func
-      def llm_chat_app(context: MorphGlobalContext):
-          messages = ChatMesasges(context)
-          for token in llm.stream(messages);
-            stream_chat(token.content)
+      def langchain_chat(context: MorphGlobalContext):
+        messages = [HumanMessage(context.vars["prompt"])]
+        for token in llm.stream(messages):
+          yield stream_chat(token.content)
     ```
   </Step>
   <Step title="Edit index.mdx">
@@ -62,19 +62,19 @@ Here is all the code needed to build this chat app. That's it!
 <CodeGroup>
 
 ```python src/python/chat.py
-import os
 import morph
 from morph import MorphGlobalContext
-from morph_lib.ai import ChatMesasges, stream_chat
+from morph_lib.stream import stream_chat
 from langchain_openai import ChatOpenAI
+from langchain_core.messages import HumanMessage
 
 llm = ChatOpenAI(model="gpt-4o", stream=True)
 
 @morph.func
-def llm_chat_app(context: MorphGlobalContext):
-    messages = ChatMesasges(context)
-    for token in llm.stream(messages);
-      stream_chat(token.content)
+def langchain_chat(context: MorphGlobalContext):
+  messages = [HumanMessage(context.vars["prompt"])]
+  for token in llm.stream(messages):
+    yield stream_chat(token.content)
 ```
 
 ```md src/pages/index.mdx
