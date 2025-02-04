@@ -1,16 +1,17 @@
 ---
-title: 'OSレベルのパッケージ追加'
+title: "実行環境のカスタマイズ"
 icon: "server"
 ---
 
-Morphではプロジェクト内の`Dockerfile`をカスタマイズすることで、OSレベルのパッケージを追加することができます。
+Morph ではプロジェクト内の`Dockerfile`を編集することで、Morph Cloud 上での実行環境のカスタマイズを実施することができます。
 
-## Dockerfileの基本構成
+## Dockerfile の基本構成
 
-`morph new`コマンドで初期生成されるDockerfileは以下のような構成になっています。
+`morph new`コマンドで初期生成される Dockerfile は以下のような構成になっています。
 
 <Warning>
-    `MORPH_TASK_ROOT`の予約語は、`pip install`を正常に動作させるために必要な環境変数です。特別な理由がない限りは変更しないでください。
+  `MORPH_TASK_ROOT`の予約語は、`pip
+  install`を正常に動作させるために必要な環境変数です。特別な理由がない限りは変更しないでください。
 </Warning>
 
 ```Dockerfile
@@ -37,14 +38,16 @@ CMD ["core.morph.api.app.handler"]
 
 ## パッケージの追加
 
-Morph Cloudのベースイメージではyumを用いてパッケージを管理します。必要なパッケージをRUNコマンドで追加することができます。
+Morph Cloud のベースイメージでは yum もしくは microdnf を用いてパッケージを管理します。必要なパッケージを RUN コマンドで追加することができます。
 
-- Morph CloudのベースイメージはAmazon Linuxをベースに作成されているため、パッケージの追加には`yum`コマンドを使用します。
+- ベースイメージは Amazon Linux をベースに作成されています。Python3.11 およびそれ以前のイメージはパッケージマネージャーとして`yum`コマンドを利用できます。Python3.12 以降のイメージは Amazon Linux 2023 に基づくため、パッケージの追加には`microdnf`コマンドが利用できます。
 
 例えば、以下のように`Dockerfile`に`yum`コマンドを追加することで、`curl`パッケージをインストールすることができます。
 
 <Note>
-    イメージサイズ削減のために、パッケージの追加後には`yum clean all`コマンドを実行して不要なパッケージを削除することをお勧めします。
+  イメージサイズ削減のために、パッケージの追加後には`yum clean all`
+  (新しいイメージでは`microdnf clean all`)
+  コマンドを実行して不要なパッケージを削除することをお勧めします。
 </Note>
 
 ```Dockerfile
@@ -61,3 +64,49 @@ RUN yum update -y && yum install -y \
 
 -- 省略 --
 ```
+
+Python3.12 およびそれ以降のイメージでは、 `microdnf` コマンドを利用します。
+
+```Dockerfile
+# Base image for Morph Cloud
+FROM public.ecr.aws/i1l4z0u0/morph-cloud:python3.12
+
+# Set working directory
+WORKDIR /var/task
+
+# Install OS-level dependencies
+RUN microdnf install \
+    curl \
+    && microdnf clean all
+
+-- truncated --
+```
+
+# Python バージョンの変更
+
+Morph では、`morph new` コマンドを利用してプロジェクトを作成する際、利用する Python のバージョンを 3.9, 3.10, 3.11, 3.12 から選択できます。
+
+ここで選択したバージョンは、デプロイしたアプリケーションの実行環境にも反映されるよう、初期生成ファイルが設定されます。
+
+```bash
+morph new my_project
+# 対話的にPythonバージョンを選択
+```
+
+<Note>
+  選択したPythonバージョンは、プロジェクト内の設定ファイル（Dockerfileなど）にも反映されるため、Dockerfileをカスタマイズします。
+</Note>
+
+## デプロイ環境の Python バージョンを後から変更する
+
+デプロイした環境で使用する Python のバージョンを後から変更したい場合は、プロジェクト内にある Dockerfile のベースイメージのタグを編集し、再度デプロイを行います。
+
+### 例: Python3.12 のイメージを使う場合
+
+```docker
+FROM public.ecr.aws/i1l4z0u0/morph-cloud:python3.12
+
+-- 省略 --
+```
+
+上記のように python3.9 から python3.10、python3.11、python3.12 など、任意のバージョンに変更可能です。

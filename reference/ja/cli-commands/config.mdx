@@ -12,6 +12,7 @@ morph config
 
 ### Arguments
 
-<ParamField body="--profile" type="str">
-`~/.morph/credentials`に登録するプロフィール名を指定することができます。
+<ParamField body="--profile" type="str" requered={false}>
+`~/.morph/credentials`に登録する特定のプロファイル名（セクション）を指定できます。
+既に同名のセクションが存在する場合は上書きするかどうかの警告が表示されます。
 </ParamField>

@@ -1,35 +1,30 @@
 ---
-title: 'create_chunk'
+title: 'stream_chat'
 ---
-This function creates a stream response for LLM Apps.
-By using the `MorphChatStreamChunk` returned by this function and passing it to `<LLM/>`, you can build a chat application utilizing LLM.
+
+チャットのストリームを作成するための関数です。
+この関数で返却される`MorphChatStreamChunk`を使用して`<Chat/>`に渡すことでLLMを活用したチャットアプリを構築できます。
 
 ```python morph_lib.stream
 # 📦 Package: morph_lib.stream
 # 🛠️ Function: create_chunk
 
-def create_chunk(
-    text: Optional[str] = None, content: Optional[str] = None
+def stream_chat(
+    text: Optional[str] = None
 ) -> MorphChatStreamChunk:
 ```
 
 ### Parameters
 
 <ParamField body="text" type="str">
-Text to be displayed in the chat stream.
-</ParamField>
-
-<ParamField body="content" type="str">
-Content to be displayed in the side-by-side layout of `<LLM/>`.
-
-ex.) html, markdown, etc.
+チャットのストリームに表示するテキスト。
 </ParamField>
 
 ### Example
 
 ```python
 import os
-from morph_lib.stream import create_chunk
+from morph_lib.stream import stream_chat
 from openai import OpenAI
 import morph
 from morph import MorphGlobalContext
@@ -47,5 +42,5 @@ def main(context: MorphGlobalContext):
 
     for c in response:
         text = c.model_dump()["choices"][0]["delta"].get("content", "")
-        yield create_chunk(text=text)
+        yield stream_chat(text=text)
 ```
