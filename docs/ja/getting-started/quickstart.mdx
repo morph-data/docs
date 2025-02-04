@@ -38,10 +38,9 @@ Morphを使った初めてのAIアプリとして、Langchainを使ったチャ�
       from langchain_openai import ChatOpenAI
       from langchain_core.messages import HumanMessage
 
-      llm = ChatOpenAI(model="gpt-4o", stream=True)
-
       @morph.func
       def langchain_chat(context: MorphGlobalContext):
+        llm = ChatOpenAI(model="gpt-4o")
         messages = [HumanMessage(context.vars["prompt"])]
         for token in llm.stream(messages):
           yield stream_chat(token.content)
@@ -94,7 +93,7 @@ from langchain_core.messages import HumanMessage
 
 @morph.func
 def langchain_chat(context: MorphGlobalContext):
-  llm = ChatOpenAI(model="gpt-4o", stream=True)
+  llm = ChatOpenAI(model="gpt-4o")
   messages = [HumanMessage(context.vars["prompt"])]
   for token in llm.stream(messages):
     yield stream_chat(token.content)
