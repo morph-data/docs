@@ -4,6 +4,118 @@ icon: "wrench"
 description: Python 3.9 or higher and Node.js 18 or higher are required to use Morph.
 ---
 
+## Prerequisites
+
+To use all features of Morph, the following environment is required.
+
+<Warning> If these setups are not completed, Morph’s CLI and framework may not function properly. </Warning>
+
+<AccordionGroup>
+  <Accordion title="Python 3.9 or higher" icon='python'>
+    For the Morph framework to work, **Python 3.9 or higher is required**.
+
+    To check your Python version, run the following command:
+
+    ```bash
+    python --version
+    ```
+
+    If Python 3.9 or higher is not installed, please follow the steps below to install it.
+
+
+    <Tabs>
+      <Tab title="Mac">
+        **Installation from the official website**
+
+        - Download the macOS installer (.pkg file) from the [official Python website](https://python.org) and install it by double-clicking.
+
+        **Installing Python and pyenv with Homebrew for package management**
+
+        - [Homebrew installation](https://brew.sh/).
+        - Run `brew install python` in the terminal to install the latest Python.
+        - Run `brew install pyenv` in the terminal to install pyenv.
+        - Run `pyenv install 3.11.11` in the terminal to install Python 3.11.11.
+      </Tab>
+      <Tab title="Windows">
+        **Installation from the official website**
+        - Download the Windows installer (.exe file) from the [official Python website](https://python.org) and follow the installation wizard instructions.
+
+        It is recommended to use a tool such as `pyenv-win` for managing Python versions.
+      </Tab>
+      <Tab title="Linux">
+        Please install Python using the recommended method for your Linux distribution.
+      </Tab>
+    </Tabs>
+  </Accordion>
+
+  <Accordion title="Node.js 18 or higher" icon='node-js'>
+    For the Morph framework to function, **Node.js 18 or higher is required**.
+
+    To check your Node.js version, run the following command:
+
+    ```bash
+    node --version
+    ```
+
+    If Node.js 18 or higher is not installed, please follow the steps below to install it.
+
+
+    <Tabs>
+      <Tab title="Mac">
+        **Installation from the official website**
+
+        - Download the macOS installer (.pkg file) from the [official Node.js website](https://nodejs.org) and install it.
+
+        **Installing Node.js and nodenv with Homebrew for package management**
+
+        - [Homebrew installation](https://brew.sh/).
+        - Run `brew install node` in the terminal to install the latest Node.js.
+
+        **Installing Node.js using nvm**
+        - Refer to the [nvm documentation](https://github.com/nvm-sh/nvm) to install nvm.
+
+      </Tab>
+      <Tab title="Windows">
+        **Installation from the official website**
+        - Download the Windows installer (.exe file) from the [official Node.js website](https://nodejs.org) and follow the installation wizard instructions.
+
+        **Installing Node.js using nvm-windows**
+        - Refer to the [nvm-windows documentation](https://github.com/coreybutler/nvm-windows) to install nvm-windows.
+
+      </Tab>
+      <Tab title="Linux">
+        Please install Node.js using the recommended method for your Linux distribution.
+      </Tab>
+    </Tabs>
+  </Accordion>
+
+  <Accordion title="Docker" icon="docker">
+    Docker is required **to deploy the Morph framework in a cloud environment**.
+
+    If Docker is not installed, please follow the steps below to install it.
+
+    <Tabs>
+      <Tab title="Mac">
+        **Installation from the official website**
+
+        - Download the macOS installer (.dmg file) from the [official Docker website](https://docs.docker.com/docker-for-mac/install/) and install it.
+
+      </Tab>
+      <Tab title="Windows">
+        **Installation from the official website**
+        - Download the Windows installer (.exe file) from the [official Docker website](https://docs.docker.com/docker-for-windows/install/) and follow the installation wizard instructions.
+      </Tab>
+      <Tab title="Linux">
+        Please install Docker using the recommended method for your Linux distribution.
+      </Tab>
+    </Tabs>
+
+  </Accordion>
+</AccordionGroup>
+
+
+## Installing Morph
+
 <Steps>
   <Step title="Install morph using pip">
     ```bash Shell

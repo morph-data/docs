@@ -91,7 +91,7 @@
         "docs/en/getting-started/quickstart",
         {
           "group": "How to Deploy",
-          "icon": "rocket",
+          "icon": "link",
           "pages": [
             "docs/en/deploy/dashboard-setup",
             "docs/en/deploy/deploy"
@@ -338,7 +338,7 @@
         "docs/ja/getting-started/quickstart",
         {
           "group": "デプロイ手順",
-          "icon": "rocket",
+          "icon": "link",
           "pages": [
             "docs/ja/deploy/dashboard-setup",
             "docs/ja/deploy/deploy"
