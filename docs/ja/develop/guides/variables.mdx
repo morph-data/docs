@@ -6,20 +6,22 @@ icon: "code"
 データアプリでUIからユーザーが入力した値をSQLとPythonの処理の中で活用することができます。
 
 - `load_data`関数を使用して処理を連続させた場合は、全ての変数が全ての処理に対して渡されます。
-- SQlやPythonには、MDXから以下のように`variables`という引数で変数を渡す事ができます。
+- SQlやPythonには、MDXから以下のように`defineState`という引数で変数を渡す事ができます。
 
 ```tsx
 
-export const dateRangeStart = variable(undefined);
-export const dateRangeEnd = variable(undefined);
+import { defineState } from "@morph-data/componnents";
 
-{/* 変数に値を入れるためのUI Componentを置く */}
+export const dateRangeStart = defineState(undefined);
+export const dateRangeEnd = defineState(undefined);
+
+<DateRangePicker state={[dateRangeStart, dateRangeEnd]} />
 
 <DataTable
 	alias="get_stock_data"
 	variables={{
-		start_date: dateRangeStart,
-		end_date: dateRangeEnd
+		start_date: dateRangeStart.value,
+		end_date: dateRangeEnd.value
 	}}
 />
 
