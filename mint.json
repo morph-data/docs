@@ -81,12 +81,26 @@
       "version": "English",
       "pages": [
         "docs/en/getting-started/why-morph",
-        "docs/en/getting-started/installation",
-        "docs/en/getting-started/quickstart"
+        "docs/en/getting-started/installation"
       ]
     },
     {
-      "group": "Framework",
+      "group": "Quick Start",
+      "version": "English",
+      "pages": [
+        "docs/en/getting-started/quickstart",
+        {
+          "group": "How to Deploy",
+          "icon": "rocket",
+          "pages": [
+            "docs/en/deploy/dashboard-setup",
+            "docs/en/deploy/deploy"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Customize App",
       "version": "English",
       "pages": [
         "docs/en/develop/guides/framework",
@@ -98,17 +112,9 @@
       ]
     },
     {
-      "group": "Deploy",
+      "group": "Customize Deployment",
       "version": "English",
       "pages": [
-        {
-          "group": "How to Deploy",
-          "icon": "rocket",
-          "pages": [
-            "docs/en/deploy/dashboard-setup",
-            "docs/en/deploy/deploy"
-          ]
-        },
         "docs/en/deploy/customize-dockerfile",
         "docs/en/deploy/environment-variables",
         "docs/en/deploy/public"
@@ -322,12 +328,26 @@
       "version": "日本語",
       "pages": [
         "docs/ja/getting-started/why-morph",
-        "docs/ja/getting-started/installation",
-        "docs/ja/getting-started/quickstart"
+        "docs/ja/getting-started/installation"
       ]
     },
     {
-      "group": "フレームワーク",
+      "group": "クイックスタート",
+      "version": "日本語",
+      "pages": [
+        "docs/ja/getting-started/quickstart",
+        {
+          "group": "デプロイ手順",
+          "icon": "rocket",
+          "pages": [
+            "docs/ja/deploy/dashboard-setup",
+            "docs/ja/deploy/deploy"
+          ]
+      }
+      ]
+    },
+    {
+      "group": "アプリのカスタマイズ",
       "version": "日本語",
       "pages": [
         "docs/ja/develop/guides/framework",
@@ -339,17 +359,9 @@
       ]
     },
     {
-      "group": "デプロイ",
+      "group": "デプロイのカスタマイズ",
       "version": "日本語",
       "pages": [
-        {
-            "group": "デプロイ手順",
-            "icon": "rocket",
-            "pages": [
-              "docs/ja/deploy/dashboard-setup",
-              "docs/ja/deploy/deploy"
-            ]
-        },
         "docs/ja/deploy/customize-dockerfile",
         "docs/ja/deploy/environment-variables",
         "docs/ja/deploy/public"
@@ -360,7 +372,7 @@
       "version": "日本語",
       "pages": [
         "docs/ja/develop/tutorials/pygwalker",
-        "docs/ja/develop/tutorials/plotly"  
+        "docs/ja/develop/tutorials/plotly"
       ]
     },
     {
