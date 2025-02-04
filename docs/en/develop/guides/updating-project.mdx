@@ -1,0 +1,21 @@
+---
+title: 'Updating the Project'
+icon: "rotate"
+---
+
+When a new version of the Morph package is released, run the following commands to apply the changes to an existing project.
+
+```bash Shell
+pip install -U morph-data
+
+cd my_project
+morph clean -f
+morph serve
+```
+
+By running these commands in order, the project update will be completed.
+
+<Note>
+  The `morph clean -f` command deletes the project's cache and updates it to the latest package.
+  Be careful if you have made changes directly to the cache directory, as they will be overwritten.
+</Note>

@@ -6,14 +6,16 @@ icon: "code"
 You can utilize values entered by users from the UI in SQL and Python processes in data applications.
 
 - When using the `load_data` function to chain processes, all variables are passed to all processes.
-- Variables can be passed to SQL and Python from MDX using the `variables` argument as shown below.
+- Variables can be passed to SQL and Python from MDX using the `defineState` argument as shown below.
 
 ```tsx
 
-export const dateRangeStart = variable(undefined);
-export const dateRangeEnd = variable(undefined);
+import { defineState } from "@morph-data/componnents";
 
-{/* UI Component to enter values into variables */}
+export const dateRangeStart = defineState(undefined);
+export const dateRangeEnd = defineState(undefined);
+
+<DateRangePicker state={[dateRangeStart, dateRangeEnd]} />
 
 <DataTable
 	alias="get_stock_data"
