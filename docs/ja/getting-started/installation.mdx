@@ -4,6 +4,117 @@ icon: "wrench"
 description: Morphを使用するためには、Python 3.9以上、Node.js 18以上が必要です。
 ---
 
+## 前提条件
+
+Morphの全ての機能を使用するためには、以下の環境が必要です。
+
+<Warning>
+  これらのセットアップが完了していない場合、MorphのCLIとフレームワークが正常に動作しない可能性があります。
+</Warning>
+
+<AccordionGroup>
+  <Accordion title="Python 3.9以上のインストール" icon='python'>
+    Morphフレームワークが動作するためには、**Python 3.9以上が必要**です。
+
+    Pythonのバージョンを確認するには、以下のコマンドを実行してください。
+
+    ```bash
+    python --version
+    ```
+
+    Python 3.9以上がインストールされていない場合、以下の手順を参考にインストールしてください。
+
+    <Tabs>
+      <Tab title="Mac">
+        **公式サイトからのインストール**
+
+        - [Pythonの公式サイト](https://python.org) からmacOS用のインストーラ（.pkgファイル）をダウンロードし、ダブルクリックでインストールします。
+
+        **HomebrewでPythonとpyenvをインストールしてパッケージ管理をする**
+
+        - [Homebrewのインストール](https://brew.sh/)。
+        - ターミナルで `brew install python` を実行して最新のPythonをインストール。
+        - ターミナルで `brew install pyenv` を実行してpyenvをインストール。
+        - ターミナルで `pyenv install 3.11.11` を実行してPython 3.11.11をインストール。
+      </Tab>
+      <Tab title="Windows">
+        **公式サイトからのインストール**
+        - [Pythonの公式サイト](https://python.org) からWindows用のインストーラー（.exeファイル）をダウンロードし、インストールウィザードの指示に従ってインストールします。
+
+        Pythonのバージョン管理には、 `pyenv-win` などのツールを使用することをお勧めします。
+      </Tab>
+      <Tab title="Linux">
+        お使いのLinuxディストリビューションの推奨の方法でPythonをインストールしてください。
+      </Tab>
+    </Tabs>
+  </Accordion>
+
+  <Accordion title="Node.js 18以上のインストール" icon='node-js'>
+    Morphフレームワークが動作するためには、**Node.js 18以上が必要**です。
+
+    Node.jsのバージョンを確認するには、以下のコマンドを実行してください。
+
+    ```bash
+    node --version
+    ```
+
+    Node.js 18以上がインストールされていない場合、以下の手順を参考にインストールしてください。
+
+    <Tabs>
+      <Tab title="Mac">
+        **公式サイトからのインストール**
+
+        - [Node.jsの公式サイト](https://nodejs.org) からmacOS用のインストーラ（.pkgファイル）をダウンロードし、ダブルクリックでインストールします。
+
+        **HomebrewでNode.jsとnodenvをインストールしてパッケージ管理をする**
+
+        - [Homebrewのインストール](https://brew.sh/)。
+        - ターミナルで `brew install node` を実行して最新のNode.jsをインストール。
+
+        **nvmを使用してNode.jsをインストールする**
+        - [nvmのドキュメント](https://github.com/nvm-sh/nvm)を参照して、nvmをインストールしてください。
+
+      </Tab>
+      <Tab title="Windows">
+        **公式サイトからのインストール**
+        - [Node.jsの公式サイト](https://nodejs.org) からWindows用のインストーラー（.exeファイル）をダウンロードし、インストールウィザードの指示に従ってインストールします。
+
+        **nvm-windowsを使用してNode.jsをインストールする**
+        - [nvm-windowsのドキュメント](https://github.com/coreybutler/nvm-windows) を参照して、nvm-windowsをインストールしてください。
+
+      </Tab>
+      <Tab title="Linux">
+        お使いのLinuxディストリビューションの推奨の方法でNode.jsをインストールしてください。
+      </Tab>
+    </Tabs>
+  </Accordion>
+
+  <Accordion title="Dockerのインストール" icon="docker">
+    Morphフレームワークを**クラウド環境にデプロイするために**、Dockerが必要です。
+
+    Dockerがインストールされていない場合、以下の手順を参考にインストールしてください。
+
+    <Tabs>
+      <Tab title="Mac">
+        **公式サイトからのインストール**
+
+        - [Dockerの公式サイト](https://docs.docker.com/docker-for-mac/install/) からmacOS用のインストーラ（.dmgファイル）をダウンロードし、ダブルクリックでインストールします。
+
+      </Tab>
+      <Tab title="Windows">
+        **公式サイトからのインストール**
+        - [Dockerの公式サイト](https://docs.docker.com/docker-for-windows/install/) からWindows用のインストーラー（.exeファイル）をダウンロードし、インストールウィザードの指示に従ってインストールします。
+      </Tab>
+      <Tab title="Linux">
+        お使いのLinuxディストリビューションの推奨の方法でDockerをインストールしてください。
+      </Tab>
+    </Tabs>
+
+  </Accordion>
+</AccordionGroup>
+
+
+## Morphのインストール
 <Steps>
   <Step title="pipコマンドでmorphをインストールする">
     ```bash Shell

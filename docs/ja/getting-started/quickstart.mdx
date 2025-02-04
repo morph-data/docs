@@ -1,5 +1,5 @@
 ---
-title: 'クイックスタート'
+title: 'AIアプリの構築'
 icon: "rocket"
 description: 3分ではじめてのAIアプリを完成させましょう。
 ---
@@ -7,6 +7,14 @@ description: 3分ではじめてのAIアプリを完成させましょう。
 ## はじめてのMorphアプリを構築する
 
 Morphを使った初めてのAIアプリとして、Langchainを使ったチャットアプリを作成します。
+
+<Warning>
+  Morph CLIのセットアップが完了していない場合は、[インストールのドキュメント](/docs/ja/getting-started/installation)を参照して、CLIをインストールしてください。
+</Warning>
+
+<Note>
+  このチュートリアルでは、OpenAIのAPIキーが必要です。APIキーを取得するには、[OpenAIのサイト](https://platform.openai.com/)にアクセスしてください。
+</Note>
 
 <Steps>
   <Step title="プロジェクトの初期化">
@@ -44,7 +52,13 @@ Morphを使った初めてのAIアプリとして、Langchainを使ったチャ�
     ```md src/pages/index.mdx
     # 🦜🔗 Langchain Chat
 
-    <Chat postData="llm_chat_app" height={300} />
+    <Chat postData="langchain_chat" height={300} />
+    ```
+  </Step>
+  <Step title=".envにAPIキーを追加する">
+    `.env` ファイルにOpenAIのAPIキーを追加します。
+    ```env .env
+    OPENAI_API_KEY=your_api_key
     ```
   </Step>
   <Step title="ローカルサーバーを起動する">
@@ -90,8 +104,11 @@ def langchain_chat(context: MorphGlobalContext):
 ```md src/pages/index.mdx
 # 🦜🔗 Langchain Chat
 
-<Chat postData="llm_chat_app" height={300} />
+<Chat postData="langchain_chat" height={300} />
 ```
 
+```env .env
+OPENAI_API_KEY=your_api_key
+```
 
 </CodeGroup>

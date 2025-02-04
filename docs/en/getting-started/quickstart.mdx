@@ -1,5 +1,5 @@
 ---
-title: 'Quickstart'
+title: 'Building AI App'
 icon: "rocket"
 description: Complete your first AI app in 3 minutes.
 ---
@@ -7,6 +7,14 @@ description: Complete your first AI app in 3 minutes.
 ## Building Your First Morph App
 
 As your first AI app using Morph, we will create a chat app using Langchain.
+
+<Warning>
+  If the Morph CLI setup is not complete, please refer to the [Installation Documentation](/docs/ja/getting-started/installation) to install the CLI.
+</Warning>
+
+<Note>
+  This tutorial requires an OpenAI API key. To obtain an API key, please visit the [OpenAI website](https://platform.openai.com/).
+</Note>
 
 <Steps>
   <Step title="Initialize the Project">
@@ -30,10 +38,9 @@ As your first AI app using Morph, we will create a chat app using Langchain.
       from langchain_openai import ChatOpenAI
       from langchain_core.messages import HumanMessage
 
-      llm = ChatOpenAI(model="gpt-4o", stream=True)
-
       @morph.func
       def langchain_chat(context: MorphGlobalContext):
+        llm = ChatOpenAI(model="gpt-4o")
         messages = [HumanMessage(context.vars["prompt"])]
         for token in llm.stream(messages):
           yield stream_chat(token.content)
@@ -44,7 +51,13 @@ As your first AI app using Morph, we will create a chat app using Langchain.
     ```md src/pages/index.mdx
     # 🦜🔗 Langchain Chat
 
-    <Chat postData="llm_chat_app" height={300} />
+    <Chat postData="langchain_chat" height={300} />
+    ```
+  </Step>
+   <Step title="Add API key to .env">
+    Add your OpenAI API key to the `.env` file.
+    ```env .env
+    OPENAI_API_KEY=your_api_key
     ```
   </Step>
   <Step title="Start the Local Server">
@@ -76,10 +89,9 @@ from morph_lib.stream import stream_chat
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage
 
-llm = ChatOpenAI(model="gpt-4o", stream=True)
-
 @morph.func
 def langchain_chat(context: MorphGlobalContext):
+  llm = ChatOpenAI(model="gpt-4o")
   messages = [HumanMessage(context.vars["prompt"])]
   for token in llm.stream(messages):
     yield stream_chat(token.content)
@@ -88,7 +100,11 @@ def langchain_chat(context: MorphGlobalContext):
 ```md src/pages/index.mdx
 # 🦜🔗 Langchain Chat
 
-<Chat postData="llm_chat_app" height={300} />
+<Chat postData="langchain_chat" height={300} />
+```
+
+```env .env
+OPENAI_API_KEY=your_api_key
 ```
 
 </CodeGroup>
