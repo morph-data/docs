@@ -142,6 +142,7 @@
       "pages": [
         "docs/en/advanced/api_key",
         "docs/en/advanced/builtin-postgres",
+        "docs/en/advanced/migration-guide",
         {
           "group": "Connectors",
           "icon": "plug",
@@ -313,7 +314,7 @@
       "group": "Morph CLI",
       "version": "English",
       "pages": [
-        "troubleshooting/en/support/deployment-issues"
+        "troubleshooting/en/cli/deployment-issues"
       ]
     },
     {
@@ -389,6 +390,7 @@
       "pages": [
         "docs/ja/advanced/api_key",
         "docs/ja/advanced/builtin-postgres",
+        "docs/ja/advanced/migration-guide",
         {
           "group": "Connectors",
           "icon": "plug",
@@ -560,7 +562,7 @@
       "group": "Morph CLI",
       "version": "日本語",
       "pages": [
-        "troubleshooting/ja/support/deployment-issues"
+        "troubleshooting/ja/cli/deployment-issues"
       ]
     },
     {
