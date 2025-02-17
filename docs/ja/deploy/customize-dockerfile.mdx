@@ -16,7 +16,7 @@ Morph ではプロジェクト内の`Dockerfile`を編集することで、Morph
 
 ```Dockerfile
 # Base image for Morph Cloud
-FROM public.ecr.aws/i1l4z0u0/morph-cloud:python3.9
+FROM public.ecr.aws/i1l4z0u0/morph-data:python3.9
 
 # Set working directory
 WORKDIR /var/task
@@ -40,46 +40,28 @@ CMD ["core.morph.api.app.handler"]
 
 Morph Cloud のベースイメージでは yum もしくは microdnf を用いてパッケージを管理します。必要なパッケージを RUN コマンドで追加することができます。
 
-- ベースイメージは Amazon Linux をベースに作成されています。Python3.11 およびそれ以前のイメージはパッケージマネージャーとして`yum`コマンドを利用できます。Python3.12 以降のイメージは Amazon Linux 2023 に基づくため、パッケージの追加には`microdnf`コマンドが利用できます。
+- ベースイメージは Debian Linux をベースに作成されています。パッケージマネージャーとして`apt-get`コマンドを利用できます。
 
-例えば、以下のように`Dockerfile`に`yum`コマンドを追加することで、`curl`パッケージをインストールすることができます。
+例えば、以下のように`Dockerfile`に`apt-get`コマンドを追加することで、`curl`パッケージをインストールすることができます。
 
 <Note>
-  イメージサイズ削減のために、パッケージの追加後には`yum clean all`
-  (新しいイメージでは`microdnf clean all`)
+  イメージサイズ削減のために、パッケージの追加後には`apt-get clean`
   コマンドを実行して不要なパッケージを削除することをお勧めします。
 </Note>
 
 ```Dockerfile
 # Base image for Morph Cloud
-FROM public.ecr.aws/i1l4z0u0/morph-cloud:python3.9
+FROM public.ecr.aws/i1l4z0u0/morph-data:python3.9
 
 # Set working directory
 WORKDIR /var/task
 
 # Install OS-level dependencies
-RUN yum update -y && yum install -y \
+RUN apt-get update && apt-get install -y \
     curl \
-    && yum clean all
+    && apt-get clean
 
 -- 省略 --
-```
-
-Python3.12 およびそれ以降のイメージでは、 `microdnf` コマンドを利用します。
-
-```Dockerfile
-# Base image for Morph Cloud
-FROM public.ecr.aws/i1l4z0u0/morph-cloud:python3.12
-
-# Set working directory
-WORKDIR /var/task
-
-# Install OS-level dependencies
-RUN microdnf install \
-    curl \
-    && microdnf clean all
-
--- truncated --
 ```
 
 # Python バージョンの変更
