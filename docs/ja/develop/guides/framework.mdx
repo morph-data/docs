@@ -1,13 +1,16 @@
 ---
 title: 'フレームワークの概要'
-icon: "brackets-curly"
+icon: "eye"
 ---
 
-Morphは、柔軟でフルスタックなデータアプリを構築するための機能を搭載したフレームワークを提供しています。
+Morphフレームワークは、Pythonとマークダウンを用いてWebアプリケーションを構築するフレームワークです。アプリケーションのバックエンドを**Python**で、フロントエンドを**マークダウン**で構築することができます。
 
-MorphのフレームワークではSQL, Pythonでバックエンドを構築し、MDXでフロントエンドを構築します。
+## 開発の手順
+
+
+## ディレクトリ構成
+
 フレームワークのディレクトリ構成は以下のようになっています。
-各種設定は、`morph_project.yml`で行うことができ、フレームワークとしても`morph_project.yml`が配置されているディレクトリをフレームワークのルートディレクトリとして認識します。
 
 ```bash workdir
 .
@@ -16,83 +19,19 @@ MorphのフレームワークではSQL, Pythonでバックエンドを構築し�
 │   ├── python/
 │   └── sql/
 ├── .env
-├── package.json (mdxで使用するnpmパッケージを管理)
-├── requirements.txt (pipを使用する場合)
-├── poetry.toml (poetryを使用する場合)
-├── Dockerfile (デプロイ用)
+├── Dockerfile
 └── morph_project.yml
 ```
 
-## バックエンドを構築する
+- `src` ... データアプリのソースコードを配置するディレクトリ
+  - `pages` ... フロントエンドのMDXファイルを配置するディレクトリ
+  - `python` ... バックエンドのPythonファイルを配置するディレクトリ
+  - `sql` ... バックエンドのSQLファイルを配置するディレクトリ
+- `.env` ... 環境変数を設定するファイル
+- `Dockerfile` ... データアプリをDockerコンテナとしてビルドするためのファイル
+- `morph_project.yml` ... プロジェクトの設定を記述するファイル. フレームワークは`morph_project.yml`が配置されているディレクトリをルートディレクトリとして認識します。
 
-SQLとPythonを使用して関数を実装することによりバックエンドを構築することができます。
-関数名を使用することでフレームワークの中で関数を組み合わせて複雑なパイプラインを構築することができます。
-また、関数名から自動的にAPIが自動生成されるため、フロントエンドを構築する際には関数名をエイリアスとして使用してAPIを呼び出すことができます。
-
-関数名は、以下のように命名をする事ができます。
-
-- SQL: `config(name="func_name")`のように設定をする。設定されていない場合は、ファイル名から拡張子を除いたものが関数名として使用されます。(e.g. `example_data.sql` -> `example_data`)
-- Python: `@morph.func(name="func_name")`のように設定をする。設定されていない場合は、関数名がそのまま使用されます。
-
-`load_data`の中で関数名を指定することで他の関数の実行結果を使用することでパイプラインが構築できます。
-
-<CodeGroup>
-
-```sql SQL
-{{
-    config(
-        name="example_data"
-    )
-}}
-
-select * from {{load_data("get_users")}};
-```
-
-```python Python
-import pandas as pd
-import morph
-from morph import MorphGlobalContext
-
-@morph.func(name="example_dataframe")
-@morph.load_data("example_data")
-def example_dataframe(context: MorphGlobalContext):
-    df = context.data["example_data"]
-    return df
-```
-
-</CodeGroup>
-
-### SQL,Pythonを単体実行/テストをする
-
-パイプラインを構築した際に命名をした関数名を使用してデータパイプラインの実行やテストを行う事ができます。
-
-```bash Shell
-morph run example_sql_cell
-```
-
-## フロントエンドを構築する
-
-フロントエンドは、`pages`ディレクトリに配置されたMDXファイルで構築する事ができます。
-
-MDXファイルに定義されたコンポーネントの`loadData`プロパティに関数名を指定することで、データパイプラインの実行結果を使用する事ができます。
-
-```tsx MDX (pages/index.mdx)
-# Starter App
-
-Morph is a full-stack framework for building data apps using Python, SQL and MDX.
-
-## Data
-
-<Grid cols="2">
-  <div>
-    <DataTable loadData="example_data" height={300} />
-  </div>
-  <div>
-    <Embed loadData="example_chart" height={300} />
-  </div>
-</Grid>
-
-```
+これらに加えて、Pythonパッケージの管理用に `requirements.txt` か `poetry.toml` が、JavaScriptパッケージの管理用に `package.json` が配置されます。
 
 ## 開発サーバーを起動する
 
@@ -114,16 +53,25 @@ SQLやPythonで使用できる関数や機能を確認するためには、[フ�
 
 
 <CardGroup cols={2}>
-    <Card title="環境変数" icon="square-1" href="/docs/ja/develop/guides/environment-variables">
+    <Card title="エイリアス" icon="square-1" href="/docs/ja/develop/guides/alias">
+        Morphフレームワーク全体にまたがる概念であるエイリアスについて学びます。
+    </Card>
+    <Card title="バックエンドを構築する" icon="square-2" href="/docs/ja/develop/guides/building-backend">
+        Pythonでバックエンドを構築する方法について学びます。
+    </Card>
+    <Card title="フロントエンドを構築する" icon="square-3" href="/docs/ja/develop/guides/building-frontend">
+        マークダウンでフロントエンドを構築する方法について学びます。
+    </Card>
+    <Card title="環境変数" icon="square-4" href="/docs/ja/develop/guides/environment-variables">
         環境変数でシークレット情報を管理する
     </Card>
-    <Card title="DB/SaaSと接続する" icon="square-2" href="/docs/ja/develop/guides/integration">
+    <Card title="DB/SaaSと接続する" icon="square-5" href="/docs/ja/develop/guides/integration">
         DBやSaaSにアクセスをしたデータアプリを構築する
     </Card>
-    <Card title="変数を使う" icon="square-3" href="/docs/ja/develop/guides/variables">
+    <Card title="変数を使う" icon="square-6" href="/docs/ja/develop/guides/variables">
         ユーザーインプットに応じて、データアプリの挙動をカスタマイズする
     </Card>
-    <Card title="ロールベースのアクセス制御" icon="square-4" href="/docs/ja/develop/guides/user-role">
+    <Card title="ロールベースのアクセス制御" icon="square-7" href="/docs/ja/develop/guides/user-role">
         ユーザーのプロジェクトロールを活用してデータのアクセス制御やアプリの挙動をカスタマイズする
     </Card>
 </CardGroup>

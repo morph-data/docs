@@ -100,7 +100,7 @@
       ]
     },
     {
-      "group": "Customize App",
+      "group": "Framework",
       "version": "English",
       "pages": [
         "docs/en/develop/guides/framework",
@@ -112,7 +112,7 @@
       ]
     },
     {
-      "group": "Customize Deployment",
+      "group": "Deployment",
       "version": "English",
       "pages": [
         "docs/en/deploy/customize-dockerfile",
@@ -347,10 +347,13 @@
       ]
     },
     {
-      "group": "アプリのカスタマイズ",
+      "group": "フレームワーク",
       "version": "日本語",
       "pages": [
         "docs/ja/develop/guides/framework",
+        "docs/ja/develop/guides/alias",
+        "docs/ja/develop/guides/building-backend",
+        "docs/ja/develop/guides/building-frontend",
         "docs/ja/develop/guides/environment-variables",
         "docs/ja/develop/guides/integration",
         "docs/ja/develop/guides/variables",
@@ -359,7 +362,7 @@
       ]
     },
     {
-      "group": "デプロイのカスタマイズ",
+      "group": "デプロイ",
       "version": "日本語",
       "pages": [
         "docs/ja/deploy/customize-dockerfile",

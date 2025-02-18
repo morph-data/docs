@@ -1,0 +1,79 @@
+---
+title: 'エイリアス'
+icon: "shuffle"
+---
+
+エイリアスは、Morphフレームワーク全体にわたって、Python関数やSQLクエリなどに識別子を与えて、他のファイルからシンプルに参照できるようにする仕組みです。
+
+エイリアスを使用することで、複数のファイルに分散している関数やクエリを組み合わせて、データパイプラインを構築したり、マークダウンで構築したフロントエンドからデータを参照したりすることができます。
+
+<Frame>
+  ![alias overview](/assets/images/docs/alias-overview.png)
+</Frame>
+
+## エイリアスを設定する
+
+### Python関数にエイリアスを設定する
+
+Python関数にエイリアスを設定するには、`@morph.func(name="alias")`デコレータを使用します。
+
+```python dataframe.py
+import morph
+from morph import MorphGlobalContext
+
+@morph.func(name="example_dataframe") # エイリアスを設定
+def main(context: MorphGlobalContext):
+    ...
+    return df
+```
+
+nameが指定されていない場合、関数名がそのままエイリアスとして使用されます。
+```python
+@morph.func # エイリアスを設定しない場合、関数名がそのままエイリアスとして使用される
+def example_dataframe(context: MorphGlobalContext):
+    ...
+    return df
+```
+
+### SQLクエリにエイリアスを設定する
+
+SQLクエリにエイリアスを設定するには、`config(name="alias")`を使用します。
+
+```sql get_users.sql
+{{
+    config(
+        name="example_data" # エイリアスを設定
+    )
+}}
+
+select * from {{load_data("get_users")}};
+```
+
+## エイリアスを使ってデータを参照する
+
+### Pythonでデータを参照する
+
+Python関数でエイリアスを使ってデータを参照するには、`@morph.load_data("alias")`デコレータを使用します。
+
+```python load.py
+import morph
+from morph import MorphGlobalContext
+
+@morph.func
+@morph.load_data("example_data") # エイリアスを用いてデータをロード
+def example_dataframe(context: MorphGlobalContext):
+    df = context.data["example_data"]
+    return df
+```
+
+### マークダウンでデータを参照する
+
+`<DataTable>` や `<Embed>` などのデータを参照するコンポーネントを使用する際には、エイリアスを指定してデータを参照します。
+
+```md index.mdx
+# データテーブル
+
+以下のようにエイリアスを指定してデータを参照します。
+
+<DataTable data="example_dataframe" />
+```
