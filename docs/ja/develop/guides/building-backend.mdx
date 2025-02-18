@@ -1,0 +1,126 @@
+---
+title: 'バックエンドを構築する'
+icon: "brackets-curly"
+---
+
+Morphでは、Pythonを使用してバックエンドを構築します。Pythonパッケージを自由に追加して、データ処理やAIワークフローを構築することができます。
+
+## 開発の流れ
+
+Morphでのバックエンド開発の手順は以下の通りです。
+
+<Steps>
+  <Step title="Pythonパッケージを追加する">
+    Morphは一般的なPythonプロジェクトの形式であるため、自由にPythonパッケージを追加することができます。`requirements.txt`や`poetry.toml`に必要なパッケージを追加してください。
+  </Step>
+  <Step title="Python関数を定義し、Morphのデコレーターを追加">
+    通常のPythonの関数定義に、Morphのデコレーターを追加することで、エイリアスを設定します。これにより、他のPythonやSQLファイル、マークダウンファイルからこの関数の結果を参照することができます。
+```python
+import pandas as pd
+import morph
+from morph import MorphGlobalContext
+
+# Morphのデコレーターを追加
+@morph.func(name="example_dataframe")
+@morph.load_data("example_data")
+def example_dataframe(context: MorphGlobalContext):
+    df = context.data["example_data"]
+    return df
+```
+  </Step>
+  <Step title="Python関数をテストする">
+    関数を単体テストするために、`morph run`コマンドを使用して関数を実行します。
+    ```bash
+    morph run example_dataframe
+    ```
+  </Step>
+  <Step title="開発サーバーを起動する">
+    開発サーバーを起動することで、Webアプリケーションをローカルで確認することができます。
+    ```bash
+    morph serve
+    ```
+  </Step>
+</Steps>
+
+## Python関数の返り値
+
+Morphプロジェクトで定義するPython関数は、以下のような返り値を持つ必要があります。
+
+### DataFrame
+
+データ処理の結果を表すDataFrameオブジェクト。SQLの実行結果もDataFrameとして扱われます。データ処理の結果を他のPythonファイルで用いる場合や、マークダウンファイルで表示する場合に使用してください。
+
+対応するマークダウンコンポーネントは、[`<DataFrame>`](/data-application/ja/data-component-table)です。
+
+<CodeGroup>
+```python df.py
+import morph
+from morph import MorphGlobalContext
+
+@morph.func(name="example_dataframe")
+@morph.load_data("example_data")
+def example_dataframe(context: MorphGlobalContext):
+    df = context.data["example_data"]
+    return df
+```
+```md data_table.mdx
+# Display DataFrame as DataTable
+
+<DataFrame loadData="example_dataframe" height={500} />
+```
+</CodeGroup>
+
+### HTML文字列
+
+データ可視化の結果などを描画するためのHTML文字列。PlotlyやBokehなどの可視化ライブラリを用いて描画したグラフを表示したい場合に使用してください。
+
+対応するマークダウンコンポーネントは、[`<Embed>`](/data-application/ja/data-component-embed)です。
+
+<CodeGroup>
+```python plotly.py
+import plotly.express as px
+import morph
+from morph import MorphGlobalContext
+from morph_lib.types import HtmlResponse
+
+@morph.func(name="example_dataframe")
+@morph.load_data("example_data")
+def example_dataframe(context: MorphGlobalContext):
+    df = context.data["example_data"]
+    fig = px.bar(df, x='date', y='amount')
+    return HtmlResponse(fig.to_html())
+```
+```md embed.mdx
+# Display Plotly Chart
+
+<Embed loadData="example_plotly" height={500} />
+```
+</CodeGroup>
+
+### ストリーミング
+
+LLM APIなどのストリーミングAPIを使用する場合に使用します。 `stream_chat` 関数を用いて値の流し込みを実行します。
+
+対応するマークダウンコンポーネントは、[`<Chat>`](/data-application/ja/ai-component-chat)です。
+
+<CodeGroup>
+```python chat.py
+import morph
+from morph import MorphGlobalContext
+from morph_lib.stream import stream_chat
+from langchain_openai import ChatOpenAI
+from langchain_core.messages import HumanMessage
+
+@morph.func
+def langchain_chat(context: MorphGlobalContext):
+    llm = ChatOpenAI(model="gpt-4o")
+    messages = [HumanMessage(context.vars["prompt"])]
+    for token in llm.stream(messages):
+        yield stream_chat(token.content)
+```
+```md chat.mdx
+# 🦜🔗 Langchain Chat
+
+<Chat postData="langchain_chat" height={300} />
+```
+</CodeGroup>

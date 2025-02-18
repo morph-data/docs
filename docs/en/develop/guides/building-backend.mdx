@@ -1,0 +1,126 @@
+---
+title: 'Building the Backend'
+icon: "brackets-curly"
+---
+
+In Morph, you build the backend using Python. You can freely add Python packages to build data processing and AI workflows.
+
+## Development Flow
+
+The steps for backend development in Morph are as follows.
+
+<Steps>
+  <Step title="Add Python Packages">
+    Since Morph follows the common Python project format, you can freely add Python packages. Add the necessary packages to `requirements.txt` or `poetry.toml`.
+  </Step>
+  <Step title="Define Python Functions and Add Morph Decorators">
+    By adding Morph decorators to regular Python function definitions, you can set aliases. This allows you to reference the results of these functions from other Python, SQL, or Markdown files.
+```python
+import pandas as pd
+import morph
+from morph import MorphGlobalContext
+
+# Add Morph decorators
+@morph.func(name="example_dataframe")
+@morph.load_data("example_data")
+def example_dataframe(context: MorphGlobalContext):
+    df = context.data["example_data"]
+    return df
+```
+  </Step>
+  <Step title="Test Python Functions">
+    Use the `morph run` command to execute functions for unit testing.
+    ```bash
+    morph run example_dataframe
+    ```
+  </Step>
+  <Step title="Start the Development Server">
+    By starting the development server, you can check the web application locally.
+    ```bash
+    morph serve
+    ```
+  </Step>
+</Steps>
+
+## Return Values of Python Functions
+
+Python functions defined in a Morph project should have the following return values.
+
+### DataFrame
+
+A DataFrame object representing the result of data processing. SQL execution results are also handled as DataFrames. Use this when you want to use the result of data processing in other Python files or display it in Markdown files.
+
+The corresponding Markdown component is [`<DataFrame>`](/data-application/ja/data-component-table).
+
+<CodeGroup>
+```python df.py
+import morph
+from morph import MorphGlobalContext
+
+@morph.func(name="example_dataframe")
+@morph.load_data("example_data")
+def example_dataframe(context: MorphGlobalContext):
+    df = context.data["example_data"]
+    return df
+```
+```md data_table.mdx
+# Display DataFrame as DataTable
+
+<DataFrame loadData="example_dataframe" height={500} />
+```
+</CodeGroup>
+
+### HTML String
+
+An HTML string for rendering the results of data visualization. Use this when you want to display graphs drawn using visualization libraries like Plotly or Bokeh.
+
+The corresponding Markdown component is [`<Embed>`](/data-application/ja/data-component-embed).
+
+<CodeGroup>
+```python plotly.py
+import plotly.express as px
+import morph
+from morph import MorphGlobalContext
+from morph_lib.types import HtmlResponse
+
+@morph.func(name="example_dataframe")
+@morph.load_data("example_data")
+def example_dataframe(context: MorphGlobalContext):
+    df = context.data["example_data"]
+    fig = px.bar(df, x='date', y='amount')
+    return HtmlResponse(fig.to_html())
+```
+```md embed.mdx
+# Display Plotly Chart
+
+<Embed loadData="example_plotly" height={500} />
+```
+</CodeGroup>
+
+### Streaming
+
+Use this when using streaming APIs such as LLM API. Execute value streaming using the `stream_chat` function.
+
+The corresponding Markdown component is [`<Chat>`](/data-application/ja/ai-component-chat).
+
+<CodeGroup>
+```python chat.py
+import morph
+from morph import MorphGlobalContext
+from morph_lib.stream import stream_chat
+from langchain_openai import ChatOpenAI
+from langchain_core.messages import HumanMessage
+
+@morph.func
+def langchain_chat(context: MorphGlobalContext):
+    llm = ChatOpenAI(model="gpt-4o")
+    messages are [HumanMessage(context.vars["prompt"])]
+    for token in llm.stream(messages):
+        yield stream_chat(token.content)
+```
+```md chat.mdx
+# 🦜🔗 Langchain Chat
+
+<Chat postData="langchain_chat" height={300} />
+```
+</CodeGroup>

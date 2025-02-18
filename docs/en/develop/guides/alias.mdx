@@ -1,0 +1,79 @@
+---
+title: 'Alias'
+icon: "shuffle"
+---
+
+Aliases are a mechanism for assigning identifiers to Python functions, SQL queries, etc. throughout the Morph framework so that they can be easily referenced from other files.
+
+Using aliases, you can combine functions and queries spread across multiple files, build data pipelines, and reference data from a front-end built with markdown.
+
+<Frame>
+  ![alias overview](/assets/images/docs/alias-overview.png)
+</Frame>
+
+## Setting up Aliases
+
+### Setting up an Alias for a Python Function
+
+To set up an alias for a Python function, use the `@morph.func(name="alias")` decorator.
+
+```python dataframe.py
+import morph
+from morph import MorphGlobalContext
+
+@morph.func(name="example_dataframe") # Set up alias
+def main(context: MorphGlobalContext):
+    ...
+    return df
+```
+
+If the name is not specified, the function name will be used as the alias.
+```python
+@morph.func # If no alias is set, the function name will be used as the alias
+def example_dataframe(context: MorphGlobalContext):
+    ...
+    return df
+```
+
+### Setting up an Alias for an SQL Query
+
+To set up an alias for an SQL query, use `config(name="alias")`.
+
+```sql get_users.sql
+{{
+    config(
+        name="example_data" # Set up alias
+    )
+}}
+
+select * from {{load_data("get_users")}};
+```
+
+## Referencing Data Using Aliases
+
+### Referencing Data in Python
+
+To reference data using an alias in a Python function, use the `@morph.load_data("alias")` decorator.
+
+```python load.py
+import morph
+from morph import MorphGlobalContext
+
+@morph.func
+@morph.load_data("example_data") # Load data using alias
+def example_dataframe(context: MorphGlobalContext):
+    df = context.data["example_data"]
+    return df
+```
+
+### Referencing Data in Markdown
+
+When using data-referencing components such as `<DataTable>` or `<Embed>`, specify the alias to reference the data.
+
+```md index.mdx
+# Data Table
+
+Specify the alias to reference the data as follows.
+
+<DataTable data="example_dataframe" />
+```
