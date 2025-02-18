@@ -1,14 +1,14 @@
 ---
 title: 'Framework Overview'
-icon: "brackets-curly"
+icon: "eye"
 ---
 
-Morph provides a framework equipped with features for building flexible and full-stack data apps.
-In this "Building a Data App", we explain how to use these features and customize the behavior of data apps.
+Morph is a framework for building web applications using Python and Markdown. You can build the backend of the application with **Python** and the frontend with **Markdown**.
 
-In the Morph framework, the backend is built with SQL and Python, and the frontend is built with MDX.
-The directory structure of the framework is as the followings.
-Various settings can be made in `morph_project.yml`, and the framework recognizes the directory where `morph_project.yml` is located as the root directory of the framework.
+
+## Directory Structure
+
+The directory structure of the framework is as follows:
 
 ```bash workdir
 .
@@ -17,129 +17,58 @@ Various settings can be made in `morph_project.yml`, and the framework recognize
 │   ├── python/
 │   └── sql/
 ├── .env
-├── package.json
-├── requirements.txt
-├── poetry.toml
 ├── Dockerfile
 └── morph_project.yml
 ```
 
-## Building the Backend
+- `src` ... Directory to place the source code of the data application
+  - `pages` ... Directory to place the frontend MDX files
+  - `python` ... Directory to place the backend Python files
+  - `sql` ... Directory to place the backend SQL files
+- `.env` ... File to set environment variables
+- `Dockerfile` ... File to build the data application as a Docker container
+- `morph_project.yml` ... File to describe the project settings. The framework recognizes the directory where `morph_project.yml` is placed as the root directory.
 
-You can build the backend by implementing functions using SQL and Python.
-You can combine functions in the framework to build complex pipelines using function names.
-Also, since the API is automatically generated from the function name, you can use the function name as an alias of the API when building the frontend.
+In addition to these, `requirements.txt` or `poetry.toml` for managing Python packages, and `package.json` for managing JavaScript packages will be placed.
 
-Function names can be named as follows.
+## Start the Development Server
 
-- SQL: Set it like `config(name="func_name")`. If not set, the file name without the extension will be used as the function name. (e.g. `example_data.sql` -> `example_data`)
-- Python: Set it like `@morph.func(name="func_name")`. If not set, the function name will be used as the function name.
-
-You can build a pipeline by specifying the function name in `load_data`.
-
-<CodeGroup>
-
-```sql SQL
-{{
-    config(
-        name="example_data"
-    )
-}}
-
-select * from {{load_data("get_users")}};
-```
-
-```python Python
-import pandas as pd
-import morph
-from morph import MorphGlobalContext
-
-@morph.func(name="example_dataframe")
-@morph.load_data("example_data")
-def example_dataframe(context: MorphGlobalContext):
-    df = context.data["example_data"]
-    return df
-```
-
-</CodeGroup>
-
-### Running/Testing SQL,Python
-
-You can run and test the data pipeline by the `morph run` command.
-
-```bash Shell
-morph run example_sql_cell
-```
-
-## Building the Frontend
-
-You can build the frontend by placing MDX files in the `pages` directory.
-
-You can use the execution result of the data pipeline by specifying the function name in the `loadData` property of the component defined in the MDX file.
-
-```tsx MDX (pages/index.mdx)
-# Starter App
-
-Morph is a full-stack framework for building data apps using Python, SQL and MDX.
-
-## Data
-
-<Grid cols="2">
-  <div>
-    <DataTable loadData="example_data" height={300} />
-  </div>
-  <div>
-    <Embed loadData="example_chart" height={300} />
-  </div>
-</Grid>
-
-```
-
-## Starting the Development Server
-
-To check the behavior of the data app, start the development server.
+To check the behavior of the data application, start the development server.
 
 ```bash Shell
 morph serve
 ```
 
-You can access the data app by accessing `http://localhost:8080` after the server is successfully started.
+If the server starts successfully with the above command, you can access the data application by accessing `http://localhost:8080`.
 
-## More Customization
+## Customization
 
-Morph provides more convenient features for customizing data apps.
-To check the functions and features available in SQL and Python, see [Framework Reference](/reference/en/framework/morph-project).
-For details on MDX components available for frontend development, see [Component Reference](/data-application/en/data-component-table).
+Morph provides convenient features for customizing data applications.
+To check the functions and features available in SQL and Python, please refer to the [Framework Reference](/reference/ja/framework/morph-project).
+For details on the MDX components available for frontend development, please refer to the [Component Reference](/data-application/ja/data-component-table).
 
-When you are ready to share with your team, see [Deploy Guide](/docs/en/deploy/dashboard-setup).
+Finally, when you are ready to share with your team, please refer to the [Deployment Guide](/docs/ja/deploy/dashboard-setup).
 
 <CardGroup cols={2}>
-  <Card
-    title="Environment Variables"
-    icon="square-1"
-    href="/docs/en/develop/guides/environment-variables"
-  >
-    Manage secrets with environment variables
-  </Card>
-  <Card
-    title="Connect to DB/SaaS"
-    icon="square-2"
-    href="/docs/en/develop/guides/integration"
-  >
-    Build a data app that accesses DB and SaaS
-  </Card>
-  <Card
-    title="Use Variables"
-    icon="square-3"
-    href="/docs/en/develop/guides/variables"
-  >
-    Customize the behavior of the data app according to user input
-  </Card>
-  <Card
-    title="Role Based Access Control"
-    icon="square-4"
-    href="/docs/en/develop/guides/user-role"
-  >
-    Customize the behavior of the data app by using the project role of the user
-  </Card>
+    <Card title="Alias" icon="square-1" href="/docs/ja/develop/guides/alias">
+        Learn about aliases, a concept that spans the entire Morph framework.
+    </Card>
+    <Card title="Building the Backend" icon="square-2" href="/docs/ja/develop/guides/building-backend">
+        Learn how to build the backend with Python.
+    </Card>
+    <Card title="Building the Frontend" icon="square-3" href="/docs/ja/develop/guides/building-frontend">
+        Learn how to build the frontend with Markdown.
+    </Card>
+    <Card title="Environment Variables" icon="square-4" href="/docs/ja/develop/guides/environment-variables">
+        Manage secret information with environment variables.
+    </Card>
+    <Card title="Connecting to DB/SaaS" icon="square-5" href="/docs/ja/develop/guides/integration">
+        Build data applications that access DBs and SaaS.
+    </Card>
+    <Card title="Using Variables" icon="square-6" href="/docs/ja/develop/guides/variables">
+        Customize the behavior of the data application based on user input.
+    </Card>
+    <Card title="Role-Based Access Control" icon="square-7" href="/docs/ja/develop/guides/user-role">
+        Customize data access control and application behavior by utilizing user project roles.
+    </Card>
 </CardGroup>

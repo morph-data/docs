@@ -104,6 +104,9 @@
       "version": "English",
       "pages": [
         "docs/en/develop/guides/framework",
+        "docs/en/develop/guides/alias",
+        "docs/en/develop/guides/building-backend",
+        "docs/en/develop/guides/building-frontend",
         "docs/en/develop/guides/environment-variables",
         "docs/en/develop/guides/integration",
         "docs/en/develop/guides/variables",
