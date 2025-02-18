@@ -31,20 +31,22 @@ Morphを使った初めてのAIアプリとして、Langchainを使ったチャ�
   </Step>
   <Step title="chat.pyを作成する">
     `src/python` ディレクトリに `chat.py` ファイルを作成します。
-    ```python src/python/chat.py
-      import morph
-      from morph import MorphGlobalContext
-      from morph_lib.stream import stream_chat
-      from langchain_openai import ChatOpenAI
-      from langchain_core.messages import HumanMessage
 
-      @morph.func
-      def langchain_chat(context: MorphGlobalContext):
-        llm = ChatOpenAI(model="gpt-4o")
-        messages = [HumanMessage(context.vars["prompt"])]
-        for token in llm.stream(messages):
-          yield stream_chat(token.content)
-    ```
+```python src/python/chat.py
+import morph
+from morph import MorphGlobalContext
+from morph_lib.stream import stream_chat
+from langchain_openai import ChatOpenAI
+from langchain_core.messages import HumanMessage
+
+@morph.func
+def langchain_chat(context: MorphGlobalContext):
+    llm = ChatOpenAI(model="gpt-4o")
+    messages = [HumanMessage(context.vars["prompt"])]
+    for token in llm.stream(messages):
+        yield stream_chat(token.content)
+```
+
   </Step>
   <Step title="index.mdxを編集する">
     先ほど作成したPython関数を使用するために、index.mdxを編集します。
@@ -93,10 +95,10 @@ from langchain_core.messages import HumanMessage
 
 @morph.func
 def langchain_chat(context: MorphGlobalContext):
-  llm = ChatOpenAI(model="gpt-4o")
-  messages = [HumanMessage(context.vars["prompt"])]
-  for token in llm.stream(messages):
-    yield stream_chat(token.content)
+    llm = ChatOpenAI(model="gpt-4o")
+    messages = [HumanMessage(context.vars["prompt"])]
+    for token in llm.stream(messages):
+        yield stream_chat(token.content)
 ```
 
 ```md src/pages/index.mdx
