@@ -1,0 +1,51 @@
+---
+title: "Executing Functions - postData()"
+---
+
+You can use the `postData()` function to execute Python or SQL on the backend.
+
+```typescript
+postData<T>(
+  name: string,
+): {
+  run: (variables?: Record<string, unknown>, key?: string) => Promise<void>;
+  running: (key?: string) => boolean;
+}
+```
+
+### Parameters
+
+<ParamField path="name" type="string" required>
+  Specify the name of the Python or SQL to be executed.
+</ParamField>
+
+### Return value
+
+An object is returned that contains the `run` and `running` methods for managing the execution state.
+
+- `run(variables?: Record<string, unknown>, key?: string)`: Executes the backend function. Pass any variables you want to send to Python or SQL via `variables`.
+- `running(key?: string)`: Returns whether it's currently running. Specify `key` to differentiate if multiple backend functions are executed.
+
+```tsx
+export const { run, running } = postData("do_something");
+
+<Button onClick={() => run({ id: "id-1" })} isLoading={running()}>
+  Run
+</Button>;
+```
+
+#### About key
+
+If you have a UI that can be executed from multiple places, by specifying `key`, you can distinguish which place triggered the function.
+
+```tsx
+export const { run, running } = postData("do_something");
+
+<Button onClick={() => run({ id: "id-1" }, "id-1")} isLoading={running("id-1")}>
+  Run with id 1
+</Button>
+
+<Button onClick={() => run({ id: "id-2" }, "id-2")} isLoading={running("id-2")}>
+  Run with id 2
+</Button>
+```

@@ -1,0 +1,101 @@
+---
+title: "Data Acquisition - loadData()"
+---
+
+You can use the `loadData()` function to retrieve the results of Python or SQL executions.
+
+```typescript
+loadData<T>(
+  name: string,
+  type: "json" | "markdown" | "html" | "image",
+  variables?: Record<string, unknown>
+): QueryState<T>
+```
+
+### Parameters
+
+<ParamField path="name" type="string" required>
+  Specify the Python or SQL name.
+</ParamField>
+
+<ParamField path="type" type='"json" | "html" | "markdown" | "image"' required>
+  Specify the format of the data to retrieve.
+</ParamField>
+
+<ParamField path="variables" type="Record<string, any>">
+  This is the Variables object passed to Python or SQL.
+  In addition to arbitrary objects, you can also pass a `State` defined by `defineState()`.
+  If you pass a `State`, data will be retrieved again in response to changes in the `State`'s value.
+````tsx
+import { defineState } from "@morph-data/components";
+
+// name is a State object
+export const { name } = defineState({ name: "" });
+
+export const employeeData = loadData("get_employees", "json", {
+  name,
+  age: 30,
+});
+
+<Input state={name} />
+````
+</ParamField>
+
+### Return value
+
+A `QueryState<T>` object is returned.
+`QueryState` is an extension of `State`, and you can access the value via `.value` just like `State`.
+The value accessible via `.value` differs depending on the `type` parameter.
+
+- `type="json"`: An object in the following format is returned.
+
+```typescript
+{
+  count: 2,
+  items: [
+    {
+      "name": "Alice",
+      "age": 30
+    },
+    {
+      "name": "Bob",
+      "age": 40
+    }
+  ]
+}
+```
+
+- `type="html"`: An HTML string is returned.
+- `type="image"`: A base64-encoded image data is returned.
+- `type="markdown"`: A Markdown string is returned.
+
+The following properties and methods are unique to `QueryState` that has been added to `Query`:
+
+```typescript
+{
+  loading: boolean,
+  refresh(clearCache?: boolean): void,
+}
+```
+
+By using `refresh()`, you can trigger data retrieval again.
+If you set `clearCache` to `true`, the query results retained on the frontend will be deleted without waiting for the data retrieval to complete.
+
+```tsx
+import { loadData } from "@morph-data/components";
+
+export const employeeData = loadData("get_employees", "json");
+
+<Button onClick={() => employeeData.refresh()}>Refresh</Button>;
+```
+
+### Example
+
+```tsx index.mdx
+# Employee Data
+import { loadData } from "@morph-data/components";
+
+export const employeeData = loadData("get_employees", "json");
+
+## We have { employeeData.value()?.length } employees.
+```

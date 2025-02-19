@@ -544,7 +544,9 @@
       "version": "日本語",
       "pages": [
         "data-application/ja/morph-data-state",
-        "data-application/ja/advanced-morph-data-basic"
+        "data-application/ja/advanced-morph-data-basic",
+        "data-application/ja/morph-data-load-data",
+        "data-application/ja/morph-data-post-data"
       ]
     },
     {
