@@ -11,8 +11,8 @@ To use all features of Morph, the following environment is required.
 <Warning> If these setups are not completed, Morph’s CLI and framework may not function properly. </Warning>
 
 <AccordionGroup>
-  <Accordion title="Python 3.9 or higher" icon='python'>
-    For the Morph framework to work, **Python 3.9 or higher is required**.
+  <Accordion title="Python 3.9 - 3.12" icon='python'>
+    For the Morph framework to work, **Python 3.9 or higher, but less than 3.13* is required**.
 
     To check your Python version, run the following command:
 
@@ -48,8 +48,8 @@ To use all features of Morph, the following environment is required.
     </Tabs>
   </Accordion>
 
-  <Accordion title="Node.js 18 or higher" icon='node-js'>
-    For the Morph framework to function, **Node.js 18 or higher is required**.
+  <Accordion title="Node.js 18 or higher, npm 7 or higher" icon='node-js'>
+    For the Morph framework to function, **Node.js 18 or higher and npm 7 or higher are required**.
 
     To check your Node.js version, run the following command:
 
@@ -131,6 +131,7 @@ To use all features of Morph, the following environment is required.
   <Step title="Start the Morph Development Server">
     Use the `morph serve` command to start the Morph development server.
     ```bash Shell
+    cd morph-starter-app
     morph serve
     ```
   </Step>
@@ -141,3 +142,9 @@ To use all features of Morph, the following environment is required.
     Up to this point, you have started the basic development server. Let's build the app using SQL, Python, and MDX!
   </Step>
 </Steps>
+
+## Editor (VS Code) Setup
+
+MDX files used in the Morph frontend can have syntax highlighting and code completion by installing the VSCode extension.
+
+[https://marketplace.visualstudio.com/items?itemName=unifiedjs.vscode-mdx](https://marketplace.visualstudio.com/items?itemName=unifiedjs.vscode-mdx)

@@ -13,8 +13,8 @@ Morphの全ての機能を使用するためには、以下の環境が必要で
 </Warning>
 
 <AccordionGroup>
-  <Accordion title="Python 3.9以上のインストール" icon='python'>
-    Morphフレームワークが動作するためには、**Python 3.9以上が必要**です。
+  <Accordion title="Python 3.9 ~ 3.12 のインストール" icon='python'>
+    Morphフレームワークが動作するためには、**Python 3.9以上、3.13未満が必要**です。
 
     Pythonのバージョンを確認するには、以下のコマンドを実行してください。
 
@@ -49,8 +49,8 @@ Morphの全ての機能を使用するためには、以下の環境が必要で
     </Tabs>
   </Accordion>
 
-  <Accordion title="Node.js 18以上のインストール" icon='node-js'>
-    Morphフレームワークが動作するためには、**Node.js 18以上が必要**です。
+  <Accordion title="Node.js 18以上, npm 7以上のインストール" icon='node-js'>
+    Morphフレームワークが動作するためには、**Node.js 18以上とnpm 7以上が必要**です。
 
     Node.jsのバージョンを確認するには、以下のコマンドを実行してください。
 
@@ -130,6 +130,7 @@ Morphの全ての機能を使用するためには、以下の環境が必要で
   <Step title="Morphの開発サーバーを起動する">
     `morph serve` コマンドを使って、Morphの開発サーバーを起動します。
     ```bash Shell
+    cd morph-starter-app
     morph serve
     ```
   </Step>
@@ -140,3 +141,9 @@ Morphの全ての機能を使用するためには、以下の環境が必要で
     ここまでで、基本的な開発サーバーを起動できました。SQL, Python, MDXを使ってアプリを構築していきましょう!
   </Step>
 </Steps>
+
+## エディター (VS Code) のセットアップ
+
+Morphのフロントエンドで用いるMDXファイルは、VSCodeの拡張機能をインストールすることで、シンタックスハイライトやコード補完を行うことができます。
+
+[https://marketplace.visualstudio.com/items?itemName=unifiedjs.vscode-mdx](https://marketplace.visualstudio.com/items?itemName=unifiedjs.vscode-mdx)
