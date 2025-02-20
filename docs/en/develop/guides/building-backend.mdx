@@ -15,18 +15,18 @@ The steps for backend development in Morph are as follows.
   </Step>
   <Step title="Define Python Functions and Add Morph Decorators">
     By adding Morph decorators to regular Python function definitions, you can set aliases. This allows you to reference the results of these functions from other Python, SQL, or Markdown files.
-    ```python
-    import pandas as pd
-    import morph
-    from morph import MorphGlobalContext
-    
-    # Add Morph decorators
-    @morph.func(name="example_dataframe")
-    @morph.load_data("example_data")
-    def example_dataframe(context: MorphGlobalContext):
-        df = context.data["example_data"]
-        return df
-    ```
+```python
+import pandas as pd
+import morph
+from morph import MorphGlobalContext
+
+# Add Morph decorators
+@morph.func(name="example_dataframe")
+@morph.load_data("example_data")
+def example_dataframe(context: MorphGlobalContext):
+    df = context.data["example_data"]
+    return df
+```
   </Step>
   <Step title="Test Python Functions">
     Use the `morph run` command to execute functions for unit testing.
@@ -81,13 +81,14 @@ The corresponding Markdown component is [`<Embed>`](/data-application/ja/data-co
 import plotly.express as px
 import morph
 from morph import MorphGlobalContext
+from morph_lib.types import HtmlResponse
 
 @morph.func(name="example_dataframe")
 @morph.load_data("example_data")
 def example_dataframe(context: MorphGlobalContext):
     df = context.data["example_data"]
     fig = px.bar(df, x='date', y='amount')
-    return fig
+    return HtmlResponse(fig.to_html())
 ```
 ```md embed.mdx
 # Display Plotly Chart
@@ -112,10 +113,10 @@ from langchain_core.messages import HumanMessage
 
 @morph.func
 def langchain_chat(context: MorphGlobalContext):
-  llm = ChatOpenAI(model="gpt-4o")
-  messages are [HumanMessage(context.vars["prompt"])]
-  for token in llm.stream(messages):
-    yield stream_chat(token.content)
+    llm = ChatOpenAI(model="gpt-4o")
+    messages are [HumanMessage(context.vars["prompt"])]
+    for token in llm.stream(messages):
+        yield stream_chat(token.content)
 ```
 ```md chat.mdx
 # 🦜🔗 Langchain Chat
