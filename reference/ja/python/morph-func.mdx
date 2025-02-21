@@ -8,9 +8,6 @@ title: '@morph.func'
 @morph.func(
     name: str | None = None,
     description: str | None = None,
-    output_type: Optional[
-        Literal["dataframe", "csv", "visualization", "markdown", "json"]
-    ] = None,
     result_cache_ttl: int = 0,
 )
 def func_name(context):
@@ -25,12 +22,6 @@ def func_name(context):
 
 <ParamField body="description" type="string">
 処理の説明を記述できる
-</ParamField>
-
-<ParamField body="output_type" type="string">
-出力結果の形式の指定。指定をしない場合はシステムで自動で推定をします。
-
-Values: `dataframe`, `visualization`, `markdown`, `json`
 </ParamField>
 
 <ParamField body="result_cache_ttl" type="integer" default="0">
