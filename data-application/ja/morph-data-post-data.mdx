@@ -1,0 +1,51 @@
+---
+title: "関数の実行 - postData()"
+---
+
+`postData()` 関数を利用して、バックエンドの Python や SQL を実行することができます。
+
+```typescript
+postData<T>(
+  name: string,
+): {
+  run: (variables?: Record<string, unknown>, key?: string) => Promise<void>;
+  running: (key?: string) => boolean;
+}
+```
+
+### Parameters
+
+<ParamField path="name" type="string" required>
+  実行対象のPython や SQL の nameを指定します。
+</ParamField>
+
+### Return value
+
+実行中の状態を管理するための `run` と `running` メソッドを持つオブジェクトが返却されます。
+
+- `run(variables?: Record<string, unknown>, key?: string)`: バックエンド関数を実行します。`variables` には Python や SQL に渡す変数を指定します。
+- `running(key?: string)`: 実行中かどうかを返します。`key` には複数のバックエンド関数を実行する場合に指定します。
+
+```tsx
+export const { run, running } = postData("do_something");
+
+<Button onClick={() => run({ id: "id-1" })} isLoading={running()}>
+  Run
+</Button>;
+```
+
+#### key について
+
+複数の箇所から実行することができる UI の場合、`key` を指定することで、それぞれの箇所から実行された関数を区別することができます。
+
+```tsx
+export const { run, running } = postData("do_something");
+
+<Button onClick={() => run({ id: "id-1" }, "id-1")} isLoading={running("id-1")}>
+  Run with id 1
+</Button>
+
+<Button onClick={() => run({ id: "id-2" }, "id-2")} isLoading={running("id-2")}>
+  Run with id 2
+</Button>
+```

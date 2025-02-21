@@ -1,0 +1,102 @@
+---
+title: "データの取得 - loadData()"
+---
+
+`loadData()` 関数を利用して、Python や SQL の実行結果を取得することができます。
+
+```typescript
+loadData<T>(
+  name: string,
+  type: "json" | "markdown" | "html" | "image",
+  variables?: Record<string, unknown>
+): QueryState<T>
+```
+
+### Parameters
+
+<ParamField path="name" type="string" required>
+  Python や SQL の nameを指定します。
+</ParamField>
+
+<ParamField path="type" type='"json" | "html" | "markdown" | "image"' required>
+  取得するデータの形式を指定します。
+</ParamField>
+
+<ParamField path="variables" type="Record<string, any>">
+  Python や SQL に渡す Variables オブジェクトです。
+  任意のオブジェクトの他に、 `defineState()` で定義した `State` を渡すこともできます。
+  `State` を渡した場合は、 `State` の値の変更に合わせて再度データを取得します。
+````tsx
+import { defineState } from "@morph-data/components";
+
+// name は State オブジェクトです
+export const { name } = defineState({ name: "" });
+
+export const employeeData = loadData("get_employees", "json", {
+  name,
+  age: 30,
+});
+
+<Input state={name} />
+
+````
+</ParamField>
+
+### Return value
+
+`QueryState<T>` オブジェクトが返却されます。
+`QueryState`は`State`の拡張であり、`State`と同様に`.value`を通じて値にアクセスできます。
+`.value`でアクセスできる値は`type`パラメータによって異なります。
+
+- `type="json"`: 以下の形式のオブジェクトが返却されます。
+
+```typescript
+{
+  count: 2,
+  items: [
+    {
+      "name": "Alice",
+      "age": 30
+    },
+    {
+      "name": "Bob",
+      "age": 40
+    }
+  ]
+}
+```
+
+- `type="html"`: HTML文字列が返却されます。
+
+- `type="image"`: base64エンコードされた画像データが返却されます。
+- `type="markdown"`: Markdown文字列が返却されます。
+
+`Query`に追加された`QueryState`の独自のプロパティ、メソッドは以下です。
+
+```typescript
+{
+  loading: boolean,
+  refresh(clearCache?: boolean): void,
+}
+```
+`refresh()`を利用することで、データの再取得をトリガーすることができます。
+`clearCache`を`true`にすると、データの再取得の完了を待たずにフロントエンドに保持されたクエリ結果を削除します。
+
+```tsx
+import { loadData } from "@morph-data/components";
+
+export const employeeData = loadData("get_employees", "json");
+
+<Button onClick={() => employeeData.refresh()}>Refresh</Button>
+```
+
+### Example
+
+```tsx index.mdx
+# Employee Data
+import { loadData } from "@morph-data/components";
+
+export const employeeData = loadData("get_employees", "json");
+
+## We have { employeeData.value()?.length } employees.
+````
