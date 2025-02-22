@@ -1,5 +1,5 @@
 ---
-title: "Data Acquisition - loadData()"
+title: "loadData()"
 ---
 
 You can use the `loadData()` function to retrieve the results of Python or SQL executions.
@@ -97,5 +97,5 @@ import { loadData } from "@morph-data/components";
 
 export const employeeData = loadData("get_employees", "json");
 
-## We have { employeeData.value()?.length } employees.
+## We have { employeeData.value?.items.length } employees.
 ```

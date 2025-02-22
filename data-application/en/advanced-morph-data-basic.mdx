@@ -1,17 +1,50 @@
 ---
-title: "Communicating with the Backend"
+title: "Using API Endpoints"
 ---
 
-There are two ways to communicate with the Morph backend from an MDX file: using data components and utilizing the data API.
-As part of the data API, `loadData()` is available to retrieve execution results of Python or SQL, and `postData()` is provided to execute them.
+<Warning>
+  We strongly recommend using data components whenever possible. They cover the components required for data applications and are actively maintained.
+  
+  Additionally, within markdown files, you can use the `loadData` and `postData` functions.
+</Warning>
 
-In either case, data retrieval requests are handled internally by Morph’s web API.
-When the backend receives a request, it executes SQL or Python.
 
-<Note>
-  We strongly recommend using data components whenever possible. They cover the
-  essential components needed for data applications and are actively maintained.
-</Note>
+You can also use Python scripts built with Morph as APIs. APIs are generated using the [alias](/docs/ja/develop/guides/alias) assigned to the Python function according to the following rules.
 
-If predefined components such as table views or Plotly-generated graphs are available, please use them.
-If you need to perform complex operations on the frontend, consider using the data API.
+### `/cli/run/${alias}/json`
+
+You can obtain the **DataFrame** returned by Python in JSON format. The response is in the following format:
+
+```json
+{
+  "data": {
+    {
+      "count": 2,
+      "items": [
+        {
+          "name": "Alice",
+          "age": 30
+        },
+        {
+          "name": "Bob",
+          "age": 40
+        }
+      ]
+    }
+  }
+}
+```
+
+### `/cli/run/${alias}/html`
+
+You can obtain the **HTML string** returned by Python in HTML format. The response is in the following format:
+
+```json
+{
+  "data": "<div>...</div>"
+}
+```
+
+### `/cli/run/${alias}`
+
+You can directly execute the Python function.

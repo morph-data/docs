@@ -1,0 +1,80 @@
+---
+title: 'カスタムコンポーネントを作る'
+---
+
+Morphのマークダウンファイルでは、**React**コンポーネントを使用することができます。
+
+## カスタムコンポーネントを作成して、マークダウンファイルで使う
+
+<Steps>
+  <Step title="tsxファイルを作ってコンポーネントをexportする">
+    srcディレクトリの中にtsxファイルを作成します。おすすめは、 `src/components` ディレクトリの中に作成することですが、どこでも構いません。
+
+    ```tsx src/components/CustomComponent.tsx
+    // src/components/CustomComponent.tsx
+    import React from 'react';
+
+    export const CustomComponent: React.FC = () => {
+      return (
+        <div>
+          <h1>Custom Component</h1>
+        </div>
+      );
+    };
+    ```
+  </Step>
+  <Step title="mdxファイルでカスタムコンポーネントを使う">
+    mdxファイルで、相対パスでtsxファイルをimportして使うことができます。
+
+    ```tsx index.mdx
+    import { CustomComponent } from '../components/CustomComponent';
+
+    # カスタムコンポーネントのテスト
+
+    <CustomComponent />
+    ```
+  </Step>
+</Steps>
+
+## カスタムコンポーネントから、APIエンドポイントを利用する
+
+カスタムコンポーネントの中から、Python関数を実行するには次のようにします。
+
+このサンプルコードを理解するためには、[エイリアス](/docs/ja/develop/guides/alias)、[loadData()](/data-application/ja/morph-data-load-data.mdx)、[postData()](/data-application/ja/morph-data-post-data.mdx)を参照してください。
+
+<CodeGroup>
+  ```tsx src/components/CustomComponent.tsx
+  // src/components/CustomComponent.tsx
+  import React from "react";
+  import { loadData } from "@morph-data/components";
+
+  const metrics = loadData("example_metrics", "json"); # specify the alias and the format
+
+  export const LoadDataComp = () => {
+    return (
+      <div>
+        <h1>Metrics</h1>
+        <pre>{JSON.stringify(metrics, null, 2)}</pre>
+      </div>
+    );
+  };
+
+  const execBatch = postData("example_batch_process");
+
+  export const BatchButton = () => {
+    const [variables, setVariables] = useState({});
+    return (
+      <button onClick={() => execBatch.run(variables)}>Execute Python</button>
+    );
+  };
+  ``` 
+  ```tsx src/pages/index.mdx
+  import { LoadDataComp, BatchButton } from '../components/CustomComponent';
+
+  # カスタムコンポーネントのテスト
+
+  <LoadDataComp />
+
+  <BatchButton />
+  ```
+</CodeGroup>
