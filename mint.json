@@ -243,19 +243,14 @@
       "version": "English",
       "pages": [
         {
-          "group": "morph_lib",
+          "group": "morph_lib.ai",
           "version": "English",
           "pages": [
-            {
-              "group": "AI",
-              "pages": [
-                "reference/en/morph_lib/ai/text_to_sql",
-                "reference/en/morph_lib/ai/text_to_plotly",
-                "reference/en/morph_lib/ai/text_to_matplotlib",
-                "reference/en/morph_lib/ai/text_to_markdown",
-                "reference/en/morph_lib/ai/text_to_html"
-              ]
-            }
+            "reference/en/morph_lib/ai/text_to_sql",
+            "reference/en/morph_lib/ai/text_to_plotly",
+            "reference/en/morph_lib/ai/text_to_matplotlib",
+            "reference/en/morph_lib/ai/text_to_markdown",
+            "reference/en/morph_lib/ai/text_to_html"
           ]
         }
       ]
@@ -507,19 +502,14 @@
       "version": "日本語",
       "pages": [
         {
-          "group": "morph_lib",
+          "group": "morph_lib.ai",
           "version": "日本語",
           "pages": [
-            {
-              "group": "AI",
-              "pages": [
-                "reference/ja/morph_lib/ai/text_to_sql",
-                "reference/ja/morph_lib/ai/text_to_plotly",
-                "reference/ja/morph_lib/ai/text_to_matplotlib",
-                "reference/ja/morph_lib/ai/text_to_markdown",
-                "reference/ja/morph_lib/ai/text_to_html"
-              ]
-            }
+            "reference/ja/morph_lib/ai/text_to_sql",
+            "reference/ja/morph_lib/ai/text_to_plotly",
+            "reference/ja/morph_lib/ai/text_to_matplotlib",
+            "reference/ja/morph_lib/ai/text_to_markdown",
+            "reference/ja/morph_lib/ai/text_to_html"
           ]
         }
       ]
