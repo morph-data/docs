@@ -1,0 +1,123 @@
+---
+title: 'Shadcn UIを使う'
+---
+
+
+<Steps>
+  <Step>
+    npmパッケージをインストールします。以下のコマンドを、プロジェクトのルートで実行してください。
+
+    ```bash Shell
+    npm install tailwindcss-animate class-variance-authority clsx tailwind-merge lucide-react
+    ```
+  </Step>
+  <Step>
+    componentsディレクトリを作成し、lib/utils.tsを作成します
+
+    ```ts src/components/lib/utils.ts
+    // src/components/lib/utils.ts
+    import { clsx, type ClassValue } from "clsx"
+    import { twMerge } from "tailwind-merge"
+
+    export function cn(...inputs: ClassValue[]) {
+      return twMerge(clsx(inputs))
+    }
+    ```
+  </Step>
+  <Step>
+    使いたいコンポーネントをコピーします。
+
+    shadcn/uiのコンポーネントのページから、 "Manual" タブの手順に従います。
+
+    たとえば[Button](https://ui.shadcn.com/docs/components/button)であれば、
+
+    1. 追加のパッケージをインストール
+    
+    ```bash Shell
+    npm install @radix-ui/react-slot
+    ```
+
+    2. コンポーネントをコピーする。
+
+    <Warning>
+      `lib/util` や 他のコンポーネントのインポートを相対パスに書き換えないといけないので注意する。
+    </Warning>
+
+    <Info>
+      現在のバージョン (v0.1.x) では、shadcn/uiでセットアップするカスタムカラースキーマ (bg-primary, text-primary-foregroundなど) に対応していません。
+
+      そのため、コンポーネントのスタイルのうち、カスタムカラースキーマに関する部分は手動で書き換えてください。 例: bg-primary -> bg-zinc-900
+
+      近日中のアップデートでこの問題を解決します！
+    </Info>
+
+    ```tsx src/components/button.tsx
+    import * as React from "react";
+    import { Slot } from "@radix-ui/react-slot";
+    import { cva, type VariantProps } from "class-variance-authority";
+
+    import { cn } from "./lib/util"; // 🚨 相対パスを使う！
+
+    const buttonVariants = cva(
+      "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+      {
+        variants: {
+          variant: {
+            default: "bg-zinc-900 text-white hover:bg-zinc-900/90",
+            destructive: "bg-red-700 text-red-700-foreground hover:bg-red-700/90",
+            outline: "border border-zinc-300 bg-background hover:bg-zinc-100",
+            secondary: "bg-zinc-300 text-zinc-900 hover:bg-zinc-300/80",
+            ghost: "hover:bg-zinc-100",
+            link: "text-zinc-900 underline-offset-4 hover:underline",
+          },
+          size: {
+            default: "h-10 px-4 py-2",
+            sm: "h-9 rounded-md px-3",
+            lg: "h-11 rounded-md px-8",
+            icon: "h-10 w-10",
+          },
+        },
+        defaultVariants: {
+          variant: "default",
+          size: "default",
+        },
+      }
+    );
+
+    export interface ButtonProps
+      extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+        VariantProps<typeof buttonVariants> {
+      asChild?: boolean;
+    }
+
+    const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+      ({ className, variant, size, asChild = false, ...props }, ref) => {
+        const Comp = asChild ? Slot : "button";
+        return (
+          <Comp
+            className={cn(buttonVariants({ variant, size, className }))}
+            ref={ref}
+            {...props}
+          />
+        );
+      }
+    );
+    Button.displayName = "Button";
+
+    export { Button, buttonVariants };
+
+    ```
+
+  </Step>
+  <Step>
+    mdxファイルでコンポーネントを使う。
+
+    ```tsx index.mdx
+    import { Button } from '../components/button';
+
+    # Test Button
+
+    <Button>Click me</Button>
+    ```
+  </Step>
+</Steps>

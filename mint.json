@@ -310,7 +310,8 @@
         "data-application/en/mdx/mdx-1-basic",
         "data-application/en/mdx/mdx-2-styling",
         "data-application/en/mdx/mdx-3-js",
-        "data-application/en/mdx/custom-components"
+        "data-application/en/mdx/custom-components",
+        "data-application/en/mdx/shadcn-ui"
       ]
     },
     {
@@ -569,7 +570,8 @@
         "data-application/ja/mdx/mdx-1-basic",
         "data-application/ja/mdx/mdx-2-styling",
         "data-application/ja/mdx/mdx-3-js",
-        "data-application/ja/mdx/custom-components"
+        "data-application/ja/mdx/custom-components",
+        "data-application/ja/mdx/shadcn-ui"
       ]
     },
     {

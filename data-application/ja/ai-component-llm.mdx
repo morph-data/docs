@@ -59,3 +59,37 @@ icon: "message-dots"
   入力フォームの形式。 'default' の場合にはデフォルトの入力フォームが、 'button' の場合にはボタンだけが表示されます。
 </ParamField>
 
+
+## Example
+
+### Side-by-side layout
+
+Side-by-sideレイアウトを用いることで、ユーザーとAIのチャットと、成果物を同時に表示することができます。
+
+`create_chunk` 関数を使ってください。第1引数にはチャットの内容、第2引数には成果物の内容を指定します。成果物は、HTMLか、マークダウンが使用できます。
+
+<CodeGroup>
+  ```python src/python/ai-chat-with-html.py
+  # src/python/ai-chat-with-html.py
+  from langchain_core.messages import HumanMessage
+  from langchain_openai import ChatOpenAI
+  from morph_lib.stream import create_chunk
+
+  import morph
+  from morph import MorphGlobalContext
+
+  @morph.func
+  def langchain_chat(context: MorphGlobalContext):
+      llm = ChatOpenAI(model="gpt-4o")
+      messages = [HumanMessage(context.vars["prompt"])]
+      for token in llm.stream(messages):
+          yield create_chunk(f"{token.content}")
+      yield create_chunk(f"", f"<html><body><h1>Hey! It's Canvas</h1></body></html>")
+  ```
+
+  ```tsx src/pages/index.mdx
+  # AI App 🦜
+
+  <LLM postData="langchain_chat" height={400} layout="side-by-side" />
+  ```
+</CodeGroup>
