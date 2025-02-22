@@ -197,32 +197,29 @@
       ]
     },
     {
-      "group": "morph_lib",
+      "group": "morph_lib.database",
       "version": "English",
       "pages": [
-        {
-          "group": "Database",
-          "pages": [
-            "reference/en/morph_lib/database/execute_sql",
-            "reference/en/morph_lib/database/insert_records",
-            "reference/en/morph_lib/database/update_records",
-            "reference/en/morph_lib/database/insert_or_update_records",
-            "reference/en/morph_lib/database/delete_records"
-          ]
-        },
-        {
-          "group": "API",
-          "pages": [
-            "reference/en/morph_lib/api/get_auth_token"
-          ]
-        },
-        {
-          "group": "Stream",
-          "pages": [
-            "reference/en/morph_lib/stream/create_chunk",
-            "reference/en/morph_lib/stream/stream_chat"
-          ]
-        }
+        "reference/en/morph_lib/database/execute_sql",
+        "reference/en/morph_lib/database/insert_records",
+        "reference/en/morph_lib/database/update_records",
+        "reference/en/morph_lib/database/insert_or_update_records",
+        "reference/en/morph_lib/database/delete_records"
+      ]
+    },
+    {
+      "group": "morph_lib.api",
+      "version": "English",
+      "pages": [
+        "reference/en/morph_lib/api/get_auth_token"
+      ]
+    },
+    {
+      "group": "morph_lib.stream",
+      "version": "English",
+      "pages": [
+        "reference/en/morph_lib/stream/create_chunk",
+        "reference/en/morph_lib/stream/stream_chat"
       ]
     },
     {
@@ -464,32 +461,29 @@
       ]
     },
     {
-      "group": "morph_lib",
+      "group": "morph_lib.database",
       "version": "日本語",
       "pages": [
-        {
-          "group": "Database",
-          "pages": [
-            "reference/ja/morph_lib/database/execute_sql",
-            "reference/ja/morph_lib/database/insert_records",
-            "reference/ja/morph_lib/database/update_records",
-            "reference/ja/morph_lib/database/insert_or_update_records",
-            "reference/ja/morph_lib/database/delete_records"
-          ]
-        },
-        {
-          "group": "API",
-          "pages": [
-            "reference/ja/morph_lib/api/get_auth_token"
-          ]
-        },
-        {
-          "group": "Stream",
-          "pages": [
-            "reference/ja/morph_lib/stream/create_chunk",
-            "reference/ja/morph_lib/stream/stream_chat"
-          ]
-        }
+        "reference/ja/morph_lib/database/execute_sql",
+        "reference/ja/morph_lib/database/insert_records",
+        "reference/ja/morph_lib/database/update_records",
+        "reference/ja/morph_lib/database/insert_or_update_records",
+        "reference/ja/morph_lib/database/delete_records"
+      ]
+    },
+    {
+      "group": "morph_lib.api",
+      "version": "日本語",
+      "pages": [
+        "reference/ja/morph_lib/api/get_auth_token"
+      ]
+    },
+    {
+      "group": "morph_lib.stream",
+      "version": "日本語",
+      "pages": [
+        "reference/ja/morph_lib/stream/create_chunk",
+        "reference/ja/morph_lib/stream/stream_chat"
       ]
     },
     {
