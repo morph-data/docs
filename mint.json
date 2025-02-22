@@ -293,6 +293,8 @@
       "version": "English",
       "pages": [
         "data-application/en/morph-data-state",
+        "data-application/en/morph-data-load-data",
+        "data-application/en/morph-data-post-data",
         "data-application/en/advanced-morph-data-basic"
       ]
     },
@@ -302,7 +304,8 @@
       "pages": [
         "data-application/en/mdx/mdx-1-basic",
         "data-application/en/mdx/mdx-2-styling",
-        "data-application/en/mdx/mdx-3-js"
+        "data-application/en/mdx/mdx-3-js",
+        "data-application/en/mdx/custom-components"
       ]
     },
     {
@@ -544,9 +547,9 @@
       "version": "日本語",
       "pages": [
         "data-application/ja/morph-data-state",
-        "data-application/ja/advanced-morph-data-basic",
         "data-application/ja/morph-data-load-data",
-        "data-application/ja/morph-data-post-data"
+        "data-application/ja/morph-data-post-data",
+        "data-application/ja/advanced-morph-data-basic"
       ]
     },
     {
@@ -555,7 +558,8 @@
       "pages": [
         "data-application/ja/mdx/mdx-1-basic",
         "data-application/ja/mdx/mdx-2-styling",
-        "data-application/ja/mdx/mdx-3-js"
+        "data-application/ja/mdx/mdx-3-js",
+        "data-application/ja/mdx/custom-components"
       ]
     },
     {
