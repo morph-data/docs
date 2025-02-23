@@ -6,7 +6,10 @@ You can declare variables passed from outside with the `@morph.variables` annota
 
 ```python
 @morph.variables(
-    var_name: str, default: Optional[Any] = None
+    var_name: str,
+	default: Optional[Any] = None,
+	required: Optional[bool] = False,
+    type: Optional[Literal["str", "bool", "int", "float", "dict", "list"]] = None,
 )
 def func_name(context):
 	# write your code here
@@ -25,6 +28,19 @@ You can set a default value.
 
 If not specified, the default value will be None.
 </ParamField>
+
+<ParamField body="required" type="bool" default="False">
+You can specify whether the item is required.
+
+If it is set to required, an error will occur if it is not specified.
+</ParamField>
+
+<ParamField body="type" type="string" default="None">
+You can specify the type of the variable.
+
+If not specified, the type will be inferred automatically.
+</ParamField>
+
 
 ## How to Use
 
