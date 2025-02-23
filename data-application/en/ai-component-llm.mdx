@@ -7,7 +7,7 @@ icon: "message-dots"
   <img src="/assets/images/pages/llm-component.jpg" />
 </Frame>
 
-The `<LLLM />` component is a component for streaming processes using Open AI and Anthropic APIs.
+The `<LLM />` component is a component for streaming processes using Open AI and Anthropic APIs.
 
 ```tsx
 <LLM
@@ -17,7 +17,7 @@ The `<LLLM />` component is a component for streaming processes using Open AI an
 />
 ```
 
- `<LLLM />` components can be used for the following functions.
+ `<LLM />` components can be used for the following functions.
 
 - AI chat ... Chat between user and AI can be realised. It can start and end threads, display AI replies, etc.
 
@@ -63,3 +63,36 @@ Translated with DeepL.com (free version)
   Input form type. 'default' for the default input form, 'button' for only the button.
 </ParamField>
 
+## Example
+
+### Side-by-side layout
+
+By using a side-by-side layout, the user and AI chat and the artifact can be displayed at the same time.
+
+Use the `create_chunk` function. The first argument is the content of the chat and the second argument is the content of the artifact. The artifact can be HTML or markdown.
+
+<CodeGroup>
+  ```python src/python/ai-chat-with-html.py
+  # src/python/ai-chat-with-html.py
+  from langchain_core.messages import HumanMessage
+  from langchain_openai import ChatOpenAI
+  from morph_lib.stream import create_chunk
+
+  import morph
+  from morph import MorphGlobalContext
+
+  @morph.func
+  def langchain_chat(context: MorphGlobalContext):
+      llm = ChatOpenAI(model="gpt-4o")
+      messages = [HumanMessage(context.vars["prompt"])]
+      for token in llm.stream(messages):
+          yield create_chunk(f"{token.content}")
+      yield create_chunk(f"", f"<html><body><h1>Hey! It's Canvas</h1></body></html>")
+  ```
+
+  ```tsx src/pages/index.mdx
+  # AI App 🦜
+
+  <LLM postData="langchain_chat" height={400} layout="side-by-side" />
+  ```
+</CodeGroup>
