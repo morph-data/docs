@@ -6,7 +6,10 @@ title: '@morph.variables'
 
 ```python
 @morph.variables(
-    var_name: str, default: Optional[Any] = None
+    var_name: str,
+	default: Optional[Any] = None,
+	required: Optional[bool] = False,
+    type: Optional[Literal["str", "bool", "int", "float", "dict", "list"]] = None,
 )
 def func_name(context):
 	# write your code here
@@ -17,13 +20,25 @@ def func_name(context):
 <ParamField body="var_name" type="string" required>
 関数の実行時の引数を追加できる。
 
-mdxファイルから引数を渡したり、コマンド実行時に引数を指定できます。
+mdxファイルから引数を渡したり、コマンド実行時に引数を指定できる。
 </ParamField>
 
 <ParamField body="default" type="any">
 デフォルト値を設定できる。
 
-指定しない場合はデフォルト値がNoneになります。
+指定しない場合はデフォルト値がNoneになる。
+</ParamField>
+
+<ParamField body="required" type="bool" default="False">
+必須項目かどうかを指定できる。必須項目の場合は指定されなかった場合にエラーが発生する。
+
+指定しない場合は必須項目ではない。
+</ParamField>
+
+<ParamField body="type" type="string" default="None">
+変数の型を指定できる。
+
+指定しない場合は自動で型推論される。
 </ParamField>
 
 ## 使用例
