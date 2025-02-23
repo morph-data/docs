@@ -11,6 +11,8 @@ title: "APIエンドポイントを利用する"
 
 Morphで構築したPythonスクリプトをAPIとして利用することもできます。Python関数に付与した[エイリアス](/docs/ja/develop/guides/alias)を使って以下のルールでAPIが生成されます。
 
+全てのエンドポイントで、**POST**メソッドを使用します。
+
 ### `/cli/run/${alias}/json`
 
 Pythonで返却した**DataFrame**をJSON形式で取得できます。レスポンスは以下のような形式です。
