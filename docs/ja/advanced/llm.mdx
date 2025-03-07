@@ -52,10 +52,18 @@ Morphでは[Ollama](https://ollama.com "Ollama")によるLLMのセルフホス�
 
     <Note>
 		Pythonで使用する場合は`langchain-ollama`パッケージをインストールする必要があります。
-		```bash Shell
+		<CodeGroup>
+		```bash pip
 		pip install langchain-ollama
 		```
-	</Note>
+		```bash poetry
+		poetry add langchain-ollama
+		```
+		```bash uv
+		uv add langchain-ollama
+		```
+		</CodeGroup>
+    </Note>
     <CodeGroup>
     ```python Python
     from langchain_ollama import ChatOllama
