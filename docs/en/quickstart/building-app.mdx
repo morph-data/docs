@@ -34,7 +34,6 @@ As your first AI app using Morph, we will create a chat app using Langchain.
 ```python src/python/chat.py
 import morph
 from morph import MorphGlobalContext
-from morph_lib.stream import stream_chat
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage
 
@@ -43,7 +42,7 @@ def langchain_chat(context: MorphGlobalContext):
     llm = ChatOpenAI(model="gpt-4o")
     messages = [HumanMessage(context.vars["prompt"])]
     for token in llm.stream(messages):
-        yield stream_chat(token.content)
+        yield token.content
 ```
   </Step>
   <Step title="Edit index.mdx">
@@ -85,7 +84,6 @@ Here is all the code needed to build a simple chat app. That's it!
 ```python src/python/chat.py
 import morph
 from morph import MorphGlobalContext
-from morph_lib.stream import stream_chat
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage
 
@@ -94,7 +92,7 @@ def langchain_chat(context: MorphGlobalContext):
     llm = ChatOpenAI(model="gpt-4o")
     messages = [HumanMessage(context.vars["prompt"])]
     for token in llm.stream(messages):
-        yield stream_chat(token.content)
+        yield token.content
 ```
 
 ```md src/pages/index.mdx

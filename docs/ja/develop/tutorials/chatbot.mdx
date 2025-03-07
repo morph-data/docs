@@ -22,7 +22,7 @@ OPENAI_API_KEY=your_api_key
 ## チュートリアル
 
 `<Chat />`コンポーネントを使用して、LLMのAPIを活用したチャットアプリを作成します。
-Python関数でLLMを用いたチャットアプリのロジックを実装し、`stream_chat`関数を使用して、チャットのログをストリームで返することで、自動的に`<Chat />`がストリーミングの結果を表示します。
+Python関数でLLMを用いたチャットアプリのロジックを実装し、`yield`を使用して、チャットのログをストリームで返することで、自動的に`<Chat />`がストリーミングの結果を表示します。
 
 <Tabs>
     <Tab title="1. Python">
@@ -35,7 +35,6 @@ OpenAIのSDKを使用して、ユーザーからの質問に回答するロジ�
 import os
 import morph
 from morph import MorphGlobalContext
-from morph_lib.stream import stream_chat
 from openai import OpenAI
 
 @morph.func
@@ -54,7 +53,7 @@ def llm_chat_app(context: MorphGlobalContext):
     )
 
     for chunk in response:
-        yield stream_chat(chunk.choices[0].delta.content)
+        yield chunk.choices[0].delta.content
 
 ```
     </Tab>
