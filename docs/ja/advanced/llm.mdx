@@ -51,7 +51,6 @@ Morphでは[Ollama](https://ollama.com "Ollama")によるLLMのセルフホス�
     以下はPythonとcURLによるリクエストのサンプルです。
     <CodeGroup>
     ```python Python
-    from morph_lib.stream import stream_chat
     from langchain_ollama import ChatOllama
 
     llm = ChatOllama(
@@ -64,7 +63,7 @@ Morphでは[Ollama](https://ollama.com "Ollama")によるLLMのセルフホス�
         },
     )
     for token in llm.stream("Hello"):
-        yield stream_chat(token.content)
+        yield token.content
     ```
 
     ```shell cURL

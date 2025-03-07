@@ -50,7 +50,6 @@ Morph offers a self-hosting feature for LLM provided by [Ollama](https://ollama.
         Below are sample requests using Python and cURL.
         <CodeGroup>
         ```python Python
-        from morph_lib.stream import stream_chat
         from langchain_ollama import ChatOllama
 
         llm = ChatOllama(
@@ -63,7 +62,7 @@ Morph offers a self-hosting feature for LLM provided by [Ollama](https://ollama.
                 },
         )
         for token in llm.stream("Hello"):
-                yield stream_chat(token.content)
+            yield token.content
         ```
 
         ```shell cURL
