@@ -99,7 +99,7 @@ def example_dataframe(context: MorphGlobalContext):
 
 ### Streaming
 
-Use this when using streaming APIs such as LLM API. Execute value streaming using the `stream_chat` function.
+Use this when using streaming APIs such as LLM API. Execute value streaming using the `yeild` instead of `return`.
 
 The corresponding Markdown component is [`<Chat>`](/data-application/ja/ai-component-chat).
 
@@ -107,7 +107,6 @@ The corresponding Markdown component is [`<Chat>`](/data-application/ja/ai-compo
 ```python chat.py
 import morph
 from morph import MorphGlobalContext
-from morph_lib.stream import stream_chat
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage
 
@@ -116,7 +115,7 @@ def langchain_chat(context: MorphGlobalContext):
     llm = ChatOpenAI(model="gpt-4o")
     messages are [HumanMessage(context.vars["prompt"])]
     for token in llm.stream(messages):
-        yield stream_chat(token.content)
+        yield token.content
 ```
 ```md chat.mdx
 # 🦜🔗 Langchain Chat

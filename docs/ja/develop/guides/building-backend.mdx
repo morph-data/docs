@@ -99,7 +99,7 @@ def example_dataframe(context: MorphGlobalContext):
 
 ### ストリーミング
 
-LLM APIなどのストリーミングAPIを使用する場合に使用します。 `stream_chat` 関数を用いて値の流し込みを実行します。
+LLM APIなどのストリーミングAPIを使用する場合に使用します。 `return`の代わりに`yield`を用いて値の流し込みを実行します。
 
 対応するマークダウンコンポーネントは、[`<Chat>`](/data-application/ja/ai-component-chat)です。
 
@@ -107,7 +107,6 @@ LLM APIなどのストリーミングAPIを使用する場合に使用します�
 ```python chat.py
 import morph
 from morph import MorphGlobalContext
-from morph_lib.stream import stream_chat
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage
 
@@ -116,7 +115,7 @@ def langchain_chat(context: MorphGlobalContext):
     llm = ChatOpenAI(model="gpt-4o")
     messages = [HumanMessage(context.vars["prompt"])]
     for token in llm.stream(messages):
-        yield stream_chat(token.content)
+        yield token.content
 ```
 ```md chat.mdx
 # 🦜🔗 Langchain Chat
