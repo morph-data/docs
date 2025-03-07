@@ -22,7 +22,7 @@ OPENAI_API_KEY=your_api_key
 ## Tutorial
 
 Create a chat app using the `<LLM />` component and the LLM API.
-Implement the chat app logic in the Python function and use the `create_chunk` function to stream the chat logs, allowing the `<LLM />` component to automatically display the streaming results.
+Implement the chat app logic in the Python function and use the `yield` to stream the chat logs, allowing the `<LLM />` component to automatically display the streaming results.
 
 <Tabs>
     <Tab title="1. Python">
@@ -35,7 +35,6 @@ The function specified in the `postData` attribute of the `<LLM />` component ta
 import os
 import morph
 from morph import MorphGlobalContext
-from morph_lib.stream import create_chunk
 from openai import OpenAI
 
 @morph.func
@@ -54,7 +53,7 @@ def llm_chat_app(context: MorphGlobalContext):
     )
 
     for chunk in response:
-        yield create_chunk(chunk.choices[0].delta.content)
+        yield chunk.choices[0].delta.content
 
 ```
     </Tab>

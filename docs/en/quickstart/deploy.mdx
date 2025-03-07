@@ -68,6 +68,14 @@ Deployed apps are secured with user authentication through Morph accounts.
     </Step>
     <Step title="Configure Python packages for the cloud environment">
         <AccordionGroup>
+            <Accordion title="poetry">
+                The packages specified in pyproject.toml will be installed in the deployment environment.
+                Make sure to run the `poetry update` command before deployment to update the poetry.lock file to the latest state.
+            </Accordion>
+            <Accordion title="uv">
+                The packages specified in pyproject.toml will be installed in the deployment environment.
+                Make sure to run the `uv sync` command before deployment to update the uv.lock file to the latest state.
+            </Accordion>
             <Accordion title="pip">
                 The packages specified in requirements.txt will be installed in the deployment environment.
 
@@ -75,10 +83,6 @@ Deployed apps are secured with user authentication through Morph accounts.
                 ```bash Shell
                 pip freeze > requirements.txt
                 ```
-            </Accordion>
-            <Accordion title="poetry">
-                The packages specified in `[tool.poetry.dependencies]` in pyproject.toml will be installed in the deployment environment.
-                No additional steps are required.
             </Accordion>
         </AccordionGroup>
     </Step>
