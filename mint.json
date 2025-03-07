@@ -89,14 +89,7 @@
       "version": "English",
       "pages": [
         "docs/en/quickstart/building-app",
-        {
-          "group": "How to Deploy",
-          "icon": "link",
-          "pages": [
-            "docs/en/quickstart/dashboard-setup",
-            "docs/en/quickstart/deploy"
-          ]
-        }
+        "docs/en/quickstart/deploy"
       ]
     },
     {
@@ -350,14 +343,7 @@
       "version": "日本語",
       "pages": [
         "docs/ja/quickstart/building-app",
-        {
-          "group": "デプロイ手順",
-          "icon": "link",
-          "pages": [
-            "docs/ja/quickstart/dashboard-setup",
-            "docs/ja/quickstart/deploy"
-          ]
-        }
+        "docs/ja/quickstart/deploy"
       ]
     },
     {
