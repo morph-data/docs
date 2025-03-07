@@ -1,10 +1,10 @@
 ---
-title: 'LLM'
+title: 'Ollamaを使用してLLMをセルフホストする'
 icon: "brain"
 ---
 
 <Warning>
-  現在LLMのセルフホストはProプランでのプレビュー機能です。使用を希望される場合はダッシュボード上からProプランに更新の上ウェイトリストにお申し込みください。
+    現在LLMのセルフホストはProプランでのプレビュー機能です。使用を希望される場合はダッシュボード上からProプランに更新の上ウェイトリストにお申し込みください。
 </Warning>
 
 Morphでは[Ollama](https://ollama.com "Ollama")によるLLMのセルフホスト機能を提供しています。
@@ -16,7 +16,7 @@ Morphでは[Ollama](https://ollama.com "Ollama")によるLLMのセルフホス�
 <Steps>
     <Step title="LLMをデプロイする">
     ダッシュボードのLLMタブを押下しLLM作成画面に遷移します。
-    
+
     任意の`LLM Name`を入力し、使用する`Model Name`を選択します。
     <img
         src="/assets/images/docs/advanced/llm/create-llm.png"
@@ -39,16 +39,23 @@ Morphでは[Ollama](https://ollama.com "Ollama")によるLLMのセルフホス�
         src="/assets/images/docs/advanced/llm/llm-detail.png"
         alt="Create LLM"
     />
-    
+
     Logsの欄で選択したモデルのステータスが`Deployment Succeeded`であれば作成が成功しています。まだ進行中の場合は作成完了までお待ちください。
 
     App URLはMorphにホストされたLLMのURLです。このURLとMorphの`API Key`を使用してLLMにリクエストを送ることが可能です。
-    </Step>    
+    </Step>
 
     <Step title="LLMにリクエストを送る">
     先ほどのApp URLとMorphのAPI Keyを使用してLLMにリクエストを送ります。
 
     以下はPythonとcURLによるリクエストのサンプルです。
+
+    <Note>
+		Pythonで使用する場合は`langchain-ollama`パッケージをインストールする必要があります。
+		```bash Shell
+		pip install langchain-ollama
+		```
+	</Note>
     <CodeGroup>
     ```python Python
     from langchain_ollama import ChatOllama
@@ -81,5 +88,5 @@ Morphでは[Ollama](https://ollama.com "Ollama")によるLLMのセルフホス�
     }'
     ```
     </CodeGroup>
-    </Step>    
+    </Step>
 </Steps>

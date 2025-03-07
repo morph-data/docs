@@ -1,5 +1,5 @@
 ---
-title: 'LLM'
+title: 'Self-Hosting LLM with Ollama'
 icon: "brain"
 ---
 
@@ -13,72 +13,80 @@ Morph offers a self-hosting feature for LLM provided by [Ollama](https://ollama.
 ## Using LLM
 
 <Steps>
-        <Step title="Deploying LLM">
-        Click the LLM tab on the dashboard to navigate to the LLM creation screen.
-        
-        Enter a desired `LLM Name` and select the `Model Name` you want to use.
-        <img
-                src="/assets/images/docs/advanced/llm/create-llm.png"
-                alt="Create LLM"
-        />
+	<Step title="Deploying LLM">
+	Click the LLM tab on the dashboard to navigate to the LLM creation screen.
 
-        The following models are currently available:
-        | Model    | Parameters             |
-        |----------|------------------------|
-        | `deepseek-r1` | 1.5b, 7b, 8b, 14b       |
-        | `llama3.2`   | 8b                     |
-        | `phi4`      | 14b                  |
-        | `qwen`     | 0.5b, 1.8b, 4b, 7b, 14b |
+	Enter a desired `LLM Name` and select the `Model Name` you want to use.
+	<img
+		src="/assets/images/docs/advanced/llm/create-llm.png"
+		alt="Create LLM"
+	/>
 
-        </Step>
+	The following models are currently available:
+	| Model    | Parameters             |
+	|----------|------------------------|
+	| `deepseek-r1` | 1.5b, 7b, 8b, 14b     |
+	| `llama3.2`   | 8b                     |
+	| `phi4`      | 14b                  |
+	| `qwen`     | 0.5b, 1.8b, 4b, 7b, 14b |
 
-        <Step title="Confirming the Created Model">
-        Select the created LLM from the LLM tab.
-        <img
-                src="/assets/images/docs/advanced/llm/llm-detail.png"
-                alt="Create LLM"
-        />
-        
-        If the status of the selected model in the Logs section is `Deployment Succeeded`, the creation was successful. If it is still in progress, please wait until the creation is complete.
+	</Step>
 
-        The App URL is the URL of the LLM hosted on Morph. You can send requests to the LLM using this URL and the Morph `API Key`.
-        </Step>    
+	<Step title="Confirming the Created Model">
+	Select the created LLM from the LLM tab.
+	<img
+		src="/assets/images/docs/advanced/llm/llm-detail.png"
+		alt="Create LLM"
+	/>
 
-        <Step title="Sending Requests to LLM">
-        Use the App URL and Morph API Key to send requests to the LLM.
+	If the status of the selected model in the Logs section is `Deployment Succeeded`, the creation was successful. If it is still in progress, please wait until the creation is complete.
 
-        Below are sample requests using Python and cURL.
-        <CodeGroup>
-        ```python Python
-        from langchain_ollama import ChatOllama
+	The App URL is the URL of the LLM hosted on Morph. You can send requests to the LLM using this URL and the Morph `API Key`.
+	</Step>
 
-        llm = ChatOllama(
-                model="{MODEL_NAME_YOU_DEPLOYED}",
-                base_url="{YOUR_MORPH_LLM_APP_URL}",
-                client_kwargs={
-                        "headers": {
-                                "x-api-key": "{YOUR_MORPH_API_KEY}",
-                        }
-                },
-        )
-        for token in llm.stream("Hello"):
-            yield token.content
-        ```
+	<Step title="Sending Requests to LLM">
+	Use the App URL and Morph API Key to send requests to the LLM.
 
-        ```shell cURL
-        curl --location '{YOUR_MORPH_LLM_APP_URL}/api/chat' \
-        --header 'Content-Type: application/json' \
-        --header 'x-api-key: {YOUR_MORPH_API_KEY}' \
-        --data '{
-                "model": "{MODEL_NAME_YOU_DEPLOYED}",
-                "messages": [
-                        {
-                                "role": "user",
-                                "content": "Hello"
-                        }
-                ]
-        }'
-        ```
-        </CodeGroup>
-        </Step>    
+	Below are sample requests using Python and cURL.
+
+	<Note>
+		You need to install the `langchain-ollama` package to use in Python.
+		```bash Shell
+		pip install langchain-ollama
+		```
+	</Note>
+	<CodeGroup>
+```python Python
+from langchain_ollama import ChatOllama
+
+llm = ChatOllama(
+	model="{MODEL_NAME_YOU_DEPLOYED}",
+	base_url="{YOUR_MORPH_LLM_APP_URL}",
+	client_kwargs={
+		"headers": {
+			"x-api-key": "{YOUR_MORPH_API_KEY}",
+		}
+	},
+)
+for token in llm.stream("Hello"):
+	yield token.content
+```
+
+```shell cURL
+curl --location '{YOUR_MORPH_LLM_APP_URL}/api/chat' \
+--header 'Content-Type: application/json' \
+--header 'x-api-key: {YOUR_MORPH_API_KEY}' \
+--data '{
+	"model": "{MODEL_NAME_YOU_DEPLOYED}",
+	"messages": [
+		{
+			"role": "user",
+			"content": "Hello"
+		}
+	]
+}'
+```
+	</CodeGroup>
+
+	</Step>
 </Steps>
