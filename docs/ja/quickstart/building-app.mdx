@@ -25,9 +25,17 @@ Morphを使った初めてのAIアプリとして、Langchainを使ったチャ�
   </Step>
   <Step title="パッケージをインストールする">
     Langchainを使うために、以下のコマンドを実行してパッケージをインストールします。
-    ```bash
-    pip install langchain langchain-openai
-    ```
+    <CodeGroup>
+			```bash pip
+			pip install langchain langchain-openai
+			```
+			```bash poetry
+			poetry add langchain langchain-openai
+			```
+			```bash uv
+			uv add langchain langchain-openai
+			```
+		</CodeGroup>
   </Step>
   <Step title="chat.pyを作成する">
     `src/python` ディレクトリに `chat.py` ファイルを作成します。
