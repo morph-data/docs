@@ -89,14 +89,7 @@
       "version": "English",
       "pages": [
         "docs/en/quickstart/building-app",
-        {
-          "group": "How to Deploy",
-          "icon": "link",
-          "pages": [
-            "docs/en/quickstart/dashboard-setup",
-            "docs/en/quickstart/deploy"
-          ]
-        }
+        "docs/en/quickstart/deploy"
       ]
     },
     {
