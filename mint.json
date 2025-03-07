@@ -145,6 +145,7 @@
       "pages": [
         "docs/en/advanced/api_key",
         "docs/en/advanced/builtin-postgres",
+        "docs/en/advanced/llm",
         "docs/en/advanced/migration-guide",
         {
           "group": "Connectors",
@@ -356,7 +357,7 @@
             "docs/ja/quickstart/dashboard-setup",
             "docs/ja/quickstart/deploy"
           ]
-      }
+        }
       ]
     },
     {
@@ -405,6 +406,7 @@
       "pages": [
         "docs/ja/advanced/api_key",
         "docs/ja/advanced/builtin-postgres",
+        "docs/ja/advanced/llm",
         "docs/ja/advanced/migration-guide",
         {
           "group": "Connectors",
