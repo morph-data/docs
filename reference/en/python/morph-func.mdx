@@ -8,7 +8,6 @@ By adding the `@morph.func` annotation, you can register the function to be exec
 @morph.func(
     name: str | None = None,
     description: str | None = None,
-    result_cache_ttl: int = 0,
 )
 def func_name(context):
 	# write your code here
@@ -22,10 +21,6 @@ The name of the process, which can also be used as an alias when called from oth
 
 <ParamField body="description" type="string">
 A description of the process can be written.
-</ParamField>
-
-<ParamField body="result_cache_ttl" type="integer" default="0">
-Specifies the cache expiration time of the data pipeline execution result in seconds.
 </ParamField>
 
 ## How to Use

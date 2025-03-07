@@ -1,9 +1,32 @@
 ---
 title: 'デプロイ'
-icon: ''
+icon: 'passport'
 ---
 
-お手持ちのProject IDとAPIキーを使って、以下の手順に従ってデプロイを行います。
+## Githubリポジトリとの連携によるデプロイ
+
+Morphプラットフォームへのアプリのデプロイは、Githubリポジトリとの連携によって自動で行われます。
+デプロイされたアプリには、Morphアカウントによるユーザー認証がかかります。
+
+<Steps>
+    <Step title="Githubリポジトリを作成する">
+        Githubリポジトリを作成します。
+    </Step>
+    <Step title="morph-data.ioにログイン、Githubアカウントと連携する">
+        https://app.morph-data.io/ にログインして、Projectタブから新規プロジェクトの作成画面に移動します。
+        画面内の指示に従って、Githubアカウントと連携後、Githubリポジトリを選択します。
+    </Step>
+    <Step title="コードをプッシュする">
+        Githubリポジトリにコードをプッシュすると、自動でビルドが開始します。ビルドが完了すると、アプリのURLが有効になります。
+        デプロイされたアプリには、Morphアカウントによるユーザー認証が自動でかかっています。誰かに共有するには、まずユーザーを招待してからURLを共有してください。
+    </Step>
+</Steps>
+
+## DockerイメージをCLIでデプロイする
+
+<Warning>
+    この手順は、非推奨です。Githubリポジトリとの連携によるデプロイができない場合に使用してください。
+</Warning>
 
 <Note>
     この手順には`morph`コマンドが必要となります。
@@ -45,6 +68,14 @@ icon: ''
     </Step>
     <Step title="クラウド環境で使用するPythonのパッケージを指定する">
         <AccordionGroup>
+            <Accordion title="poetry">
+                pyproject.tomlに設定されているパッケージがデプロイ環境でインストールされます。
+                デプロイ前に必ず`poetry update`コマンドを実行して、poetry.lockファイルを最新の状態に更新してください。
+            </Accordion>
+            <Accordion title="uv">
+                pyproject.tomlに設定されているパッケージがデプロイ環境でインストールされます。
+                デプロイ前に必ず`uv sync`コマンドを実行して、uv.lockファイルを最新の状態に更新してください。
+            </Accordion>
             <Accordion title="pip">
                 requirements.txtに設定されているパッケージがデプロイ環境でインストールされます。
 
@@ -52,10 +83,6 @@ icon: ''
                 ```bash Shell
                 pip freeze > requirements.txt
                 ```
-            </Accordion>
-            <Accordion title="poetry">
-                pyproject.tomlの`[tool.poetry.dependencies]`に設定されているパッケージがデプロイ環境でインストールされます。
-                特に追加の作業は必要ありません。
             </Accordion>
         </AccordionGroup>
     </Step>

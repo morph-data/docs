@@ -10,7 +10,6 @@ You can write configuration values in SQL using jinja as follows.
 		name="test",
 		description="this is test sql statement",
 		connection="your_connection_slug",
-		result_cache_ttl=0
 	)
 }}
 
@@ -31,8 +30,4 @@ You can describe the process.
 The destination of connections other than the built-in ones registered on the screen (optional).
 
 ※ If not specified, it will be set to the built-in PostgreSQL.
-</ParamField>
-
-<ParamField body="result_cache_ttl" type="integer" default="0">
-Specify the cache expiration time of the data pipeline execution result in seconds.
 </ParamField>

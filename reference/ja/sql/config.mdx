@@ -10,7 +10,6 @@ title: 'config'
 		name="test",
 		description="this is test sql statement",
 		connection="your_connection_slug",
-		result_cache_ttl=0
 	)
 }}
 
@@ -31,8 +30,4 @@ select 1 as test
 画面で登録したbuiltin以外のconnectionの向き先 (optional)
 
 ※ 指定をしない場合はbuilt-in postgresqlに設定されます。
-</ParamField>
-
-<ParamField body="result_cache_ttl" type="integer" default="0">
-データパイプラインの実行結果のキャッシュの有効期限を秒単位で指定します。
 </ParamField>

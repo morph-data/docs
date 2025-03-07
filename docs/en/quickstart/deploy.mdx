@@ -1,9 +1,33 @@
 ---
-title: 'Deploy to the Cloud'
-icon: ''
+title: 'Deploy'
+icon: 'passport'
 ---
 
-Follow the steps below to deploy using your Project ID and API key.
+## Deploying with Github Repository
+
+Deploying your app to the Morph platform is automated through integration with your Github repository.
+
+Deployed apps are secured with user authentication through Morph accounts.
+
+<Steps>
+    <Step title="Create a Github repository">
+        Create a Github repository.
+    </Step>
+    <Step title="Log in to morph-data.io and connect your Github account">
+        Log in to https://app.morph-data.io/, navigate to the Projects tab and go to the new project creation screen.
+        Follow the on-screen instructions to connect your Github account and select your Github repository.
+    </Step>
+    <Step title="Push your code">
+        When you push code to your Github repository, the build will start automatically. Once the build is complete, your app URL will become active.
+        The deployed app automatically includes user authentication through Morph accounts. To share with others, first invite them as users before sharing the URL.
+    </Step>
+</Steps>
+
+## Deploying with Docker and Moroh CLI
+
+<Warning>
+    This method is not recommended.
+</Warning>
 
 <Note>
     The following steps require the `morph` command. If it is not installed, run the command `pip install morph-data` to install it.
@@ -44,6 +68,14 @@ Follow the steps below to deploy using your Project ID and API key.
     </Step>
     <Step title="Configure Python packages for the cloud environment">
         <AccordionGroup>
+            <Accordion title="poetry">
+                The packages specified in pyproject.toml will be installed in the deployment environment.
+                Make sure to run the `poetry update` command before deployment to update the poetry.lock file to the latest state.
+            </Accordion>
+            <Accordion title="uv">
+                The packages specified in pyproject.toml will be installed in the deployment environment.
+                Make sure to run the `uv sync` command before deployment to update the uv.lock file to the latest state.
+            </Accordion>
             <Accordion title="pip">
                 The packages specified in requirements.txt will be installed in the deployment environment.
 
@@ -51,10 +83,6 @@ Follow the steps below to deploy using your Project ID and API key.
                 ```bash Shell
                 pip freeze > requirements.txt
                 ```
-            </Accordion>
-            <Accordion title="poetry">
-                The packages specified in `[tool.poetry.dependencies]` in pyproject.toml will be installed in the deployment environment.
-                No additional steps are required.
             </Accordion>
         </AccordionGroup>
     </Step>

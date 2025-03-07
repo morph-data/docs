@@ -1,0 +1,92 @@
+---
+title: 'Ollamaを使用してLLMをセルフホストする'
+icon: "brain"
+---
+
+<Warning>
+    現在LLMのセルフホストはProプランでのプレビュー機能です。使用を希望される場合はダッシュボード上からProプランに更新の上ウェイトリストにお申し込みください。
+</Warning>
+
+Morphでは[Ollama](https://ollama.com "Ollama")によるLLMのセルフホスト機能を提供しています。
+ダッシュボード上で使用したいモデルを選択しデプロイすることでAPIとして呼び出し可能なURLが発行されPythonのコード上から呼び出すことができます。
+
+
+## LLMを利用する
+
+<Steps>
+    <Step title="LLMをデプロイする">
+    ダッシュボードのLLMタブを押下しLLM作成画面に遷移します。
+
+    任意の`LLM Name`を入力し、使用する`Model Name`を選択します。
+    <img
+        src="/assets/images/docs/advanced/llm/create-llm.png"
+        alt="Create LLM"
+    />
+
+    現在以下のモデルが使用可能です。
+    | Model    | Parameters             |
+    |----------|------------------------|
+    | `deepseek-r1` | 1.5b, 7b, 8b, 14b       |
+    | `llama3.2`   | 8b                     |
+    | `phi4`      | 14b                  |
+    | `qwen`     | 0.5b, 1.8b, 4b, 7b, 14b |
+
+    </Step>
+
+    <Step title="作成したモデルを確認する">
+    LLMタブから作成したLLMを選択します。
+    <img
+        src="/assets/images/docs/advanced/llm/llm-detail.png"
+        alt="Create LLM"
+    />
+
+    Logsの欄で選択したモデルのステータスが`Deployment Succeeded`であれば作成が成功しています。まだ進行中の場合は作成完了までお待ちください。
+
+    App URLはMorphにホストされたLLMのURLです。このURLとMorphの`API Key`を使用してLLMにリクエストを送ることが可能です。
+    </Step>
+
+    <Step title="LLMにリクエストを送る">
+    先ほどのApp URLとMorphのAPI Keyを使用してLLMにリクエストを送ります。
+
+    以下はPythonとcURLによるリクエストのサンプルです。
+
+    <Note>
+		Pythonで使用する場合は`langchain-ollama`パッケージをインストールする必要があります。
+		```bash Shell
+		pip install langchain-ollama
+		```
+	</Note>
+    <CodeGroup>
+    ```python Python
+    from langchain_ollama import ChatOllama
+
+    llm = ChatOllama(
+        model="{MODEL_NAME_YOU_DEPLOYED}",
+        base_url="{YOUR_MORPH_LLM_APP_URL}",
+        client_kwargs={
+            "headers": {
+                "x-api-key": "{YOUR_MORPH_API_KEY}",
+            }
+        },
+    )
+    for token in llm.stream("Hello"):
+        yield token.content
+    ```
+
+    ```shell cURL
+    curl --location ‘{YOUR_MORPH_LLM_APP_URL}/api/chat' \
+    --header 'Content-Type: application/json' \
+    --header 'x-api-key: {YOUR_MORPH_API_KEY}’ \
+    --data '{
+        "model": "{MODEL_NAME_YOU_DEPLOYED}",
+        "messages": [
+            {
+                "role": "user",
+                "content": “Hello”
+            }
+        ]
+    }'
+    ```
+    </CodeGroup>
+    </Step>
+</Steps>
