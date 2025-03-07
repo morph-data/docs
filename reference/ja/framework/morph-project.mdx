@@ -18,9 +18,6 @@ default_connection: DUCKDB
 source_paths:
 - src
 
-# Result Cache (seconds)
-result_cache_ttl: 0
-
 # Python Package Manager
 package_manager: pip
 ```
@@ -57,13 +54,6 @@ IDはクラウド上の個別プロジェクトページから取得すること
 ソースパスを指定します。
 
 ソースパスとして指定をしたディレクトリ以下にあるファイルがMorph上で実行可能なソースコードとして扱われます。
-</ParamField>
-
-<ParamField body="result_cache_ttl" type="integer" default="0">
-データパイプラインの実行結果のキャッシュの有効期限を秒単位で指定します。
-指定秒数以内に実行結果がある場合はキャッシュから結果を返却します。
-[`morph serve`コマンド](../cli-commands/serve)の実行結果はこの値によってキャッシュされます。
-- `result_cache_ttl: 0`を指定した場合はキャッシュが無効化されます。
 </ParamField>
 
 <ParamField body="package_manager" type="string" default="pip">

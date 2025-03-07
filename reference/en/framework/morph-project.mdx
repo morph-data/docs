@@ -18,9 +18,6 @@ default_connection: DUCKDB
 source_paths:
 - src
 
-# Result Cache (seconds)
-result_cache_ttl: 0
-
 # Python Package Manager
 package_manager: pip
 ```
@@ -54,12 +51,6 @@ package_manager: pip
 
 <ParamField body="source_paths" type="string" default="src">
     Specifies the directories to be used as source paths. Files within these directories are recognized as executable source code in Morph.
-</ParamField>
-
-<ParamField body="result_cache_ttl" type="integer" default="0">
-    Defines the cache expiration time in seconds for data pipeline execution results. If results are available within the specified duration, they will be retrieved from the cache.
-    Setting `result_cache_ttl: 0` disables caching.
-    This parameter affects the results cached during the execution of the [`morph serve`](../cli-commands/serve) command.
 </ParamField>
 
 <ParamField body="package_manager" type="string" default="pip">
