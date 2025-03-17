@@ -33,6 +33,10 @@ COPY . .
 CMD python "${MORPH_APP_FILE_PATH}"
 ```
 
+### Addition of the `/static` Directory
+
+In v0.2.0, a `/static` directory was added to host static files. If you are using a version prior to v0.2.0, please create the `/static` directory.
+
 ## Morph 0.1.7 to 0.1.8
 
 ### Dockerfile Update: Improved Streaming for `<LLM />` and `<Chat />` Components
