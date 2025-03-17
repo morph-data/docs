@@ -33,9 +33,17 @@ COPY . .
 CMD python "${MORPH_APP_FILE_PATH}"
 ```
 
-### Addition of the `/static` Directory
+### Adding the `/static` Directory
 
-In v0.2.0, a `/static` directory was added to host static files. If you are using a version prior to v0.2.0, please create the `/static` directory.
+In v0.2.0, a `/static` directory was added to host static files. Files placed under `/static` can be accessed from the frontend application.
+
+```markdown
+# Example of displaying an image file placed in the `/static` directory
+
+![Logo](/static/logo.png)
+```
+
+If you are using a previous version, please create the `/static` directory.
 
 ## Morph 0.1.7 to 0.1.8
 
