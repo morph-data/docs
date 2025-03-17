@@ -5,6 +5,34 @@ icon: "arrows-turn-to-dots"
 
 このページでは、バージョン間の変更点と、あるバージョンから別のバージョンへの移行方法について説明します。
 
+## Morph 0.1.9 to 0.2.0
+
+### Dockerfileのアップデート: CMDコマンドの変更
+
+Github連携に伴いMorphで構築したアプリの実行コマンドをデプロイ環境にインストールする方法が変更になりました。
+具体的にはローカル環境で作成した`.morph/core/morph`ディレクトリにある`api/app.py`をデプロイ環境にコピーする方式から、パッケージとしてインストールされたファイルを実行する方式に変更になりました。
+それに伴い、`morph deploy`実行時にもv0.2.0以降ではdockerfileでのエントリーポイントが変更になっています。
+
+v0.2.0の変更で`morph new`コマンドで生成されるDockerfileのCMDコマンドが変更されましたので、これまでのバージョンをお使いの場合はCMDコマンドを変更してください。
+
+```dockerfile
+# Base image for Morph Cloud
+FROM public.ecr.aws/i1l4z0u0/morph-data:python3.9
+
+# Set working directory
+WORKDIR /var/task
+
+# Install Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt --target "${MORPH_PACKAGE_ROOT}"
+
+# Copy source code and dependencies
+COPY . .
+
+# Command to run the Lambda function
+CMD python "${MORPH_APP_FILE_PATH}"
+```
+
 ## Morph 0.1.7 to 0.1.8
 
 ### Dockerfileのアップデート: `<LLM />` `<Chat />`のストリーミング処理の改善
