@@ -73,6 +73,11 @@
       "name": "Code Snippets",
       "icon": "brackets-curly",
       "url": "https://www.morph-data.io/tools/snippets/undefined"
+    },
+    {
+      "name": "Components",
+      "icon": "code",
+      "url": "https://morph-components.vercel.app/docs/introduction"
     }
   ],
   "navigation": [
