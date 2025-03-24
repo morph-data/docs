@@ -5,21 +5,44 @@ title: 'morph_project.yml'
 `morph_project.yml`は、Morphのフレームワークを実行時に使用される設定ファイルです。[`morph new`](../cli-commands/new)コマンドを使用してMorphのプロジェクトを立ち上げると自動的にデフォルトの値が設定されたファイルが作成されます。
 
 ```yaml
-# Profile Section in `~/.morph/credentials`
-profile: default
+version: '1'
 
-# Project ID
-project_id: xxxxxx-xxxxx-xxxx-xxxxx
-
-# Connection
+# Framework Settings
 default_connection: DUCKDB
-
-# Source Directory
 source_paths:
 - src
 
-# Python Package Manager
-package_manager: pip
+# Cloud Settings
+profile: default # Defined in the Profile Section in `~/.morph/credentials`
+project_id: xxxxxx-xxxxx-xxxx-xxxxx
+
+# Build Settings
+build:
+    # These settings are required when there is no Dockerfile in the project root.
+    # They define the environment in which the project will be built
+    runtime: python3.9 # python3.9, python3.10, python3.11, python3.12
+    framework: morph # morph | streamlit
+    package_manager: pip # pip, poetry, uv
+    # These settings are required when there is a Dockerfile in the project root.
+    # They define how the Docker image will be built
+    context: .
+    build_args:
+        ARG1: value1
+        ARG2: value2
+
+# Deployment Settings
+deployment:
+    provider: aws
+    aws:
+        region: us-east-1
+        memory: 512
+        timeout: 30
+    gcp:
+        region: us-central1
+        memory: "1Gi"
+        cpu: 1
+        concurrency: 80
+        timeout: 300
 ```
 
 ## Parameters
@@ -56,7 +79,27 @@ IDはクラウド上の個別プロジェクトページから取得すること
 ソースパスとして指定をしたディレクトリ以下にあるファイルがMorph上で実行可能なソースコードとして扱われます。
 </ParamField>
 
-<ParamField body="package_manager" type="string" default="pip">
+<ParamField body="build.runtime" type="string" default="python3.9">
+プロジェクトで使用するPythonのバージョンを設定します。
+
+使用可能なPythonのバージョン
+- `python3.9`
+- `python3.10`
+- `python3.11`
+- `python3.12`
+</ParamField>
+
+<ParamField body="build.framework" type="string" default="morph">
+プロジェクトで使用するフレームワークを設定します。
+プロジェクトルートに `Dockerfile` が存在しない場合は、ここに設定したフレームワークに適したDockerfileが自動で使用されてデプロイされます。
+`Dockerfile` が存在する場合は、プロジェクト内に存在している `Dockerfile` が優先して使用されます。
+
+使用可能なフレームワーク
+- `morph`
+- `streamlit`
+</ParamField>
+
+<ParamField body="build.package_manager" type="string" default="pip">
 プロジェクトで使用するPythonのパッケージマネジャー種別を設定します。<br/>
 [`morph new`](../cli-commands/new)コマンドを実行してプロジェクトを作成する際に、コマンドラインで選択されたパッケージマネジャーが設定されます。
 
@@ -64,4 +107,72 @@ IDはクラウド上の個別プロジェクトページから取得すること
 - `pip`
 - `poetry`
 - `uv`
+</ParamField>
+
+<ParamField body="build.context" type="string" default=".">
+ビルドのコンテキストパスを設定します。`Dockerfile` が存在する場合にのみ有効です。
+
+デフォルトでは、プロジェクトのルートディレクトリがコンテキストパスとして設定されます。
+</ParamField>
+
+<ParamField body="build.build_args" type="object">
+ビルド時に使用するビルド引数を設定します。`Dockerfile` が存在する場合にのみ有効です。
+
+ビルド引数は、Dockerfile内で利用することができます。
+</ParamField>
+
+<ParamField body="deployment.provider" type="string" default="aws">
+デプロイ時に使用するプロバイダーを設定します。
+
+使用可能なプロバイダー
+- `aws`
+- `gcp`
+</ParamField>
+
+<ParamField body="deployment.aws" type="object">
+AWSにデプロイする場合の設定を記述します。
+
+</ParamField>
+
+<ParamField body="deployment.aws.region" type="string" default="us-east-1">
+AWSのリージョンを設定します。
+
+</ParamField>
+
+<ParamField body="deployment.aws.memory" type="number" default="512">
+AWSのメモリを設定します。(MiB単位で指定してください)
+
+割り当てられるCPUは、メモリに応じて自動で算出されます。
+</ParamField>
+
+<ParamField body="deployment.aws.timeout" type="number" default="30">
+AWSのタイムアウトを設定します。(秒単位で指定してください)
+</ParamField>
+
+<ParamField body="deployment.gcp" type="object">
+GCPにデプロイする場合の設定を記述します。
+</ParamField>
+
+<ParamField body="deployment.gcp.region" type="string" default="us-central1">
+GCPのリージョンを設定します。
+</ParamField>
+
+<ParamField body="deployment.gcp.memory" type="number" default="1024">
+GCPのメモリを設定します。単位をつけて設定をしてください。
+
+例: "256Mi", "1Gi", "2Gi"
+</ParamField>
+
+<ParamField body="deployment.gcp.cpu" type="number" default="1">
+GCPのvCPU数を設定します。
+
+vCPU数。例: 1, 2, 4
+</ParamField>
+
+<ParamField body="deployment.gcp.concurrency" type="number" default="80">
+GCPの並列実行数を設定します。
+</ParamField>
+
+<ParamField body="deployment.gcp.timeout" type="number" default="300">
+GCPのタイムアウトを設定します。(秒単位で指定してください)
 </ParamField>
