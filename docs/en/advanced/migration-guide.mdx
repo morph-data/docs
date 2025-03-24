@@ -5,6 +5,88 @@ icon: "arrows-turn-to-dots"
 
 This page contains information about changes between each versions and how you can migrate from one version to another.
 
+## Morph 0.2.1 to 0.3.0
+
+### Dockerfile Update: Frontend Build
+
+In v0.3.0, frontend build has been added. If you are running `morph deploy` from a local environment, please update your Dockerfile as follows:
+
+```dockerfile
+FROM node:lts AS morph-frontend-build
+
+WORKDIR /var/task
+
+# Copy source code and dependencies
+COPY . .
+
+RUN npm install
+RUN npm run build
+
+# Base image for Morph Cloud
+FROM public.ecr.aws/i1l4z0u0/morph-data:python3.12
+
+# Set working directory
+WORKDIR /var/task
+
+# Install Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt --target "\${MORPH_PACKAGE_ROOT}"
+
+# Copy source code and dependencies
+COPY . .
+
+COPY --from=morph-frontend-build /var/task/.morph .morph
+COPY --from=morph-frontend-build /var/task/dist dist
+
+# Command to run the Lambda function
+CMD python "\${MORPH_APP_FILE_PATH}"
+```
+
+### `morph_project.yml` Update
+
+In v0.3.0, the configuration of `morph_project.yml` has been changed. Please refer to [this reference](/reference/en/framework/morph-project) for details.
+
+```yaml
+version: '1'
+
+# Framework Settings
+default_connection: DUCKDB
+source_paths:
+- src
+
+# Cloud Settings
+profile: default # Defined in the Profile Section in `~/.morph/credentials`
+project_id: xxxxxx-xxxxx-xxxx-xxxxx
+
+# Build Settings
+build:
+    # These settings are required when there is no Dockerfile in the project root.
+    # They define the environment in which the project will be built
+    runtime: python3.9 # python3.9, python3.10, python3.11, python3.12
+    framework: morph # morph | streamlit
+    package_manager: pip # pip, poetry, uv
+    # These settings are required when there is a Dockerfile in the project root.
+    # They define how the Docker image will be built
+    context: .
+    build_args:
+        ARG1: value1
+        ARG2: value2
+
+# Deployment Settings
+deployment:
+    provider: aws
+    aws:
+        region: us-east-1
+        memory: 512
+        timeout: 30
+    gcp:
+        region: us-central1
+        memory: "1Gi"
+        cpu: 1
+        concurrency: 80
+        timeout: 300
+```
+
 ## Morph 0.1.9 to 0.2.0
 
 ### Dockerfile Update: CMD Command Changes

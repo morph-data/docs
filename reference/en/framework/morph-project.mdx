@@ -5,21 +5,44 @@ title: 'morph_project.yml'
 The `morph_project.yml` file is a configuration file used when running the Morph framework. When you create a Morph project using the [`morph new`](../cli-commands/new) command, a file with default values is automatically generated.
 
 ```yaml
-# Profile Section in `~/.morph/credentials`
-profile: default
+version: '1'
 
-# Project ID
-project_id: xxxxxx-xxxxx-xxxx-xxxxx
-
-# Connection
+# Framework Settings
 default_connection: DUCKDB
-
-# Source Directory
 source_paths:
 - src
 
-# Python Package Manager
-package_manager: pip
+# Cloud Settings
+profile: default # Defined in the Profile Section in `~/.morph/credentials`
+project_id: xxxxxx-xxxxx-xxxx-xxxxx
+
+# Build Settings
+build:
+    # These settings are required when there is no Dockerfile in the project root.
+    # They define the environment in which the project will be built
+    runtime: python3.9 # python3.9, python3.10, python3.11, python3.12
+    framework: morph # morph | streamlit
+    package_manager: pip # pip, poetry, uv
+    # These settings are required when there is a Dockerfile in the project root.
+    # They define how the Docker image will be built
+    context: .
+    build_args:
+        ARG1: value1
+        ARG2: value2
+
+# Deployment Settings
+deployment:
+    provider: aws
+    aws:
+        region: us-east-1
+        memory: 512
+        timeout: 30
+    gcp:
+        region: us-central1
+        memory: "1Gi"
+        cpu: 1
+        concurrency: 80
+        timeout: 300
 ```
 
 ## Parameters
@@ -53,12 +76,102 @@ package_manager: pip
     Specifies the directories to be used as source paths. Files within these directories are recognized as executable source code in Morph.
 </ParamField>
 
-<ParamField body="package_manager" type="string" default="pip">
-    Specifies the Python package manager to be used in the project.
-    When creating a project with the [`morph new`](../cli-commands/new) command, the selected package manager (either `pip` or `poetry`) will be set in this parameter.
+<ParamField body="build.runtime" type="string" default="python3.12">
+    Specifies the Python version to be used in the project.
 
-    Available options:
+    Available Python versions:
+    - `python3.9`
+    - `python3.10`
+    - `python3.11`
+    - `python3.12`
+</ParamField>
+
+<ParamField body="build.framework" type="string" default="morph">
+    Specifies the framework to be used in the project.
+    If a `Dockerfile` does not exist in the project root, a Dockerfile appropriate for the framework set here will be automatically used for deployment.
+    If a `Dockerfile` exists in the project, it will be used preferentially.
+
+    Available frameworks:
+    - `morph`
+    - `streamlit`
+</ParamField>
+
+<ParamField body="build.package_manager" type="string" default="pip">
+    Specifies the Python package manager type to be used in the project.<br/>
+    When creating a project using the [`morph new`](../cli-commands/new) command, the package manager selected on the command line will be set.
+
+    Available package managers:
     - `pip`
     - `poetry`
     - `uv`
+</ParamField>
+
+<ParamField body="build.context" type="string" default=".">
+    Specifies the build context path.
+    This setting is only used when a `Dockerfile` exists in the project.
+
+    By default, the project's root directory is set as the context path.
+</ParamField>
+
+<ParamField body="build.build_args" type="object">
+    Specifies build arguments to be used during the build process.
+    This setting is only used when a `Dockerfile` exists in the project.
+
+    Build arguments can be used within the Dockerfile.
+</ParamField>
+
+<ParamField body="deployment.provider" type="string" default="aws">
+    Specifies the provider to be used for deployment.
+
+    Available providers:
+    - `aws`
+    - `gcp`
+</ParamField>
+
+<ParamField body="deployment.aws" type="object">
+    Describes the configuration for deploying to AWS.
+
+</ParamField>
+
+<ParamField body="deployment.aws.region" type="string" default="us-east-1">
+    Specifies the AWS region.
+
+</ParamField>
+
+<ParamField body="deployment.aws.memory" type="number" default="512">
+    Specifies the AWS memory allocation (in MiB).
+
+    The allocated CPU is automatically calculated based on the memory.
+</ParamField>
+
+<ParamField body="deployment.aws.timeout" type="number" default="30">
+    Specifies the AWS timeout (in seconds).
+</ParamField>
+
+<ParamField body="deployment.gcp" type="object">
+    Describes the configuration for deploying to GCP.
+</ParamField>
+
+<ParamField body="deployment.gcp.region" type="string" default="us-central1">
+    Specifies the GCP region.
+</ParamField>
+
+<ParamField body="deployment.gcp.memory" type="number" default="1024">
+    Specifies the GCP memory allocation. Include units when setting.
+
+    Examples: "256Mi", "1Gi", "2Gi"
+</ParamField>
+
+<ParamField body="deployment.gcp.cpu" type="number" default="1">
+    Specifies the number of GCP vCPUs.
+
+    vCPU examples: 1, 2, 4
+</ParamField>
+
+<ParamField body="deployment.gcp.concurrency" type="number" default="80">
+    Specifies the GCP concurrency level.
+</ParamField>
+
+<ParamField body="deployment.gcp.timeout" type="number" default="300">
+    Specifies the GCP timeout (in seconds).
 </ParamField>
