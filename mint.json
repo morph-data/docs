@@ -42,10 +42,6 @@
       "url": "reference"
     },
     {
-      "name": "Components",
-      "url": "data-application"
-    },
-    {
       "name": "Integrations",
       "url": "integrations"
     },
@@ -73,6 +69,11 @@
       "name": "Code Snippets",
       "icon": "brackets-curly",
       "url": "https://www.morph-data.io/tools/snippets/undefined"
+    },
+    {
+      "name": "Components",
+      "icon": "code",
+      "url": "https://morph-components.vercel.app/docs/introduction"
     }
   ],
   "navigation": [
@@ -247,73 +248,6 @@
             "reference/en/morph_lib/ai/text_to_html"
           ]
         }
-      ]
-    },
-    {
-      "group": "AI Components",
-      "version": "English",
-      "pages": [
-        "data-application/en/ai-component-chat",
-        "data-application/en/ai-component-llm"
-      ]
-    },
-    {
-      "group": "Data Components",
-      "version": "English",
-      "pages": [
-        "data-application/en/data-component-table",
-        "data-application/en/data-component-embed",
-        "data-application/en/data-component-metrics"
-      ]
-    },
-    {
-      "group": "Input Components",
-      "version": "English",
-      "pages": [
-        "data-application/en/input-component-input",
-        "data-application/en/input-component-date-picker",
-        "data-application/en/input-component-date-range-picker",
-        "data-application/en/input-component-select"
-      ]
-    },
-    {
-      "group": "Layout Components",
-      "version": "English",
-      "pages": [
-        "data-application/en/layout-component-accordion",
-        "data-application/en/layout-component-callout",
-        "data-application/en/layout-component-card",
-        "data-application/en/layout-component-grid",
-        "data-application/en/layout-component-panel"
-      ]
-    },
-    {
-      "group": "State & Data",
-      "version": "English",
-      "pages": [
-        "data-application/en/morph-data-state",
-        "data-application/en/morph-data-load-data",
-        "data-application/en/morph-data-post-data",
-        "data-application/en/advanced-morph-data-basic"
-      ]
-    },
-    {
-      "group": "MDX Deep Dive",
-      "version": "English",
-      "pages": [
-        "data-application/en/mdx/mdx-1-basic",
-        "data-application/en/mdx/mdx-2-styling",
-        "data-application/en/mdx/mdx-3-js",
-        "data-application/en/mdx/custom-components",
-        "data-application/en/mdx/shadcn-ui"
-      ]
-    },
-    {
-      "group": "Deprecated",
-      "version": "English",
-      "pages": [
-        "data-application/en/morph-data-getjson",
-        "data-application/en/morph-data-variables"
       ]
     },
     {
@@ -501,73 +435,6 @@
             "reference/ja/morph_lib/ai/text_to_html"
           ]
         }
-      ]
-    },
-    {
-      "group": "AIコンポーネント",
-      "version": "日本語",
-      "pages": [
-        "data-application/ja/ai-component-chat",
-        "data-application/ja/ai-component-llm"
-      ]
-    },
-    {
-      "group": "データコンポーネント",
-      "version": "日本語",
-      "pages": [
-        "data-application/ja/data-component-table",
-        "data-application/ja/data-component-embed",
-        "data-application/ja/data-component-metrics"
-      ]
-    },
-    {
-      "group": "入力コンポーネント",
-      "version": "日本語",
-      "pages": [
-        "data-application/ja/input-component-input",
-        "data-application/ja/input-component-date-picker",
-        "data-application/ja/input-component-date-range-picker",
-        "data-application/ja/input-component-select"
-      ]
-    },
-    {
-      "group": "レイアウトコンポーネント",
-      "version": "日本語",
-      "pages": [
-        "data-application/ja/layout-component-accordion",
-        "data-application/ja/layout-component-callout",
-        "data-application/ja/layout-component-card",
-        "data-application/ja/layout-component-grid",
-        "data-application/ja/layout-component-panel"
-      ]
-    },
-    {
-      "group": "状態管理とデータ",
-      "version": "日本語",
-      "pages": [
-        "data-application/ja/morph-data-state",
-        "data-application/ja/morph-data-load-data",
-        "data-application/ja/morph-data-post-data",
-        "data-application/ja/advanced-morph-data-basic"
-      ]
-    },
-    {
-      "group": "MDX 詳解",
-      "version": "日本語",
-      "pages": [
-        "data-application/ja/mdx/mdx-1-basic",
-        "data-application/ja/mdx/mdx-2-styling",
-        "data-application/ja/mdx/mdx-3-js",
-        "data-application/ja/mdx/custom-components",
-        "data-application/ja/mdx/shadcn-ui"
-      ]
-    },
-    {
-      "group": "廃止された仕様",
-      "version": "日本語",
-      "pages": [
-        "data-application/ja/morph-data-getjson",
-        "data-application/ja/morph-data-variables"
       ]
     },
     {
