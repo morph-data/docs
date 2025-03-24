@@ -87,6 +87,73 @@ deployment:
         timeout: 300
 ```
 
+### フロントエンドのアップデート
+
+v0.3.0 ではフロントエンドのプロジェクト構成が変更されました。
+
+マイグレーションのために以下の手順でプロジェクトをアップデートしてください。
+
+1. `morph-data~=0.3`をインストール後、以下のコマンドを実行してください
+   - プロジェクトのルートで実行してください。
+   - venv や virtualenv を利用している場合は、仮想環境を有効化した状態で実行してください。
+2. [npm のパッケージを追加でインストールしていた場合のみ] インストールしていたパッケージを手動で再度インストールしてください。
+
+```bash
+python <<EOF
+import morph
+import os
+import shutil
+import subprocess
+
+morph_data_installed_dir = os.path.dirname(morph.__file__)
+starter_template_dir = os.path.join(
+    morph_data_installed_dir, "include", "starter_template"
+)
+
+def migrate_frontend():
+    def copy_starter_template_file(path: str):
+        src = os.path.join(starter_template_dir, path)
+        dst = os.path.join(os.getcwd(), path)
+
+        os.makedirs(os.path.dirname(dst), exist_ok=True)
+        shutil.copy(src, dst)
+
+    # Copy files
+    copy_starter_template_file("vite.config.ts")
+    copy_starter_template_file("tsconfig.json")
+    copy_starter_template_file("package.json")
+    copy_starter_template_file("components.json")
+    copy_starter_template_file("src/pages/_app.tsx")
+    copy_starter_template_file("src/pages/404.tsx")
+    copy_starter_template_file("src/pages/index.css")
+    copy_starter_template_file("src/pages/_lib/utils.ts")
+    copy_starter_template_file("src/pages/_components/table-of-contents.tsx")
+    copy_starter_template_file("src/pages/_components/header.tsx")
+
+    # Init components
+    subprocess.run(
+        [
+            "npx",
+            "shadcn@latest",
+            "add",
+            "--yes",
+            "https://morph-components.vercel.app/r/morph-components.json",
+        ],
+    )
+
+    subprocess.run(
+        [
+            "npm",
+            "install",
+        ],
+    )
+
+if __name__ == "__main__":
+    migrate_frontend()
+
+EOF
+```
+
 ## Morph 0.1.9 to 0.2.0
 
 ### Dockerfileのアップデート: CMDコマンドの変更
