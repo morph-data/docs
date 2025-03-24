@@ -1,5 +1,5 @@
 ---
-title: 'Version Migration Guide'
+title: "Version Migration Guide"
 icon: "arrows-turn-to-dots"
 ---
 
@@ -47,12 +47,12 @@ CMD python "\${MORPH_APP_FILE_PATH}"
 In v0.3.0, the configuration of `morph_project.yml` has been changed. Please refer to [this reference](/reference/en/framework/morph-project) for details.
 
 ```yaml
-version: '1'
+version: "1"
 
 # Framework Settings
 default_connection: DUCKDB
 source_paths:
-- src
+  - src
 
 # Cloud Settings
 profile: default # Defined in the Profile Section in `~/.morph/credentials`
@@ -60,31 +60,98 @@ project_id: xxxxxx-xxxxx-xxxx-xxxxx
 
 # Build Settings
 build:
-    # These settings are required when there is no Dockerfile in the project root.
-    # They define the environment in which the project will be built
-    runtime: python3.9 # python3.9, python3.10, python3.11, python3.12
-    framework: morph # morph | streamlit
-    package_manager: pip # pip, poetry, uv
-    # These settings are required when there is a Dockerfile in the project root.
-    # They define how the Docker image will be built
-    context: .
-    build_args:
-        ARG1: value1
-        ARG2: value2
+  # These settings are required when there is no Dockerfile in the project root.
+  # They define the environment in which the project will be built
+  runtime: python3.9 # python3.9, python3.10, python3.11, python3.12
+  framework: morph # morph | streamlit
+  package_manager: pip # pip, poetry, uv
+  # These settings are required when there is a Dockerfile in the project root.
+  # They define how the Docker image will be built
+  context: .
+  build_args:
+    ARG1: value1
+    ARG2: value2
 
 # Deployment Settings
 deployment:
-    provider: aws
-    aws:
-        region: us-east-1
-        memory: 512
-        timeout: 30
-    gcp:
-        region: us-central1
-        memory: "1Gi"
-        cpu: 1
-        concurrency: 80
-        timeout: 300
+  provider: aws
+  aws:
+    region: us-east-1
+    memory: 512
+    timeout: 30
+  gcp:
+    region: us-central1
+    memory: "1Gi"
+    cpu: 1
+    concurrency: 80
+    timeout: 300
+```
+
+### Frontend Update
+
+In v0.3.0, the frontend project structure has been changed.
+
+Please follow these steps to update your project for migration:
+
+1. After installing `morph-data~=0.3`, run the following command
+   - Run this command in the project root.
+   - If you are using venv or virtualenv, make sure to run it with the virtual environment activated.
+2. [Only if you had additional npm packages installed] Manually reinstall any packages you had installed.
+
+```bash
+python <<EOF
+import morph
+import os
+import shutil
+import subprocess
+
+morph_data_installed_dir = os.path.dirname(morph.__file__)
+starter_template_dir = os.path.join(
+    morph_data_installed_dir, "include", "starter_template"
+)
+
+def migrate_frontend():
+    def copy_starter_template_file(path: str):
+        src = os.path.join(starter_template_dir, path)
+        dst = os.path.join(os.getcwd(), path)
+
+        os.makedirs(os.path.dirname(dst), exist_ok=True)
+        shutil.copy(src, dst)
+
+    # Copy files
+    copy_starter_template_file("vite.config.ts")
+    copy_starter_template_file("tsconfig.json")
+    copy_starter_template_file("package.json")
+    copy_starter_template_file("components.json")
+    copy_starter_template_file("src/pages/_app.tsx")
+    copy_starter_template_file("src/pages/404.tsx")
+    copy_starter_template_file("src/pages/index.css")
+    copy_starter_template_file("src/pages/_lib/utils.ts")
+    copy_starter_template_file("src/pages/_components/table-of-contents.tsx")
+    copy_starter_template_file("src/pages/_components/header.tsx")
+
+    # Init components
+    subprocess.run(
+        [
+            "npx",
+            "shadcn@latest",
+            "add",
+            "--yes",
+            "https://morph-components.vercel.app/r/morph-components.json",
+        ],
+    )
+
+    subprocess.run(
+        [
+            "npm",
+            "install",
+        ],
+    )
+
+if __name__ == "__main__":
+    migrate_frontend()
+
+EOF
 ```
 
 ## Morph 0.1.9 to 0.2.0
