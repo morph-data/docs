@@ -3,7 +3,7 @@ title: "フロントエンドを構築する"
 icon: "markdown"
 ---
 
-Morph では、マークダウンを使用してフロントエンドを構築します。マークダウンファイルにコンポーネントを配置することで、Web アプリケーションの UI を構築することができます。
+Morph では、MDXを使用してフロントエンドを構築します。MDXファイルにコンポーネントを配置することで、Web アプリケーションの UI を構築することができます。
 
 ## 開発の流れ
 
@@ -11,28 +11,25 @@ Morph でのフロントエンド開発の手順は以下の通りです。
 
 <Steps>
   <Step title=".mdxファイルを作成する">
-    `src/pages` ディレクトリに、 `.mdx` ファイルを作成することで、Webアプリケーションのページを作成します。ファイルパスをベースにURLが生成されます。
+    `src/pages` ディレクトリに、 `.mdx` ファイルを作成することで、Webアプリケーションのページを作成します。ファイルパスをベースにURLが生成されます。([ファイルベースルーティング](/reference/ja/mdx/file-based-routing)を参照)
     ```bash
-    # /new-page-1にページを作成
-    touch src/pages/new-page-1.mdx
+    # /yc-companiesにページを作成
+    touch src/pages/yc-companies.mdx
     ```
   </Step>
   <Step title="ページのタイトルを追加する">
     `.mdx` ファイルに、ページのタイトルを追加します。ページの最初の見出しがタイトルとして扱われます。
-    ```md src/pages/new-page-1.mdx
-    # 新しいページ
+    ```md src/pages/yc-companies.mdx
+    # Y Combinatorの企業一覧
     ```
   </Step>
   <Step title="コンポーネントを配置する">
-    [コンポーネントリファレンス](https://morph-components.vercel.app/docs/introduction)を参照しながら、あなたのデータアプリに適したコンポーネントを配置してください。
-    ```md
-    # 新しいページ
+    [コンポーネントリファレンス](https://morph-components.vercel.app/docs/introduction)を参照しながら、あなたのデータアプリに適したコンポーネントを配置してください。([コンポーネント](/reference/ja/mdx/components)を参照)
+    ````md src/pages/yc-companies.mdx
+    # Y Combinatorの企業一覧
 
-    スプレッドシートのデータを表示します👇
-
-    <DataFrame name="data_google_sheet" height={500} />
-    ```
-
+    <DataTable name="yc_companies" height={500} />
+    ````
   </Step>
   <Step title="開発サーバーを起動する">
     開発サーバーを起動することで、Webアプリケーションをローカルで確認することができます。
@@ -41,283 +38,3 @@ Morph でのフロントエンド開発の手順は以下の通りです。
     ```
   </Step>
 </Steps>
-
-## ファイルベースルーティング
-
-mdx ファイルのパスをベースに、アプリケーションの URL が生成されます。
-
-例:
-
-- `src/pages/new-page-1.mdx` -> `/new-page-1`
-- `src/pages/new-page-2/index.mdx` -> `/new-page-2`
-- `src/pages/new-page-3/sub-page.mdx` -> `/new-page-3/sub-page`
-
-また、以下は予約語であり、特別な意味を持ちます。
-
-- `src/pages/_app.tsx`
-  グローバルなレイアウトを設定できます。`<Outlet>`に子ルートが配置されます。
-
-- `404.tsx`
-  グローバルな 404 ページを設定できます。
-
-## ステート管理
-
-フロントエンドを開発していると、ユーザーが入力した文字列や、選択した値を状態として保存し、サーバーに変数として送信したい時があります。
-そのような場合には以下のガイドに従って実装してください。
-
-### 状態の宣言: `defineState()`
-
-状態の宣言には `defineState()` を使用してください。`defineState()` は、オブジェクトを引数に取り、初期値として設定します。
-
-```tsx
-import { defineState } from "@morph-data/components";
-
-export const topPageState = defineState({
-  dateRangeStart: new Date(),
-  dateRangeEnd: new Date(),
-  industry: "All",
-});
-```
-
-#### 状態の値にアクセスする: `.value`
-
-宣言した状態の値には、以下のように `.value` プロパティを呼び出すことでアクセスできます。
-
-```tsx
-<>
-  now: {topPageState.dateRangeStart.value.toLocaleString()}
-  industry: {topPageState.industry.value}
-<>
-```
-
-<Note>
-  Tips
-  この例のように、 `topPageState.` と `defineState()` で宣言した変数名を毎回指定するのが面倒な場合は、変数を分割代入することで短縮することができます。
-  ```tsx
-  const { dateRangeStart, dateRangeEnd, industry } = defineState({
-    dateRangeStart: new Date(),
-    dateRangeEnd: new Date(),
-    industry: 'All',
-  });
-  ```
-</Note>
-
-#### 状態を更新する: `.update()`
-
-状態を更新するには、 `update()` メソッドを使用してください。
-
-```tsx
-<Button onClick={() => topPageState.dateRangeStart.update(new Date())}>
-  Reset date
-</Button>
-```
-
-#### 入力コンポーネントの利用
-
-Morph フレームワークでは、 `defineState()` で宣言した状態に対して、ユーザー入力を反映させるためのコンポーネントが用意されています。
-
-詳しくは、[入力コンポーネント](https://morph-components.vercel.app/docs/components/input-components/input)を参照してください。
-
-入力コンポーネントを使用すると、簡単にユーザー入力を状態に反映させることができます。
-
-```tsx
-import { defineState } from '@morph-data/components';
-
-export const topPageState = defineState({
-  dateRangeStart: new Date(),
-  dateRangeEnd: new Date(),
-});
-
-# My Data App page
-
-Showing stock prices from {topPageState.dateRangeStart.value.toLocaleString()} to {topPageState.dateRangeEnd.value.toLocaleString()};
-
-<DateRangePicker
-  state={[
-    topPageState.dateRangeStart,
-    topPageState.dateRangeEnd
-  ]}
-/>
-
-```
-
-#### データコンポーネントに値を渡す
-
-データコンポーネントは `variables` というプロパティを受け取ることができるようになっています。
-
-このプロパティに `defineState()` で宣言した状態の値を渡すことで、ユーザーが入力した値を Python 関数や SQL ファイルに渡すことができます。
-
-```tsx
-import { defineState } from '@morph-data/components';
-
-export const topPageState = defineState({
-  dateRangeStart: new Date(),
-  dateRangeEnd: new Date(),
-});
-
-# My Data App page
-
-Showing stock prices from {topPageState.dateRangeStart.value.toLocaleString()} to {topPageState.dateRangeEnd.value.toLocaleString()};
-
-<DateRangePicker
-  state={[
-    topPageState.dateRangeStart,
-    topPageState.dateRangeEnd
-  ]}
-/>
-
-<DataTable
-  alias="stocks"
-  // データコンポーネントに渡す変数を指定します。
-  variables={{
-    start_date: topPageState.dateRangeStart,
-    end_date: topPageState.dateRangeEnd
-  }}
-/>
-
-```
-
-## [Advanced] データ API の利用
-
-### 実行結果を取得する: `loadData()`
-
-`loadData()` 関数を利用して、Python や SQL の実行結果を取得することができます。
-
-```typescript
-loadData<T>(
-  name: string,
-  type: "json" | "markdown" | "html" | "image",
-  variables?: Record<string, unknown>
-): QueryState<T>
-```
-
-<ParamField path="name" type="string" required>
-  Python や SQL の nameを指定します。
-</ParamField>
-
-<ParamField path="type" type='"json" | "html" | "markdown" | "image"' required>
-  取得するデータの形式を指定します。
-</ParamField>
-
-<ParamField path="variables" type="Record<string, any>">
-  Python や SQL に渡す Variables オブジェクトです。
-  任意のオブジェクトの他に、 `defineState()` で定義した `State` を渡すこともできます。
-  `State` を渡した場合は、 `State` の値の変更に合わせて再度データを取得します。
-````tsx
-import { defineState } from "@morph-data/components";
-
-// name は State オブジェクトです
-export const { name } = defineState({ name: "" });
-
-export const employeeData = loadData("get_employees", "json", {
-  name,
-  age: 30,
-});
-
-<Input state={name} />
-
-````
-</ParamField>
-
-`QueryState<T>` オブジェクトが返却されます。
-`QueryState`は`State`の拡張であり、`State`と同様に`.value`を通じて値にアクセスできます。
-`.value`でアクセスできる値は`type`パラメータによって異なります。
-
-- `type="json"`: 以下の形式のオブジェクトが返却されます。
-
-```typescript
-{
-  count: 2,
-  items: [
-    {
-      "name": "Alice",
-      "age": 30
-    },
-    {
-      "name": "Bob",
-      "age": 40
-    }
-  ]
-}
-```
-
-- `type="html"`: HTML文字列が返却されます。
-
-- `type="image"`: base64エンコードされた画像データが返却されます。
-- `type="markdown"`: Markdown文字列が返却されます。
-
-`Query`に追加された`QueryState`の独自のプロパティ、メソッドは以下です。
-
-```typescript
-{
-  loading: boolean,
-  refresh(clearCache?: boolean): void,
-}
-```
-`refresh()`を利用することで、データの再取得をトリガーすることができます。
-`clearCache`を`true`にすると、データの再取得の完了を待たずにフロントエンドに保持されたクエリ結果を削除します。
-
-```tsx
-import { loadData } from "@morph-data/components";
-
-export const employeeData = loadData("get_employees", "json");
-
-<Button onClick={() => employeeData.refresh()}>Refresh</Button>
-```
-
-#### `loadData()`を利用して取得したデータを表示する例
-
-```tsx index.mdx
-# Employee Data
-import { loadData } from "@morph-data/components";
-
-export const employeeData = loadData("get_employees", "json");
-
-## We have { employeeData.value?.items.length } employees.
-````
-
-### Python や SQL を手動実行する: `postData()`
-
-`postData()` 関数を利用して、バックエンドの Python や SQL を実行することができます。
-
-```typescript
-postData<T>(
-  name: string,
-): {
-  run: (variables?: Record<string, unknown>, key?: string) => Promise<void>;
-  running: (key?: string) => boolean;
-}
-```
-
-<ParamField path="name" type="string" required>
-  実行対象のPython や SQL の nameを指定します。
-</ParamField>
-
-実行中の状態を管理するための `run` と `running` メソッドを持つオブジェクトが返却されます。
-
-- `run(variables?: Record<string, unknown>, key?: string)`: バックエンド関数を実行します。`variables` には Python や SQL に渡す変数を指定します。
-- `running(key?: string)`: 実行中かどうかを返します。`key` には複数のバックエンド関数を実行する場合に指定します。
-
-```tsx
-export const { run, running } = postData("do_something");
-
-<Button onClick={() => run({ id: "id-1" })} isLoading={running()}>
-  Run
-</Button>;
-```
-
-#### key を利用して複数の postData を区別する
-
-複数の箇所から実行することができる UI の場合、`key` を指定することで、それぞれの箇所から実行された関数を区別することができます。
-
-```tsx
-export const { run, running } = postData("do_something");
-
-<Button onClick={() => run({ id: "id-1" }, "id-1")} isLoading={running("id-1")}>
-  Run with id 1
-</Button>
-
-<Button onClick={() => run({ id: "id-2" }, "id-2")} isLoading={running("id-2")}>
-  Run with id 2
-</Button>
-```

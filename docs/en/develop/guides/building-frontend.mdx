@@ -3,7 +3,7 @@ title: "Building Frontend"
 icon: "markdown"
 ---
 
-In Morph, we use Markdown to build the frontend. By placing components in Markdown files, you can build the UI of your web application.
+In Morph, we build the frontend using MDX. By placing components in MDX files, you can build the UI of your web application.
 
 ## Development Flow
 
@@ -11,209 +11,30 @@ Here's the process for frontend development in Morph:
 
 <Steps>
   <Step title="Create an .mdx file">
-    Create a `.mdx` file in the `src/pages` directory to create a page in your web application. The URL is generated based on the file path.
+    Create a `.mdx` file in the `src/pages` directory to create a page for your web application. The URL is generated based on the file path. (See [File-based Routing](/reference/en/mdx/file-based-routing))
     ```bash
-    # Create a page at /new-page-1
-    touch src/pages/new-page-1.mdx
+    # Create a page at /yc-companies
+    touch src/pages/yc-companies.mdx
     ```
   </Step>
-  <Step title="Add page title">
+  <Step title="Add a page title">
     Add a title to your `.mdx` file. The first heading in the page is treated as the title.
-    ```md src/pages/new-page-1.mdx
-    # New Page
+    ```md src/pages/yc-companies.mdx
+    # Y Combinator Companies List
     ```
   </Step>
   <Step title="Place components">
-    Refer to the [Component Reference](https://morph-components.vercel.app/docs/introduction) while placing components suitable for your data app.
-    ```md
-    # New Page
+    Refer to the [Component Reference](https://morph-components.vercel.app/docs/introduction) and place components suitable for your data app. (See [Components](/reference/en/mdx/components))
+    ````md src/pages/yc-companies.mdx
+    # Y Combinator Companies List
 
-    Displaying spreadsheet data 👇
-
-    <DataFrame name="data_google_sheet" height={500} />
-    ```
-
+    <DataTable name="yc_companies" height={500} />
+    ````
   </Step>
-  <Step title="Start development server">
+  <Step title="Start the development server">
     Start the development server to preview your web application locally.
     ```bash
     morph serve
     ```
   </Step>
 </Steps>
-
-## File-based Routing
-
-The application's URLs are generated based on the mdx file paths.
-
-Examples:
-
-- `src/pages/new-page-1.mdx` -> `/new-page-1`
-- `src/pages/new-page-2/index.mdx` -> `/new-page-2`
-- `src/pages/new-page-3/sub-page.mdx` -> `/new-page-3/sub-page`
-
-Additionally, the following are reserved words with special meanings:
-
-- `src/pages/_app.tsx`
-  You can set up global layouts. Child routes are placed in `<Outlet>`.
-
-- `404.tsx`
-  You can set up a global 404 page.
-
-## State Management
-
-When developing the frontend, you may want to save user input or selected values as state and send them as variables to the server.
-In such cases, follow the guide below for implementation.
-
-### Declaring State: `defineState()`
-
-Use `defineState()` to declare state. `defineState()` takes an object as an argument and sets it as the initial value.
-
-```tsx
-import { defineState } from "@morph-data/components";
-
-export const topPageState = defineState({
-  dateRangeStart: new Date(),
-  dateRangeEnd: new Date(),
-  industry: "All",
-});
-```
-
-#### Accessing State Values: `.value`
-
-You can access the values of declared state by calling the `.value` property as follows:
-
-```tsx
-<>
-  now: {topPageState.dateRangeStart.value.toLocaleString()}
-  industry: {topPageState.industry.value}
-<>
-```
-
-<Note>
-  Tips
-  If you find it tedious to specify the variable name declared with `defineState()` every time like in this example, you can shorten it by destructuring the variables.
-  ```tsx
-  const { dateRangeStart, dateRangeEnd, industry } = defineState({
-    dateRangeStart: new Date(),
-    dateRangeEnd: new Date(),
-    industry: 'All',
-  });
-  ```
-</Note>
-
-#### Updating State: `.update()`
-
-Use the `update()` method to update state.
-
-```tsx
-<Button onClick={() => topPageState.dateRangeStart.update(new Date())}>
-  Reset date
-</Button>
-```
-
-#### Using Input Components
-
-The Morph framework provides components for reflecting user input to states declared with `defineState()`.
-
-For more details, refer to [Input Components](https://morph-components.vercel.app/docs/components/input-components/input).
-
-Using input components makes it easy to reflect user input to state.
-
-```tsx
-import { defineState } from '@morph-data/components';
-
-export const topPageState = defineState({
-  dateRangeStart: new Date(),
-  dateRangeEnd: new Date(),
-});
-
-# My Data App page
-
-Showing stock prices from {topPageState.dateRangeStart.value.toLocaleString()} to {topPageState.dateRangeEnd.value.toLocaleString()};
-
-<DateRangePicker
-  state={[
-    topPageState.dateRangeStart,
-    topPageState.dateRangeEnd
-  ]}
-/>
-```
-
-#### Passing Values to Data Components
-
-Data components can accept a `variables` property.
-
-By passing the values of states declared with `defineState()` to this property, you can pass user input values to Python functions or SQL files.
-
-```tsx
-import { defineState } from '@morph-data/components';
-
-export const topPageState = defineState({
-  dateRangeStart: new Date(),
-  dateRangeEnd: new Date(),
-});
-
-# My Data App page
-
-Showing stock prices from {topPageState.dateRangeStart.value.toLocaleString()} to {topPageState.dateRangeEnd.value.toLocaleString()};
-
-<DateRangePicker
-  state={[
-    topPageState.dateRangeStart,
-    topPageState.dateRangeEnd
-  ]}
-/>
-
-<DataTable
-  alias="stocks"
-  // Specify variables to pass to the data component.
-  variables={{
-    start_date: topPageState.dateRangeStart,
-    end_date: topPageState.dateRangeEnd
-  }}
-/>
-```
-
-## [Advanced] Using Data API
-
-### Getting Execution Results: `loadData()`
-
-You can use the `loadData()` function to get execution results from Python or SQL.
-
-```typescript
-loadData<T>(
-  name: string,
-  type: "json" | "markdown" | "html" | "image",
-  variables?: Record<string, unknown>
-): QueryState<T>
-```
-
-<ParamField path="name" type="string" required>
-  Specify the name of Python or SQL.
-</ParamField>
-
-<ParamField path="type" type='"json" | "html" | "markdown" | "image"' required>
-  Specify the format of data to retrieve.
-</ParamField>
-
-<ParamField path="variables" type="Record<string, any>">
-  Variables object to pass to Python or SQL.
-  You can also pass `State` defined with `defineState()`.
-  When `State` is passed, data is retrieved again when the `State` value changes.
-  ```tsx
-  import { defineState } from "@morph-data/components";
-
-// name is a State object
-export const { name } = defineState({ name: "" });
-
-export const employeeData = loadData("get_employees", "json", {
-  name,
-  age: 30,
-});
-
-  <Input state={name} />
-  ```
-</ParamField>
-
-A `QueryState<T>` object is returned.

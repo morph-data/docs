@@ -192,6 +192,19 @@
       ]
     },
     {
+      "group": "MDX",
+      "version": "English",
+      "pages": [
+        "reference/en/mdx/file-based-routing",
+        "reference/en/mdx/components",
+        "reference/en/mdx/styling",
+        "reference/en/mdx/state",
+        "reference/en/mdx/load-data",
+        "reference/en/mdx/post-data",
+        "reference/en/mdx/advanced-api"
+      ]
+    },
+    {
       "group": "morph_lib.database",
       "version": "English",
       "pages": [
@@ -376,6 +389,19 @@
         "reference/ja/python/morph-func",
         "reference/ja/python/morph-load_data",
         "reference/ja/python/morph-variables"
+      ]
+    },
+    {
+      "group": "MDX",
+      "version": "日本語",
+      "pages": [
+        "reference/ja/mdx/file-based-routing",
+        "reference/ja/mdx/components",
+        "reference/ja/mdx/styling",
+        "reference/ja/mdx/state",
+        "reference/ja/mdx/load-data",
+        "reference/ja/mdx/post-data",
+        "reference/ja/mdx/advanced-api"
       ]
     },
     {

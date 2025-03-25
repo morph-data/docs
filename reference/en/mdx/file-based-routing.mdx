@@ -1,0 +1,19 @@
+---
+title: "File-based Routing"
+---
+
+The application's URLs are generated based on the paths of mdx files.
+
+Examples:
+
+- `src/pages/new-page-1.mdx` -> `/new-page-1`
+- `src/pages/new-page-2/index.mdx` -> `/new-page-2`
+- `src/pages/new-page-3/sub-page.mdx` -> `/new-page-3/sub-page`
+
+Additionally, the following are reserved words with special meanings:
+
+- `src/pages/_app.tsx`
+  You can set up a global layout. Child routes are placed within the `<Outlet>`.
+
+- `src/pages/404.tsx`
+  You can set up a global 404 page.
